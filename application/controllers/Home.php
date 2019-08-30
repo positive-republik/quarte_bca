@@ -17,27 +17,47 @@ class Home extends CI_Controller {
 		if ($this->session->userdata('role') == 1) {
 			$this->load->model('admin_models');
 		}
+
 	}
 	
-	// Dashboard page admin
+	// Dashboard 
 	public function index()
 	{
 		// Data for this page
 		$data['title'] = "Home | Quartee";
-		$data['users'] = $this->admin_models->getAllUser();
 
+		// Get user detail by id
+		$this->load->model('auth_models');
+		$data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
+
+		// Load views
+		$this->load->view('layouts/header',$data);
+		$this->load->view('layouts/sidebar');
+		$this->load->view('layouts/navbar',$data);
+		
+		// Select view by role
+		if ($this->session->userdata('role') == 1) {
+			$this->admin();
+		} elseif($this->session->userdata('role') == 2) {
+			$this->uploader();
+		}
+		
+		$this->load->view('layouts/footer');
+	}
+
+	// Admin Data
+	public function admin()
+	{
+		$data['users'] = $this->admin_models->getAllUser();
 		// Counting
 		$data['count_all_users'] = $this->admin_models->getALlUserCount();
 		$data['count_uploader'] = $this->admin_models->getNumRowsData(2,'users');
 		$data['count_guest'] = $this->admin_models->getNumRowsData(3,'users');
-		
-		// Load views
-		$this->load->view('layouts/header',$data);
-		$this->load->view('layouts/sidebar');
-		$this->load->view('layouts/navbar');
 		$this->load->view('dashboard/admin',$data); //ADMIN VIEWS
-		$this->load->view('layouts/footer');
 	}
-
 	
+	public function uploader()
+	{
+		
+	}
 }

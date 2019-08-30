@@ -24,9 +24,14 @@ class auth_models extends CI_Model {
                 return 403; //If password wrong
                 exit;
             }
-
+            // Return 1 if success
             return 1;
         }
     }
     
+    // Get user detail by id
+    function getUserDetail($id)
+    {
+        return $this->db->get_where('users',array('id'=>$id))->result_array()[0];
+    }
 }
