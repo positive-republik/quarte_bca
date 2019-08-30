@@ -140,6 +140,8 @@
     <?= "<script>
         swal('Add New User Invalid', 'If there are problems new user submission process please contact Ward (Ext. 57242)', 'error')
     </script>"; ?>
+    
+    <!-- Add Success Alert -->
     <?php elseif($this->session->flashdata('succAdd')) : ?>
     <?= "<script>
         swal('Add New User Success', ' ', 'success')

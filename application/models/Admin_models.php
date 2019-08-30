@@ -59,10 +59,10 @@ class admin_models extends CI_Model {
                 'password'	 =>  password_hash($input['password'],PASSWORD_DEFAULT),
                 'created_at' =>  NULL,
             );
+            // Execute
+            $this->db->insert('users', $query);
         }
 
-        // Execute
-        $this->db->insert('users', $query);
     }
     
     // Delete user

@@ -12,11 +12,6 @@ class Home extends CI_Controller {
 			redirect(base_url('auth/login'));
 			exit;
 		}
-		
-		// Check role and use the model for this role
-		if ($this->session->userdata('role') == 1) {
-			$this->load->model('admin_models');
-		}
 
 	}
 	
@@ -37,17 +32,20 @@ class Home extends CI_Controller {
 		
 		// Select view by role
 		if ($this->session->userdata('role') == 1) {
-			$this->admin();
+			$this->admin($data['user_info']);
 		} elseif($this->session->userdata('role') == 2) {
-			$this->uploader();
+			$this->uploader($data['user_info']);
 		}
 		
 		$this->load->view('layouts/footer');
 	}
 
 	// Admin Data
-	public function admin()
+	public function admin($user_info)
 	{
+		$this->load->model('admin_models');
+
+		$data['user_info'] = $user_info;
 		$data['users'] = $this->admin_models->getAllUser();
 		// Counting
 		$data['count_all_users'] = $this->admin_models->getALlUserCount();
@@ -56,8 +54,11 @@ class Home extends CI_Controller {
 		$this->load->view('dashboard/admin',$data); //ADMIN VIEWS
 	}
 	
-	public function uploader()
+	public function uploader($user_info)
 	{
-		
+		$this->load->model('uploader_models');
+		$data['user_info'] = $user_info;
+		$data['all_upload'] = $this->uploader_models->getDataHistory();
+		$this->load->view('dashboard/uploader',$data);
 	}
 }

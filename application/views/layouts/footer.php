@@ -57,7 +57,30 @@
 
   <!-- Page level custom scripts -->
   <script src="<?= base_url('assets/vendor/sb-admin/') ?>js/demo/datatables-demo.js"></script>
-
+  
+  <!-- Uploader Page Script -->
+  <script>
+      // Add img js
+      $(function() {
+        $(document).on('change', ':file', function() {
+        var input = $(this),
+          numFiles = input.get(0).files ? input.get(0).files.length : 1,
+          label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+        });
+        $(document).ready( function() {
+          $(':file').on('fileselect', function(event, numFiles, label) {
+            var input = $(this).parents('.input-group').find(':text'),
+              log = numFiles > 1 ? numFiles + ' files selected' : label;
+            if( input.length ) {
+              input.val(log);
+            } else {
+              if( log ) alert(log);
+            }
+          });
+        });
+      });
+  </script>
 </body>
 
 </html>
