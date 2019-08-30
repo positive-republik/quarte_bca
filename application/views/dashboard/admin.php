@@ -5,83 +5,75 @@
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+    <!-- Add button trigger -->
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addUser"><i class="fas fa-user-plus fa-sm text-white-50"></i> Add New User</a>
   </div>
 
   <!-- Content Row -->
   <div class="row">
 
-    <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
+    <!-- All User Card -->
+    <div class="col-xl-3 col-md-6 mb-5">
       <div class="card border-left-primary shadow-sm h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">All user in database</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count_all_users ?></div>
             </div>
             <div class="col-auto">
-              <i class="fas fa-calendar fa-2x text-gray-300"></i>
+              <i class="fas fa-user-friends fa-2x text-gray-300"></i>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
+    <!-- All Uploader Card -->
+    <div class="col-xl-3 col-md-6 mb-5">
       <div class="card border-left-success shadow-sm h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Uploader in database</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count_uploader ?></div>
             </div>
             <div class="col-auto">
-              <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+              <i class="fas fa-users-cog fa-2x text-gray-300"></i>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
+    <!-- All Guest Card -->
+    <div class="col-xl-3 col-md-6 mb-5">
       <div class="card border-left-info shadow-sm h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
-              <div class="row no-gutters align-items-center">
-                <div class="col-auto">
-                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                </div>
-                <div class="col">
-                  <div class="progress progress-sm mr-2">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
+              <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Guest in database</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count_guest ?></div>
             </div>
             <div class="col-auto">
-              <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+              <i class="fas fa-user-tie fa-2x text-gray-300"></i>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Pending Requests Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
+    <!-- All Data -->
+    <div class="col-xl-3 col-md-6 mb-5">
       <div class="card border-left-warning shadow-sm h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Data in database</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">-</div>
             </div>
             <div class="col-auto">
-              <i class="fas fa-comments fa-2x text-gray-300"></i>
+              <i class="fas fa-database fa-2x text-gray-300"></i>
             </div>
           </div>
         </div>
@@ -92,9 +84,9 @@
   <!-- End Content Row -->
    
   <!-- DataTales Users -->
-  <div class="card shadow mb-4">
+  <div class="card shadow-sm mb-5">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+      <h6 class="m-0 font-weight-bold text-primary">User Management</h6>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -111,6 +103,7 @@
               <th>Username</th>
               <th>Password</th>
               <th>Created At</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -126,6 +119,10 @@
               <td><?= $key['username'] ?></td>
               <td><?= $key['password'] ?></td>
               <td><?= substr($key['created_at'],0,10) ?></td>
+              <td>
+                <a href="#" class="badge badge-warning p-2"><i class="fas fa-edit"></i></a>
+                <a href="#" class="badge badge-danger p-2" onclick="return swal({ title: 'Are you sure?',text: 'Once deleted, you will not be able to recover this data!',icon: 'warning',buttons: true,dangerMode: true,}).then(function() {window.location = 'admin/delete/'+<?= $key['id']?>;});"><i class="fas fa-trash-alt"></i></a>
+              </td>
             </tr>
             <?php endforeach; ?>
           </tbody>
@@ -137,3 +134,69 @@
 </div>
 <!-- /.container-fluid -->
 
+
+<!-- Add Invalid Alert -->
+<?php if($this->session->flashdata('errAdd')) : ?>
+    <?= "<script>
+        swal('Add New User Invalid', 'If there are problems new user submission process please contact Ward (Ext. 57242)', 'error')
+    </script>"; ?>
+    <?php elseif($this->session->flashdata('succAdd')) : ?>
+    <?= "<script>
+        swal('Add New User Success', ' ', 'success')
+    </script>"; ?>
+<?php endif; ?>
+
+
+<!-- Add Modal -->
+<div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="addUserLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addUserLabel">Add New User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="post" action="<?= base_url('admin/addUser') ?>">
+        <div class="modal-body">
+          <div class="form-group">
+            <input type="text" class="form-control bg-light" placeholder="Nama Lengkap" name="full_name" value="<?= set_value('full_name') ?>" required>
+          </div>
+          <div class="form-group">
+            <select class="form-control bg-light" name="role_id" required>
+              <option selected disabled>Posisi</option>
+              <option value="1">Admin</option>
+              <option value="2">Uploader</option>
+              <option value="3">Guest</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control bg-light" placeholder="Unit Kerja" name="unit_kerja" value="<?= set_value('unit_kerja') ?>" required>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control bg-light" placeholder="Nip" name="nip" value="<?= set_value('nip') ?>" required>
+            <small  class="form-text text-danger"><?= form_error('nip') ?></small>
+          </div>
+          <div class="form-group">
+            <input type="date" class="form-control bg-light" placeholder="Tanggal Lahir" name="ttl" value="<?= set_value('ttl') ?>" required>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control bg-light" placeholder="Domain" name="domain" value="<?= set_value('domain') ?>" required>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control bg-light" placeholder="Username" name="username" required>
+            <small  class="form-text text-danger"><?= form_error('username') ?></small>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control bg-light" placeholder="Password"  name="password" required>
+            <small  class="form-text text-danger"><?= form_error('password') ?></small>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" >Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

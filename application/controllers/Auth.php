@@ -20,6 +20,12 @@ class Auth extends CI_Controller {
 	// Login page
 	public function login()
 	{
+		// Check if Already login
+        if ($this->session->userdata('logged_in')) { 
+			redirect(base_url());
+			exit;
+		}
+
 		// Data for this page
 		$data['title'] = "Login | Quartee";
 		// Validasi input data
@@ -54,39 +60,16 @@ class Auth extends CI_Controller {
         
 	}
 
-	// add user into database
-	// public function regist_auth()
-	// {
-	// 	// Validasi input data
-    //     $this->form_validation->set_rules('name','Nama','required');
-	// 	$this->form_validation->set_rules('phone','No Hp','required|numeric');
-	// 	$this->form_validation->set_rules('email','Email','required');
-	// 	$this->form_validation->set_rules('pass','Password','required|min_length[8]');
-	// 	$this->form_validation->set_rules('passcon','Konfirmasi Password','required|matches[pass]');
-        
-    //     // Check Data valid
-    //     if($this->form_validation->run() == false){
-    //         echo "data tidak valid";
-    //     }else {
-    //         // Input Data
-    //         $input['name'] = $this->input->post('name',true);
-    //         $input['phone'] = $this->input->post('phone',true);
-    //         $input['email'] = $this->input->post('email',true);
-    //         $input['pass'] = $this->input->post('pass',true);
-    //         $input['passcon'] = $this->input->post('passcon',true);
-            
-    //         $checkEmail = $this->auth_models->checkEmail($input['email']);
+	public function logout()
+    {
+        // Remove session
+		$this->session->unset_userdata('id_user');
+		$this->session->unset_userdata('logged_in');
+		$this->session->unset_userdata('role');
+		
+        // Redirect to login page
+        redirect(base_url('auth/login'));
+    }
 
-    //         if ($checkEmail === 0) {
-    //             // Send to databse
-	// 			$this->auth_models->addUser($input);
-    //             $data['status'] = true;
-    //         } else {
-    //             $data['err'] = true;
-    //         }
-            
-    //         // Redirect to daftar page
-    //         $this->load->view('auth/daftar.php',$data);
-    //     }
-	// }
+	
 }

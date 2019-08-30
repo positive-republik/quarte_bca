@@ -29,39 +29,4 @@ class auth_models extends CI_Model {
         }
     }
     
-    // Add User Model
-    function addUser($input)
-    {
-        // Query Data Admin Ismanyan
-        // $query = array( 
-        //     'id'	     =>  NULL,
-        //     'full_name'  =>  'Ismanyan', 
-        //     'role_id'    =>  1, 
-        //     'unit_kerja' =>  'lorem',
-        //     'nip'	     =>  12345,
-        //     'ttl'        =>  '07-04-2002',
-        //     'domain'	 =>  'ismanyan.dev',
-        //     'username'	 =>  'ismanyan',
-        //     'password'	 =>  password_hash('ismanyan',PASSWORD_DEFAULT),
-        //     'created_at' =>  NULL
-        // );
-
-        // Query Data
-        $query = array( 
-            'id'	     =>  NULL,
-            'full_name'  =>  $input['full_name'], 
-            'role_id'    =>  $input['role_id'], 
-            'unit_kerja' =>  $input['unit_kerja'],
-            'nip'	     =>  $input['nip'],
-            'ttl'        =>  $input['ttl'],
-            'domain'	 =>  $input['domain'],
-            'username'	 =>  $input['username'],
-            'password'	 =>  password_hash($input['password'],PASSWORD_DEFAULT),
-            'created_at' =>  NULL,
-        );
-
-
-        // Execute
-        $this->db->insert('users', $query);
-    }
 }

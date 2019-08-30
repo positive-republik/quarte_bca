@@ -7,5 +7,67 @@ class admin_models extends CI_Model {
     {   
         return $this->db->get('users')->result_array();
     }
+
+    // Get num rows user data
+    function getNumRowsData($data,$table)
+    {
+        $this->db->where(array('role_id'=>$data));
+        return $this->db->count_all_results($table);
+    }
+
+    // Get num rows all users
+    function getALlUserCount()
+    {
+        return $this->db->count_all_results('users');
+    }
+
+    // Add User into database
+    function addUser($input)
+    {
+        // Query Data Admin Ismanyan
+        // $query = array( 
+        //     'id'	     =>  NULL,
+        //     'full_name'  =>  'Ismanyan', 
+        //     'role_id'    =>  1, 
+        //     'unit_kerja' =>  'lorem',
+        //     'nip'	     =>  12345,
+        //     'ttl'        =>  '07-04-2002',
+        //     'domain'	 =>  'ismanyan.dev',
+        //     'username'	 =>  'ismanyan',
+        //     'password'	 =>  password_hash('ismanyan',PASSWORD_DEFAULT),
+        //     'created_at' =>  NULL
+        // );
+        
+        $check = $this->db->get_where('users',array('username' => $input['username']));
+        if ($check->num_rows() > 0) {
+            echo "<script>
+                    alert('Username already exists');
+                    document.location.href='".base_url()."';
+                </script>";
+            exit;
+        } else {
+            // Query Data
+            $query = array( 
+                'id'	     =>  NULL,
+                'full_name'  =>  $input['full_name'], 
+                'role_id'    =>  $input['role_id'], 
+                'unit_kerja' =>  $input['unit_kerja'],
+                'nip'	     =>  $input['nip'],
+                'ttl'        =>  $input['ttl'],
+                'domain'	 =>  $input['domain'],
+                'username'	 =>  $input['username'],
+                'password'	 =>  password_hash($input['password'],PASSWORD_DEFAULT),
+                'created_at' =>  NULL,
+            );
+        }
+
+        // Execute
+        $this->db->insert('users', $query);
+    }
     
+    // Delete user
+    function deleteUser($id)
+    {
+        $this->db->delete('users', array('id' => $id)); 
+    }
 }

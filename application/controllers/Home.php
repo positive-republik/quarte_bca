@@ -8,8 +8,7 @@ class Home extends CI_Controller {
     {
         parent::__construct();
         // Check if not login
-        if (!$this->session->userdata('logged_in'))
-        { 
+        if (!$this->session->userdata('logged_in')) { 
 			redirect(base_url('auth/login'));
 			exit;
 		}
@@ -20,18 +19,25 @@ class Home extends CI_Controller {
 		}
 	}
 	
-	// Dashboard page
+	// Dashboard page admin
 	public function index()
 	{
 		// Data for this page
 		$data['title'] = "Home | Quartee";
 		$data['users'] = $this->admin_models->getAllUser();
 
+		// Counting
+		$data['count_all_users'] = $this->admin_models->getALlUserCount();
+		$data['count_uploader'] = $this->admin_models->getNumRowsData(2,'users');
+		$data['count_guest'] = $this->admin_models->getNumRowsData(3,'users');
+		
 		// Load views
 		$this->load->view('layouts/header',$data);
 		$this->load->view('layouts/sidebar');
 		$this->load->view('layouts/navbar');
-		$this->load->view('dashboard/admin',$data);
+		$this->load->view('dashboard/admin',$data); //ADMIN VIEWS
 		$this->load->view('layouts/footer');
 	}
+
+	
 }

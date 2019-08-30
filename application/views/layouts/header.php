@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Blank</title>
+  <title><?= $title ?></title>
 
   <!-- Custom fonts for this template-->
   <link href="<?= base_url('assets/vendor/sb-admin/') ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -24,6 +24,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Custom styles for this page -->
   <link href="<?= base_url('assets/vendor/sb-admin/') ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+  <!-- Sweet Alert -->
+  <script src="<?= base_url('assets/vendor/sweetalert/dist/') ?>sweetalert.min.js"></script>
+  <link rel="stylesheet" href="<?= base_url('assets/vendor/sweetalert/dist/') ?>sweetalert.css">
 </head>
 
 <body id="page-top">
