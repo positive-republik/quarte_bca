@@ -12,7 +12,12 @@ class Home extends CI_Controller {
         { 
 			redirect(base_url('auth/login'));
 			exit;
-        }
+		}
+		
+		// Check role and use the model for this role
+		if ($this->session->userdata('role') == 1) {
+			$this->load->model('admin_models');
+		}
 	}
 	
 	// Dashboard page
@@ -20,11 +25,13 @@ class Home extends CI_Controller {
 	{
 		// Data for this page
 		$data['title'] = "Home | Quartee";
+		$data['users'] = $this->admin_models->getAllUser();
+
 		// Load views
 		$this->load->view('layouts/header',$data);
 		$this->load->view('layouts/sidebar');
 		$this->load->view('layouts/navbar');
-		$this->load->view('dashboard/admin');
+		$this->load->view('dashboard/admin',$data);
 		$this->load->view('layouts/footer');
 	}
 }
