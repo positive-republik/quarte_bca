@@ -107,15 +107,16 @@
             </tr>
           </thead>
           <tbody>
-            <?php foreach($users as $key) : ?>
+          
+            <?php $i=0; foreach($users as $key) : ?>
             <tr>
               <td><?= $key['full_name'] ?></td>
-              <td>-</td>
+              <td><?= $role_info[$i]['name_role'] ?></td>
               <td><?= $key['unit_kerja'] ?></td>
               <td><?= $key['nip'] ?></td>
               <td><?= $key['ttl'] ?></td>
               <td><?= $key['domain'] ?></td>
-              <td>-</td>
+              <td><?= $role_info[$i]['job_desc'] ?></td>
               <td><?= $key['username'] ?></td>
               <td><?= $key['password'] ?></td>
               <td><?= substr($key['created_at'],0,10) ?></td>
@@ -176,6 +177,9 @@
             <input type="text" class="form-control bg-light" placeholder="Unit Kerja" name="unit_kerja" value="<?= set_value('unit_kerja') ?>" required>
           </div>
           <div class="form-group">
+            <input type="text" class="form-control bg-light" placeholder="Extention" name="extention" value="<?= set_value('extention') ?>" required>
+          </div>
+          <div class="form-group">
             <input type="text" class="form-control bg-light" placeholder="Nip" name="nip" value="<?= set_value('nip') ?>" required>
             <small  class="form-text text-danger"><?= form_error('nip') ?></small>
           </div>
@@ -186,11 +190,11 @@
             <input type="text" class="form-control bg-light" placeholder="Domain" name="domain" value="<?= set_value('domain') ?>" required>
           </div>
           <div class="form-group">
-            <input type="text" class="form-control bg-light" placeholder="Username" name="username" required>
+            <input type="text" class="form-control bg-light" placeholder="Username" name="username" value="<?= random_string('alnum', 9) ?>" required>
             <small  class="form-text text-danger"><?= form_error('username') ?></small>
           </div>
           <div class="form-group">
-            <input type="text" class="form-control bg-light" placeholder="Password"  name="password" required>
+            <input type="text" class="form-control bg-light" placeholder="Password"  name="password" value="<?= random_string('alnum', 9) ?>" required>
             <small  class="form-text text-danger"><?= form_error('password') ?></small>
           </div>
         </div>

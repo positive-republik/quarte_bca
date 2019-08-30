@@ -31,7 +31,14 @@ class auth_models extends CI_Model {
     
     // Get user detail by id
     function getUserDetail($id)
-    {
-        return $this->db->get_where('users',array('id'=>$id))->result_array()[0];
+    {   
+        // If not already user logout from this seasson
+        if (! $this->db->get_where('users',array('id'=>$id))->result_array()[0]) {
+           // Redirect to logout
+            redirect(base_url('auth/logout'));
+        } else {
+            return $this->db->get_where('users',array('id'=>$id))->result_array()[0];
+        }
+        
     }
 }

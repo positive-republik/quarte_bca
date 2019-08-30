@@ -43,10 +43,14 @@ class Home extends CI_Controller {
 	// Admin Data
 	public function admin($user_info)
 	{
+		// load 
 		$this->load->model('admin_models');
-
+		
+		//Data this page 
 		$data['user_info'] = $user_info;
 		$data['users'] = $this->admin_models->getAllUser();
+		$data['role_info'] = $this->admin_models->getRoleName();
+		
 		// Counting
 		$data['count_all_users'] = $this->admin_models->getALlUserCount();
 		$data['count_uploader'] = $this->admin_models->getNumRowsData(2,'users');

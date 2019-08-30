@@ -8,6 +8,15 @@ class admin_models extends CI_Model {
         return $this->db->get('users')->result_array();
     }
 
+    // Get role name 
+    function getRoleName()
+    {
+        $this->db->select('users.role_id, role.name_role, role.job_desc');
+        $this->db->from('users');
+        $this->db->join('role', 'role.id = users.role_id');
+        return $this->db->get()->result_array();
+    }
+
     // Get num rows user data
     function getNumRowsData($data,$table)
     {
@@ -52,6 +61,7 @@ class admin_models extends CI_Model {
                 'full_name'  =>  $input['full_name'], 
                 'role_id'    =>  $input['role_id'], 
                 'unit_kerja' =>  $input['unit_kerja'],
+                'extention' =>  $input['extention'],
                 'nip'	     =>  $input['nip'],
                 'ttl'        =>  $input['ttl'],
                 'domain'	 =>  $input['domain'],

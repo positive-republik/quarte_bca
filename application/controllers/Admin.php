@@ -25,12 +25,13 @@ class Admin extends CI_Controller {
 		// Validasi input data
         $this->form_validation->set_rules('full_name','Nama','required');
 		$this->form_validation->set_rules('role_id','Posisi','required|numeric|max_length[1]');
-		$this->form_validation->set_rules('unit_kerja','Unit Kerja','required');
+        $this->form_validation->set_rules('unit_kerja','Unit Kerja','required');
+        $this->form_validation->set_rules('extention','Extention','required');
 		$this->form_validation->set_rules('nip','Nip','required|numeric');
 		$this->form_validation->set_rules('ttl','Tanggal Lahir','required');
 		$this->form_validation->set_rules('domain','Domain','required');
-		$this->form_validation->set_rules('username','Username','required|min_length[8]');
-		$this->form_validation->set_rules('password','Password','required|min_length[8]');
+		$this->form_validation->set_rules('username','Username','required|min_length[9]');
+		$this->form_validation->set_rules('password','Password','required|min_length[9]');
         
         // Check Data valid
         if($this->form_validation->run() == false){
@@ -39,6 +40,8 @@ class Admin extends CI_Controller {
             // Data for this page
             $data['title'] = "Home | Quartee";
             $data['users'] = $this->admin_models->getAllUser();
+            $this->load->model('auth_models');
+            $data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
 
             // Counting
             $data['count_all_users'] = $this->admin_models->getALlUserCount();
@@ -48,7 +51,7 @@ class Admin extends CI_Controller {
             // Load views
             $this->load->view('layouts/header',$data);
             $this->load->view('layouts/sidebar');
-            $this->load->view('layouts/navbar');
+            $this->load->view('layouts/navbar',$data);
             $this->load->view('dashboard/admin',$data);
             $this->load->view('layouts/footer');
         }else {
@@ -57,6 +60,7 @@ class Admin extends CI_Controller {
             $input['full_name'] = $this->input->post('full_name',true);
             $input['role_id'] = $this->input->post('role_id',true);
             $input['unit_kerja'] = $this->input->post('unit_kerja',true);
+            $input['extention'] = $this->input->post('extention',true);
             $input['nip'] = $this->input->post('nip',true);
             $input['ttl'] = $this->input->post('ttl',true);
 			$input['domain'] = $this->input->post('domain',true);

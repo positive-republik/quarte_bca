@@ -24,7 +24,8 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider">
-
+      
+      <?php if($this->session->userdata('role') == 1) : ?>
       <!-- Heading -->
       <div class="sidebar-heading">
         Admin Panel
@@ -37,9 +38,26 @@
           <span>Data Management</span></a>
       </li>
 
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <?php elseif($this->session->userdata('role') == 2) : ?>
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Uploader Panel
+      </div>
+
+      <!-- Nav Item - Data Management -->
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fas fa-fw fa-comments"></i>
+          <span>Qna Management</span></a>
+      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider">
+      <?php endif; ?>
 
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
