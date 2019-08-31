@@ -14,13 +14,46 @@ class Guest extends CI_Controller {
         }
         
         $this->load->model('guest_models');
-		
+		$this->load->model('auth_models');		
     }
 
     // Request Page
     public function request()
     {
+		// Data for this page
+		$data['title'] = "Request | Quartee";
+        $data['qna'] = $this->guest_models->getRessQna($this->session->userdata('id_user'));
+        $data['req'] = $this->guest_models->getRessReq($this->session->userdata('id_user'));
 
+		// Get user detail by id
+		$data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
+		
+		// Load views
+		$this->load->view('layouts/header',$data);
+		$this->load->view('layouts/sidebar',$data);
+        $this->load->view('layouts/navbar',$data);
+		$this->load->view('guest/request');
+		$this->load->view('layouts/footer');
+    }
+
+    // Request Page
+    public function qna()
+    {
+		// Data for this page
+		$data['title'] = "Qna | Quartee";
+        $data['qna'] = $this->guest_models->getRessQna($this->session->userdata('id_user'));
+        $data['req'] = $this->guest_models->getRessReq($this->session->userdata('id_user'));
+        $data['produk'] = $this->guest_models->getProduk();
+
+		// Get user detail by id
+		$data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
+		
+		// Load views
+		$this->load->view('layouts/header',$data);
+		$this->load->view('layouts/sidebar',$data);
+        $this->load->view('layouts/navbar',$data);
+		$this->load->view('guest/qna',$data);
+		$this->load->view('layouts/footer');
     }
 
     // Add request data 
