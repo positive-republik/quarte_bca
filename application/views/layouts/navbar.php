@@ -113,7 +113,14 @@
                     </div>
                   </a>
                   <?php endforeach; ?>
+
+                  <?php if($req->num_rows()>0) : ?>
                   <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                    <?php elseif($req->num_rows()==0) : ?>
+                    <div class="alert alert-warning" role="alert">
+                      Anda belum merequest data. <a href="<?= base_url('guest/request'); ?>" class="alert-link">Klik Disini</a> untuk request data
+                    </div>
+                  <?php endif; ?>
                 </div>
               </li>
 

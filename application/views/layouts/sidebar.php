@@ -63,7 +63,7 @@
 
       <!-- Nav Item - Data Management -->
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="<?= base_url('guest/request'); ?>">
           <i class="fas fa-fw fa-clipboard-list"></i>
           <span>Request</span></a>
       </li>

@@ -17,6 +17,12 @@ class Guest extends CI_Controller {
 		
     }
 
+    // Request Page
+    public function request()
+    {
+
+    }
+
     // Add request data 
     public function addReqData()
     {
