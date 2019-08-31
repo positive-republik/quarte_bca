@@ -55,6 +55,15 @@
                 <option>2</option>
             </select>
         </div>
+        <div class="form-group">
+            <label for="startDate">Bulan Awal</label>
+            <input type="date" id="startDate" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="endDate">Bulan Akhir</label>
+            <input type="date" id="endDate" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary w-100 mt-2 mb-5">Run Report</button>
     </form>
 
 </div>
