@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Aug 31, 2019 at 12:05 PM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.8
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 31 Agu 2019 pada 15.25
+-- Versi server: 10.1.38-MariaDB
+-- Versi PHP: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_upload`
+-- Struktur dari tabel `data_upload`
 --
 
 CREATE TABLE `data_upload` (
@@ -35,7 +35,7 @@ CREATE TABLE `data_upload` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `data_upload`
+-- Dumping data untuk tabel `data_upload`
 --
 
 INSERT INTO `data_upload` (`id`, `produk`, `kategori`) VALUES
@@ -3517,70 +3517,7 @@ INSERT INTO `data_upload` (`id`, `produk`, `kategori`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kategori`
---
-
-CREATE TABLE `kategori` (
-  `id` bigint(20) NOT NULL,
-  `kategori` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `kategori`
---
-
-INSERT INTO `kategori` (`id`, `kategori`) VALUES
-(1, 'REQ/R048 TUTUP FASILITAS'),
-(2, 'REQ/R036 AKTIFKAN USER ID'),
-(3, 'COMPL/C155 LUPA PASSWORD'),
-(4, 'COMPL/C104 TRANSAKSI DITOLAK\\ TDK BERHASIL/REKENING TERDEBET'),
-(5, 'COMPL/C079 TIDAK BISA MENGIRIMKAN ONE TIME PASSWORD (OTP) LAPORN SUSPECT KLIKPAY'),
-(6, 'COMPL/C133 DIANGGAP BELUM BAYAR'),
-(7, 'COMPL/C006 DOUBLE BAYAR'),
-(8, 'COMPL/C131 STRUK TDK KELUAR (NON FIN)'),
-(9, 'COMPL/C134 TDK DAPAT MELAKUKAN PAYMENT'),
-(10, 'COMPL/C017 TRANSAKSI DI REVERSE'),
-(11, 'COMPL/C008 SALAH BAYAR KE JENIS PAYMENT LAIN'),
-(12, 'COMPL/C004 MERASA TDK TRANSAKSI, REK. TERDEBET'),
-(13, 'INF/I071 INFO RATING SURVEY'),
-(14, 'COMPL/C136 MASALAH AKTIVASI/PULSA TIDAK BERTAMBAH'),
-(15, 'REQ/R033 REFUND DANA'),
-(16, 'COMPL/C080 GAGAL AKSES APLIKASI'),
-(17, 'COMPL/C005 SALAH TRANSFER'),
-(18, 'COMPL/C050 REKENING TERDEBET TIDAK TER TOP UP'),
-(19, 'COMPL/C001 KRIMINALITAS/MURNI'),
-(20, 'REQ/R004 UBAH/STATUS'),
-(21, 'COMPL/C002 UANG TDK DIPEROLEH, REK TERDEBET'),
-(22, 'COMPL/C162 PROBLEM/SAKUKU/QR TDK DAPAT DI-SHOW'),
-(23, 'COMPL/C080 GAGAL AKSES ATAU LOGIN SITUS'),
-(24, 'REQ/R048 TUTUP FASILITAS ONEKLIK'),
-(25, 'REQ/R024 BUKA BLOKIR/REGISTRASI ONEKLIK'),
-(26, 'COMPL/C151 GAGAL REGISTRASI/ONEKLIK DI APLIKASI MERCHANT');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `produk`
---
-
-CREATE TABLE `produk` (
-  `id` int(11) NOT NULL,
-  `produk` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `produk`
---
-
-INSERT INTO `produk` (`id`, `produk`) VALUES
-(1, 'BCA KLIKPAY'),
-(2, 'JASA/SAKUKU'),
-(3, 'JASA/ONEKLIK');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `qna`
+-- Struktur dari tabel `qna`
 --
 
 CREATE TABLE `qna` (
@@ -3590,48 +3527,47 @@ CREATE TABLE `qna` (
   `asker_id` int(11) NOT NULL,
   `asker_name` varchar(255) NOT NULL,
   `question` text NOT NULL,
-  `answer` text DEFAULT NULL,
+  `answer` text,
   `status` varchar(1) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `qna`
+--
+
+INSERT INTO `qna` (`id`, `produk`, `kategori`, `asker_id`, `asker_name`, `question`, `answer`, `status`, `created_at`) VALUES
+(4, 'Test', 'TEst', 1, 'test', 'test', NULL, NULL, '2019-08-30 18:03:54');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `request`
+-- Struktur dari tabel `request`
 --
 
 CREATE TABLE `request` (
   `id` bigint(20) NOT NULL,
   `req_title` varchar(255) NOT NULL,
   `requester_name` varchar(255) NOT NULL,
-  `requester_id` int(11) NOT NULL,
   `req_purpose` text NOT NULL,
   `req_start` varchar(100) NOT NULL,
   `req_end` varchar(100) NOT NULL,
   `req_priority` int(11) NOT NULL,
   `req_status` varchar(1) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `request`
+-- Dumping data untuk tabel `request`
 --
 
-INSERT INTO `request` (`id`, `req_title`, `requester_name`, `requester_id`, `req_purpose`, `req_start`, `req_end`, `req_priority`, `req_status`, `created_at`) VALUES
-(1, 'testasbdiasbdiasbdjasbdjkasbdjkbasdjkasbdjkasbjdbaskjd', 'guest', 22, 'test', 'test', 'test', 1, '1', '2019-08-30 18:04:17'),
-(2, 'testasbdiasbdiasbdjasbdjkasbdjkbasdjkasbdjkasbjdbaskjd', 'guest', 22, 'test', 'test', 'test', 1, '1', '2019-08-30 18:04:17'),
-(3, 'testasbdiasbdiasbdjasbdjkasbdjkbasdjkasbdjkasbjdbaskjd', 'guest', 22, 'test', 'test', 'test', 1, '1', '2019-08-30 18:04:17'),
-(4, 'testasbdiasbdiasbdjasbdjkasbdjkbasdjkasbdjkasbjdbaskjd', 'guest', 22, 'test', 'test', 'test', 1, '1', '2019-08-30 18:04:17'),
-(5, 'testasbdiasbdiasbdjasbdjkasbdjkbasdjkasbdjkasbjdbaskjd', 'guest', 22, 'test', 'test', 'test', 1, '1', '2019-08-30 18:04:17'),
-(6, 'testasbdiasbdiasbdjasbdjkasbdjkbasdjkasbdjkasbjdbaskjd', 'guest', 22, 'test', 'test', 'test', 1, '1', '2019-08-30 18:04:17'),
-(7, 'testasbdiasbdiasbdjasbdjkasbdjkbasdjkasbdjkasbjdbaskjd', 'guest', 22, 'test', 'test', 'test', 1, '1', '2019-08-30 18:04:17'),
-(8, 'testasbdiasbdiasbdjasbdjkasbdjkbasdjkasbdjkasbjdbaskjd', 'guest', 22, 'test', 'test', 'test', 1, '1', '2019-08-30 18:04:17');
+INSERT INTO `request` (`id`, `req_title`, `requester_name`, `req_purpose`, `req_start`, `req_end`, `req_priority`, `req_status`, `created_at`) VALUES
+(1, 'testasbdiasbdiasbdjasbdjkasbdjkbasdjkasbdjkasbjdbaskjd', 'test', 'test', 'test', 'test', 1, NULL, '2019-08-30 18:04:17');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `role`
+-- Struktur dari tabel `role`
 --
 
 CREATE TABLE `role` (
@@ -3641,7 +3577,7 @@ CREATE TABLE `role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `role`
+-- Dumping data untuk tabel `role`
 --
 
 INSERT INTO `role` (`id`, `name_role`, `job_desc`) VALUES
@@ -3652,28 +3588,35 @@ INSERT INTO `role` (`id`, `name_role`, `job_desc`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `upload_history`
+-- Struktur dari tabel `upload_history`
 --
 
 CREATE TABLE `upload_history` (
   `id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL,
   `month` int(11) NOT NULL,
-  `date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `total` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `upload_history`
+-- Dumping data untuk tabel `upload_history`
 --
 
 INSERT INTO `upload_history` (`id`, `user_id`, `month`, `date`, `total`) VALUES
-(2, 23, 8, '2019-08-31 09:24:45', '3471');
+(1, 1, 1, '2019-08-30 14:03:44', '0'),
+(2, 14, 8, '2019-08-30 14:17:05', '3472'),
+(3, 14, 8, '2019-08-30 14:19:31', '3472'),
+(4, 14, 8, '2019-08-30 14:20:08', '3471'),
+(5, 14, 8, '2019-08-30 14:23:23', '3471'),
+(6, 14, 8, '2019-08-30 14:23:37', '3471'),
+(7, 14, 8, '2019-08-30 14:27:13', '3471'),
+(8, 19, 8, '2019-08-30 18:21:21', '3471');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -3683,127 +3626,100 @@ CREATE TABLE `users` (
   `unit_kerja` varchar(100) NOT NULL,
   `extention` varchar(255) NOT NULL,
   `nip` varchar(50) NOT NULL,
-  `ttl` varchar(20) NOT NULL,
+  `email` varchar(20) NOT NULL,
   `domain` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `full_name`, `role_id`, `unit_kerja`, `extention`, `nip`, `ttl`, `domain`, `username`, `password`, `created_at`) VALUES
-(14, 'Uploader', '1', 'Uploader', '', '123456', '2017-07-29', 'upload.com', 'uploader123', '$2y$10$BhoI6bCb0/eNlnzUy/kdpuEBW1lOsiCqUyX8imQxbemssoY5ZT9FG', '2019-08-30 12:25:37'),
-(19, 'Uploader', '2', 'Uploader', 'test', '123', '2019-08-01', 'upload', 'upload123', '$2y$10$rbFkbNmTqjKJua3.yE.WgOVYJEfcxEzNACModtnV5saSRK9VGtqpS', '2019-08-30 17:22:43'),
-(21, 'BIlkis Ismail', '2', '-', '-', '0', '2010-04-07', '-', 'ismanyan123', '$2y$10$fZa5oU6mDOxEqgTM.gLoj.HIkJqpWHxkufQJIsaroWTIOFRzMx/H6', '2019-08-31 05:29:40'),
-(22, 'guest', '3', '-', '-', '123456', '2018-07-30', '-', 'guest12345', '$2y$10$hBoeDZiZKdB95O.B5/49Ge4Td58RheUK.uR0JuFjkenMaukvk8GeO', '2019-08-31 05:36:00'),
-(23, 'uploader', '2', '-', '-', '1', '2018-07-30', '-', 'VIx9YZ', '$2y$10$LOV9dz5xb91V02ncpW5Ge.VfEDh5kaykg3wiqzAnka6Vg9.BBoKgS', '2019-08-31 09:11:29');
+INSERT INTO `users` (`id`, `full_name`, `role_id`, `unit_kerja`, `extention`, `nip`, `email`, `domain`, `username`, `password`, `created_at`) VALUES
+(20, 'username', '1', '-', '-', '1', 'admin@admin.com', '-', 'username123', '$2y$10$slQKhqo04y1T/4zOBKHIp.ueEb4ypAfmpYAgYM6ssdNannZlq/9tm', '2019-08-31 12:56:33'),
+(22, 'guest', '3', '-', '-', '1', 'guest@guest.com', '-', 'guest1', '$2y$10$x8muX/oBfeJBagaPdUru/eOg6mJveZGap4c2kM1GSt27ROuzDcUgi', '2019-08-31 13:19:05');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `data_upload`
+-- Indeks untuk tabel `data_upload`
 --
 ALTER TABLE `data_upload`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `kategori`
---
-ALTER TABLE `kategori`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `produk`
---
-ALTER TABLE `produk`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `qna`
+-- Indeks untuk tabel `qna`
 --
 ALTER TABLE `qna`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `request`
+-- Indeks untuk tabel `request`
 --
 ALTER TABLE `request`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `role`
+-- Indeks untuk tabel `role`
 --
 ALTER TABLE `role`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `upload_history`
+-- Indeks untuk tabel `upload_history`
 --
 ALTER TABLE `upload_history`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `data_upload`
+-- AUTO_INCREMENT untuk tabel `data_upload`
 --
 ALTER TABLE `data_upload`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3472;
 
 --
--- AUTO_INCREMENT for table `kategori`
---
-ALTER TABLE `kategori`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
-
---
--- AUTO_INCREMENT for table `produk`
---
-ALTER TABLE `produk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `qna`
+-- AUTO_INCREMENT untuk tabel `qna`
 --
 ALTER TABLE `qna`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `request`
+-- AUTO_INCREMENT untuk tabel `request`
 --
 ALTER TABLE `request`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `role`
+-- AUTO_INCREMENT untuk tabel `role`
 --
 ALTER TABLE `role`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `upload_history`
+-- AUTO_INCREMENT untuk tabel `upload_history`
 --
 ALTER TABLE `upload_history`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
