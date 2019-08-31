@@ -153,9 +153,7 @@
                     </a>
                     <?php endforeach; ?>
                     <!-- Check if null -->
-                    <?php if($qna->num_rows()>0) : ?>
                     <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                    <?php endif; ?>
                 </div>
               </li>
               <?php endif; ?>
