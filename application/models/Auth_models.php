@@ -11,13 +11,13 @@ class auth_models extends CI_Model {
             return 404; //If username not found
             exit;
         } else {
-            $password = $query->result_array()[0]['password'];
+            $password = $query->row_array()['password'];
             if(password_verify($input['password'],$password))
             {
                 $newdata = array(
-                        'id_user' => $query->result_array()[0]['id'],
+                        'id_user' => $query->row_array()['id'],
                         'logged_in' => TRUE,
-                        'role' => $query->result_array()[0]['role_id']
+                        'role' => $query->row_array()['role_id']
                 );
                 $this->session->set_userdata($newdata);
             } else {

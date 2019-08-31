@@ -25,7 +25,7 @@
     <input type="text" class="form-control bg-light" placeholder="Nip" name="nip" id="nip" value="<?= $user['nip']; ?>">
 </div>
 <div class="form-group">
-    <input type="date" class="form-control bg-light" placeholder="Tanggal Lahir" name="ttl" id="ttl" value="<?= $user['ttl']; ?>">
+    <input type="date" class="form-control bg-light" placeholder="Email" name="email" id="email" value="<?= $user['email']; ?>">
 </div>
 <div class="form-group">
     <input type="text" class="form-control bg-light" placeholder="Extention" name="extention" id="extention" value="<?= $user['extention']; ?>">

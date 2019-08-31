@@ -28,7 +28,7 @@ class Admin extends CI_Controller {
         $this->form_validation->set_rules('unit_kerja','Unit Kerja','required');
         $this->form_validation->set_rules('extention','Extention','required');
 		$this->form_validation->set_rules('nip','Nip','required|numeric');
-		$this->form_validation->set_rules('ttl','Tanggal Lahir','required');
+		$this->form_validation->set_rules('email','Email','required|valid_email');
 		$this->form_validation->set_rules('domain','Domain','required');
 		$this->form_validation->set_rules('username','Username','required|min_length[6]');
 		$this->form_validation->set_rules('password','Password','required|min_length[6]');
@@ -63,7 +63,7 @@ class Admin extends CI_Controller {
             $input['unit_kerja'] = $this->input->post('unit_kerja',true);
             $input['extention'] = $this->input->post('extention',true);
             $input['nip'] = $this->input->post('nip',true);
-            $input['ttl'] = $this->input->post('ttl',true);
+            $input['email'] = $this->input->post('email',true);
 			$input['domain'] = $this->input->post('domain',true);
 			$input['username'] = $this->input->post('username',true);
 			$input['password'] = $this->input->post('password',true);
@@ -101,7 +101,7 @@ class Admin extends CI_Controller {
         $this->form_validation->set_rules('unit_kerja','Unit Kerja','required');
         $this->form_validation->set_rules('extention','Extention','required');
 		$this->form_validation->set_rules('nip','Nip','required|numeric');
-		$this->form_validation->set_rules('ttl','Tanggal Lahir','required');
+		$this->form_validation->set_rules('email','Email','required|valid_email');
 		$this->form_validation->set_rules('domain','Domain','required');
 		$this->form_validation->set_rules('username','Username','required|min_length[6]');
         $this->form_validation->set_rules('password','Password','required|min_length[6]');

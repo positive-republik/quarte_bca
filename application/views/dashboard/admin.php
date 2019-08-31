@@ -97,7 +97,7 @@
               <th>Hak Akses</th>
               <th>Unit Keja</th>
               <th>NIP</th>
-              <th>Ttl</th>
+              <th>Email</th>
               <th>Domain</th>
               <th>Job Title</th>
               <th>Username</th>
@@ -114,7 +114,7 @@
               <td><?= $role_info[$i]['name_role'] ?></td>
               <td><?= $key['unit_kerja'] ?></td>
               <td><?= $key['nip'] ?></td>
-              <td><?= $key['ttl'] ?></td>
+              <td><?= $key['email'] ?></td>
               <td><?= $key['domain'] ?></td>
               <td><?= $role_info[$i]['job_desc'] ?></td>
               <td><?= $key['username'] ?></td>
@@ -123,7 +123,7 @@
               <td>
                 <!-- <a href="#" class="badge badge-warning p-2"><i class="fas fa-edit"></i></a> -->
                 <button type="button" class="badge badge-warning p-2 btnEdit" data-id="<?= $key['id']; ?>" data-toggle="modal" data-target="#editUser"><i class="fas fa-edit"></i></button>
-                <a href="" class="badge badge-danger p-2" onclick="return swal({ title: 'Are you sure?',text: 'Once deleted, you will not be able to recover this data!',icon: 'warning',buttons: true,dangerMode: true,}).then(function() {window.location = 'admin/delete/'+<?= $key['id']?>;});"><i class="fas fa-trash-alt"></i></a>
+                <button type="button" class="badge badge-danger p-2 mDelete" data-id="<?= $key['id']; ?>" <?php echo ( $this->session->userdata('id_user') == $key['id'] ? 'disabled' : '' ); ?>><i class="fas fa-trash-alt"></i></button>
               </td>
             </tr>
             <?php endforeach; ?>
@@ -182,7 +182,7 @@
             <small  class="form-text text-danger"><?= form_error('nip') ?></small>
           </div>
           <div class="form-group">
-            <input type="date" class="form-control bg-light" placeholder="Tanggal Lahir" name="ttl" value="<?= set_value('ttl') ?>" required>
+            <input type="email" class="form-control bg-light" placeholder="Email" name="email" value="<?= set_value('email') ?>" required>
           </div>
           <div class="form-group">
             <input type="text" class="form-control bg-light" placeholder="Extention" name="extention" value="<?= set_value('extention') ?>" required>
@@ -232,3 +232,24 @@
 </div>
 
 </form>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Delete User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center" id="deleteData">
+        <h1>Are you sure ?</h1>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary btnDelete">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
