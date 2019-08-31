@@ -82,7 +82,7 @@
               </li>
               <?php endif; ?>
 
-              <!-- Display for uploader -->
+              <!-- Display for Guest -->
               <?php if($this->session->userdata('role') == 3 ) : ?>
               <!-- Nav Item - Alerts -->
               <li class="nav-item dropdown no-arrow mx-1">
@@ -145,7 +145,10 @@
                       </div>
                     </a>
                     <?php endforeach; ?>
-                  <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                    <!-- Check if null -->
+                    <?php if($qna->num_rows()>0) : ?>
+                    <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                    <?php endif; ?>
                 </div>
               </li>
               <?php endif; ?>

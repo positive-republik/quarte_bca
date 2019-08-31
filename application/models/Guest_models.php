@@ -40,4 +40,23 @@ class guest_models extends CI_Model {
     {
         return $this->db->get('kategori');
     }
+
+    // Add to request
+    public function addReq($input)
+    {
+        $query = array( 
+            'id' =>  NULL,
+            'req_title'  =>  $input['reqTitle'], 
+            'requester_name'  =>  $input['requester_name'],
+            'requester_id' => $input['req_id'],
+            'req_purpose' => $input['req_purpose'],
+            'req_start' => $input['startDate'],
+            'req_end' => $input['endDate'],
+            'req_priority' => $input['priority'],
+            'req_status' => NULL,
+            'created_at' => NULL
+        );
+
+        $this->db->insert('request',$query);
+    }
 }

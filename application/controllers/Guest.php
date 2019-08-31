@@ -26,8 +26,34 @@ class Guest extends CI_Controller {
         $this->form_validation->set_rules('startDate','Bulan Awal','required');
         $this->form_validation->set_rules('endDate','Bulan Akhir','required');
         $this->form_validation->set_rules('priority','Priority','required');
-        $this->form_validation->set_rules('priority','Priority','required');
-        $this->form_validation->set_rules('priority','Priority','required');
+        $this->form_validation->set_rules('requester_name','Requester Name','required');
+        $this->form_validation->set_rules('req_id','Requester Id','required');
+
+        // Proses pengecekan data
+        if($this->form_validation->run() == false){
+           echo "<script>
+                    alert('Request failed');
+                    document.location.href='".base_url()."';
+                </script>";
+        } else {
+            // Input Data Filter
+            $input['reqTitle'] = $this->input->post('reqTitle',true);
+            $input['req_purpose'] = $this->input->post('req_purpose',true);
+            $input['startDate'] = $this->input->post('startDate',true);
+            $input['endDate'] = $this->input->post('endDate',true);
+            $input['priority'] = $this->input->post('priority',true);
+            $input['requester_name'] = $this->input->post('requester_name',true);
+			$input['req_id'] = $this->input->post('req_id',true);
+
+			 // Send to databse
+            $this->guest_models->addReq($input);
+            
+            // success true
+            echo "<script>
+                    alert('Request Success');
+                    document.location.href='".base_url()."';
+                </script>";
+        }
     }
 
 }

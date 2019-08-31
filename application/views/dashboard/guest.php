@@ -84,13 +84,15 @@
       </div>
       <form action="<?= base_url('guest/addReqData') ?>"  method="post"> 
             <div class="modal-body">
+                <input type="hidden" class="form-control" value="<?= $user_info['id'] ?>" name="req_id" readonly>
+                
                 <div class="form-group">
                     <label for="reqTitle">Judul Permintaan</label>
-                    <input type="text" class="form-control" id="reqTitle" name="reqTitle">
+                    <input type="text" class="form-control" id="reqTitle" name="reqTitle" required>
                 </div>
                 <div class="form-group">
                     <label for="nama">Nama</label>
-                    <input type="email" class="form-control" id="nama" value="<?= $user_info['full_name'] ?>" readonly>
+                    <input type="text" class="form-control" id="nama" value="<?= $user_info['full_name'] ?>" name="requester_name" readonly>
                 </div>
                 <div class="form-group">
                     <label for="posisi">Posisi</label>
@@ -98,19 +100,19 @@
                 </div>
                 <div class="form-group">
                     <label for="req_purpose">Tujuan Permintaan</label>
-                    <input type="text" class="form-control" id="req_purpose" name="req_purpose">
+                    <input type="text" class="form-control" id="req_purpose" name="req_purpose" required>
                 </div>
                 <div class="form-group">
                     <label for="startDate">Bulan Awal</label>
-                    <input type="date" class="form-control" id="startDate" name="startDate">
+                    <input type="date" class="form-control" id="startDate" name="startDate" required>
                 </div>
                 <div class="form-group">
                     <label for="endDate">Bulan Akhir</label>
-                    <input type="date" class="form-control" id="endDate" name="endDate">
+                    <input type="date" class="form-control" id="endDate" name="endDate" required>
                 </div>
                 <div class="form-group">
                     <label for="priority">Prioritas</label>
-                    <select class="form-control" id="priority" name="priority">
+                    <select class="form-control" id="priority" name="priority" required>
                         <option value="1">Priority</option>
                         <option value="2">Hight</option>
                         <option value="3">Medium</option>
