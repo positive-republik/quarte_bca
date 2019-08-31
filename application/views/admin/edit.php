@@ -25,11 +25,7 @@
     <input type="text" class="form-control bg-light" placeholder="Nip" name="nip" id="nip" value="<?= $user['nip']; ?>">
 </div>
 <div class="form-group">
-<<<<<<< HEAD
     <input type="email" class="form-control bg-light" placeholder="Email" name="email" id="email" value="<?= $user['email']; ?>">
-=======
-    <input type="text" class="form-control bg-light" placeholder="Email" name="email" id="email" value="<?= $user['email']; ?>">
->>>>>>> e4faebe5c8aebea9ad0508669df967f84bb1fb30
 </div>
 <div class="form-group">
     <input type="text" class="form-control bg-light" placeholder="Extention" name="extention" id="extention" value="<?= $user['extention']; ?>">

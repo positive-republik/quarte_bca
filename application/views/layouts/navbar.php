@@ -129,7 +129,7 @@
                 <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fas fa-envelope fa-fw"></i>
                   <!-- Counter - Qna -->
-                  <?php if($qna->num_rows()>0 && $qna->num_rows()<5) : ?>
+                  <?php if($qna->num_rows()>0 && $qna->num_rows()<=5) : ?>
                   <span class="badge badge-danger badge-counter"><?= $qna->num_rows() ?></span>
                     <?php elseif($qna->num_rows()>=5) : ?>
                     <span class="badge badge-danger badge-counter">5+</span>

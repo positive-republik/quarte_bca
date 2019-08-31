@@ -10,15 +10,21 @@
     </div>
 
 		<?php if ( isset($quest) ) : ?>
-			<?php foreach ( $quest as $q ) : ?>
-				<div class="card w-100 my-2" >
-						<div class="card-body">
-								<h5 class="card-title"><?= $q['produk']; ?></h5>
-								<p class="card-text"><?= $q['question']; ?></p>
-								<a href="<?= $q['answer_link'] ?>" class="card-link">Klik Disini</a>
-						</div>
-				</div>
-			<?php endforeach; ?>
+			<?php if ( count($quest) != 0 ) : ?>
+				<?php foreach ( $quest as $q ) : ?>
+					<div class="card w-100 my-2" >
+							<div class="card-body">
+									<h5 class="card-title"><?= $q['produk']; ?></h5>
+									<p class="card-text"><?= $q['question']; ?></p>
+									<a href="<?= $q['answer_link'] ?>" class="card-link">Klik Disini</a>
+							</div>
+					</div>
+				<?php endforeach; ?>
+			<?php else: ?>
+			<div class="alert alert-warning" role="alert">
+				Pertannyan yang bersangkutan belum tersedia, silakan bertanya
+			</div>
+			<?php endif; ?>
 		<?php endif; ?>
     
     <!-- Search qna -->
