@@ -140,18 +140,32 @@
                   <h6 class="dropdown-header">
                     Qna Center
                   </h6>
+                  <?php if ( count($qna->result_array()) != 0 ) : ?>
                     <?php foreach($qna->result_array() as $key) : ?>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                      <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                        <div class="status-indicator bg-success"></div>
+                      <?php if ( $key['status'] == 1 ) : ?>
+                      <div class="alert alert-warning" role="alert">
+                        Pertanyaan anda belum direspon
                       </div>
-                      <div class="font-weight-bold">
-                        <div class="text-truncate"><?= $key['question'] ?></div>
-                        <div class="small text-gray-500"><?= $key['asker_name'] ?> · <?= substr($key['created_at'],0,10) ?></div>
-                      </div>
-                    </a>
+                      <?php elseif ( $key['status'] == 2 ) : ?>
+                        <a class="dropdown-item d-flex align-items-center" href="<?= base_url('guest/read/' . $key['id']) ?>">
+                          <div class="dropdown-list-image mr-3">
+                            <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
+                            <!-- <a href="#" class="badge badge-primary">Primary</a> -->
+                            <div class="status-indicator bg-success"></div>
+                          </div>
+                          <div class="font-weight-bold">
+                            <div class="text-truncate"><?= $key['question'] ?></div>
+                            <div class="small text-gray-500"><?= $key['asker_name'] ?> · <?= substr($key['created_at'],0,10) ?> </div>
+                          </div>
+                        </a>
+                      <?php endif; ?>
                     <?php endforeach; ?>
+                  <?php else: ?>
+                  <div class="alert alert-warning" role="alert">
+                    Anda belum mengajukan pertanyaan, klik <a href="<?= base_url('guest/qna'); ?>" class="alert-link">disini</a> untuk bertanya.
+                    <?php var_dump(count($qna->result_array())); ?>
+                  </div>
+                  <?php endif; ?>
                     <!-- Check if null -->
                     <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
                 </div>

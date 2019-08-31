@@ -46,14 +46,24 @@ class Guest extends CI_Controller {
         $data['produk'] = $this->guest_models->getProduk();
 
 		// Get user detail by id
-		$data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
-		
+        $data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
+
+        $this->form_validation->set_rules('produk', 'Produk', 'required');
+        
+        if ($this->form_validation->run()) {
+            // Get data question
+            $data['quest'] = $this->guest_models->getQuestion();
+        } else {
+            // exit;
+        }
+        
 		// Load views
-		$this->load->view('layouts/header',$data);
-		$this->load->view('layouts/sidebar',$data);
+        $this->load->view('layouts/header',$data);
+        $this->load->view('layouts/sidebar',$data);
         $this->load->view('layouts/navbar',$data);
-		$this->load->view('guest/qna',$data);
-		$this->load->view('layouts/footer');
+        $this->load->view('guest/qna',$data);
+        $this->load->view('layouts/footer');
+		
     }
 
     // Add request data 
@@ -93,6 +103,29 @@ class Guest extends CI_Controller {
                     document.location.href='".base_url()."';
                 </script>";
         }
+    }
+    // Add Data Qna
+    public function addQnA()
+    {
+        $this->form_validation->set_rules('produk', 'Produk', 'required');
+        $this->form_validation->set_rules('question', 'Question', 'required');
+        $this->form_validation->set_rules('id', '', '');
+        $this->form_validation->set_rules('username', '', '');
+
+        if ($this->form_validation->run() == FALSE) {
+
+            redirect(base_url('guest/qna'));
+
+        } else {
+            $this->guest_models->addDataQnA();
+            redirect(base_url());
+        }
+    }
+    // Read QnA for update status to 3
+    public function read($id)
+    {
+        $this->guest_models->readQnA($id);
+        redirect(base_url());
     }
 
 }

@@ -17,7 +17,7 @@ class guest_models extends CI_Model {
     public function getRessQna($id)
     {
         $this->db->order_by("created_at", "DESC");
-        $this->db->where(array('asker_id' => $id,'answer !=' => NULL));
+        // $this->db->where(array('asker_id' => $id,'answer !=' => NULL));
         return $this->db->get('qna',5);
     }
 
@@ -58,5 +58,36 @@ class guest_models extends CI_Model {
         );
 
         $this->db->insert('request',$query);
+    }
+
+    // Add QnA
+    public function addDataQnA()
+    {
+        $data = [
+            'produk' => $this->input->post('produk'),
+            'asker_id' => $this->input->post('id'),
+            'asker_name' => $this->input->post('username'),
+            'question' => $this->input->post('question'),
+            'answer' => NULL,
+            'answer_link' => '',
+            'status' => 1
+        ];
+        return $this->db->insert('qna', $data);
+    }
+
+    public function readQnA($id)
+    {
+        $data = [
+            'status' => 3
+        ];
+        return $this->db->update('qna', $data, ['id' => $id]);
+    }
+
+    public function getQuestion()
+    {
+        $produk = $this->input->post('produk');
+
+        return $this->db->get_where('qna', ['produk' => $produk])->result_array();
+        
     }
 }
