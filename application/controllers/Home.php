@@ -30,6 +30,15 @@ class Home extends CI_Controller {
 			$this->load->model('uploader_models');
 			$data['qna'] = $this->uploader_models->getAllQna();
 			$data['req'] = $this->uploader_models->getAllRequest();
+		} 
+		// Load if role guest
+		elseif ($this->session->userdata('role') == 3) {
+			$this->load->model('guest_models');
+			$data['qna'] = $this->guest_models->getRessQna($this->session->userdata('id_user'));
+			$data['req'] = $this->guest_models->getRessReq($this->session->userdata('id_user'));
+			$data['produk'] = $this->guest_models->getProduk();
+			$data['kategori'] = $this->guest_models->getKategori();
+			$data['roleName'] = $this->guest_models->getRoleById($this->session->userdata('role'));
 		}
 
 		// Load views

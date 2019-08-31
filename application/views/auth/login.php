@@ -18,7 +18,7 @@
                 <div class="form-items">
                     <h3 class="mb-4">Login to account</h3>
                     <form method="post" action="<?= base_url('auth/login') ?>">
-                        <input class="form-control" type="text" name="username" placeholder="Username" required>
+                        <input class="form-control" type="text" name="username" placeholder="Username" value="<?= set_value('username') ?>" required>
                         <input class="form-control" type="password" name="password" placeholder="Password" required>
                         <div class="form-button">
                             <button id="submit" type="submit" class="ibtn w-100">Login</button>

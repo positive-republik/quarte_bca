@@ -47,6 +47,29 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider">
+      
+      <?php elseif($this->session->userdata('role') == 3) : ?>
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Guest Panel
+      </div>
+
+      <!-- Nav Item - Data Management -->
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fas fa-fw fa-comments"></i>
+          <span>Qna</span></a>
+      </li>
+
+      <!-- Nav Item - Data Management -->
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fas fa-fw fa-clipboard-list"></i>
+          <span>Request</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
       <?php endif; ?>
 
       <!-- Sidebar Toggler (Sidebar) -->

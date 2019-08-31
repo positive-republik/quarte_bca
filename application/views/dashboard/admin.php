@@ -194,7 +194,7 @@
             <small  class="form-text text-danger"><?= form_error('username') ?></small>
           </div>
           <div class="form-group">
-            <input type="text" class="form-control bg-light" placeholder="Password"  name="password" value="<?= random_string('alnum', 9) ?>" required>
+            <input type="text" class="form-control bg-light" placeholder="Password"  name="password" value="<?= random_string('alnum', 6) ?>" required>
             <small  class="form-text text-danger"><?= form_error('password') ?></small>
           </div>
         </div>

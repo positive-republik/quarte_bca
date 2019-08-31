@@ -32,6 +32,15 @@ class Uploader_models extends CI_Model {
             );
 
         $this->db->insert('data_upload',$query);
+
+        $checkProduk = $this->db->get_where('produk',array('produk' => $produk));
+        $checkKategori = $this->db->get_where('kategori',array('kategori' => $kategori));
+
+        if ($checkProduk->num_rows() === 0) {
+            $this->db->insert('produk',array('id' => NULL, 'produk' => $produk));
+        } elseif ($checkKategori->num_rows() === 0) {
+            $this->db->insert('kategori',array('id' => NULL, 'kategori' => $kategori));
+        }
     }
 
     // Get all qna table
