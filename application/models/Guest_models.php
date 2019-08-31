@@ -60,6 +60,7 @@ class guest_models extends CI_Model {
         $this->db->insert('request',$query);
     }
 
+<<<<<<< HEAD
     // Add QnA
     public function addDataQnA()
     {
@@ -90,4 +91,12 @@ class guest_models extends CI_Model {
         return $this->db->get_where('qna', ['produk' => $produk])->result_array();
         
     }
+=======
+    // Get all req data by id user
+    public function getReqData($id)
+    {
+        return $this->db->get_where('request_data',array('requester_id' => $id));
+    }
+
+>>>>>>> e4faebe5c8aebea9ad0508669df967f84bb1fb30
 }

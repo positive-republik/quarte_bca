@@ -33,14 +33,14 @@
 
       <!-- Nav Item - Data Management -->
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="<?= base_url('uploader/qna_manage') ?>">
           <i class="fas fa-fw fa-comments"></i>
           <span>Qna Management</span></a>
       </li>
 
       <!-- Nav Item - Data Management -->
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="<?= base_url('uploader/req_manage') ?>">
           <i class="fas fa-fw fa-clipboard-list"></i>
           <span>Request Management</span></a>
       </li>

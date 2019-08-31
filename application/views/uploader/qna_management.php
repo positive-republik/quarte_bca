@@ -3,13 +3,11 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between my-4">
-        <h1 class="h3 mb-0 text-gray-800">Request</h1>
-        <!-- Add button trigger -->
-        <a href="#" class="d-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addUser"><i class="fas fa-file-import fa-sm text-white-50"></i> Export To Excel</a>
+        <h1 class="h3 mb-0 text-gray-800">Qna Management</h1>
     </div>
 
     <!-- DataTales Users -->
-    <div class="card shadow-sm mb-5">
+    <div class="card shadow-sm mb-5">    
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -17,22 +15,22 @@
                         <tr>
                             <th>No</th>
                             <th>Produk</th>
-                            <th>Kategori</th>
+                            <th>Peranyaan</th>
+                            <th>Respon</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($req_data->result_array() as $key) : ?>
                         <tr>
-                            <td><?= $key['id'] ?></td>
-                            <td><?= $key['produk'] ?></td>
-                            <td><?= $key['kategori'] ?></td>
+                            <td>lorem</td>
+                            <td>lorem</td>
+                            <td>lorem</td>
+                            <td><a href="#" class="badge badge-primary">Respon</a></td>
                         </tr>
-                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
         </div>
-  </div>
+    </div>
 
 </div>
 <!-- /.container-fluid -->
