@@ -57,6 +57,11 @@
 
   <!-- Page level custom scripts -->
   <script src="<?= base_url('assets/vendor/sb-admin/') ?>js/demo/datatables-demo.js"></script>
+
+  <?php if ( isset($ajax) ) : ?>
+  <!-- Ajax -->
+  <script src="<?= base_url('assets/js/' . $ajax . '.js'); ?>"></script>
+  <?php endif; ?>
   
   <!-- Uploader Page Script -->
   <script>

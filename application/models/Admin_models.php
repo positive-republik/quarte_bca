@@ -30,6 +30,12 @@ class admin_models extends CI_Model {
         return $this->db->count_all_results('users');
     }
 
+    // Get data from id
+    function getDataFromId($id)
+    {
+        return $this->db->get_where('users', ['id' => $id])->row_array();
+    }
+
     // Add User into database
     function addUser($input)
     {
@@ -73,6 +79,23 @@ class admin_models extends CI_Model {
             $this->db->insert('users', $query);
         }
 
+    }
+
+    // Update user
+    public function updateUser($id)
+    {
+        $data = [
+            'full_name'  =>  $_POST['full_name'], 
+            'role_id'    =>  $_POST['role_id'], 
+            'unit_kerja' =>  $_POST['unit_kerja'],
+            'extention' =>  $_POST['extention'],
+            'nip'	     =>  $_POST['nip'],
+            'ttl'        =>  $_POST['ttl'],
+            'domain'	 =>  $_POST['domain'],
+            'username'	 =>  $_POST['username'],
+            'password'	 =>  password_hash($_POST['password'],PASSWORD_DEFAULT)
+        ];
+        return $this->db->update('users', $data, ['id' => $id]);
     }
     
     // Delete user

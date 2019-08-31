@@ -121,8 +121,9 @@
               <td><?= $key['password'] ?></td>
               <td><?= substr($key['created_at'],0,10) ?></td>
               <td>
-                <a href="#" class="badge badge-warning p-2"><i class="fas fa-edit"></i></a>
-                <a href="#" class="badge badge-danger p-2" onclick="return swal({ title: 'Are you sure?',text: 'Once deleted, you will not be able to recover this data!',icon: 'warning',buttons: true,dangerMode: true,}).then(function() {window.location = 'admin/delete/'+<?= $key['id']?>;});"><i class="fas fa-trash-alt"></i></a>
+                <!-- <a href="#" class="badge badge-warning p-2"><i class="fas fa-edit"></i></a> -->
+                <button type="button" class="badge badge-warning p-2 btnEdit" data-id="<?= $key['id']; ?>" data-toggle="modal" data-target="#editUser"><i class="fas fa-edit"></i></button>
+                <a href="" class="badge badge-danger p-2" onclick="return swal({ title: 'Are you sure?',text: 'Once deleted, you will not be able to recover this data!',icon: 'warning',buttons: true,dangerMode: true,}).then(function() {window.location = 'admin/delete/'+<?= $key['id']?>;});"><i class="fas fa-trash-alt"></i></a>
               </td>
             </tr>
             <?php endforeach; ?>
@@ -206,3 +207,28 @@
     </div>
   </div>
 </div>
+
+<form action="<?= base_url('Admin/update/'); ?>" method="post" id="updateData">
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Edit User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="editData">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary ">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</form>
