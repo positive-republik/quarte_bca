@@ -54,7 +54,7 @@ class Admin extends CI_Controller {
             $this->load->view('layouts/sidebar');
             $this->load->view('layouts/navbar',$data);
             $this->load->view('dashboard/admin',$data);
-            $this->load->view('layouts/footer');
+            $this->load->view('layouts/footer', $data);
         }else {
 
             // Input Data Filter
@@ -75,6 +75,52 @@ class Admin extends CI_Controller {
 			$this->session->set_flashdata('succAdd',' ');
             redirect(base_url());
         }
+    }
+
+    // Set Data User for Edit
+    public function setData($id)
+    {
+        $data = [
+            'user' => $this->admin_models->getDataFromId($id)
+        ];
+        // var_dump($data);
+        $this->load->view('admin/edit', $data);
+    }
+
+    public function update($id)
+    {
+        // Data to check on ajax
+        $data['success'] = FALSE;
+        $data['messages'] = [];
+
+        // Set delimiter errors
+        $this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
+        // Set rules
+        $this->form_validation->set_rules('full_name','Nama','required');
+		$this->form_validation->set_rules('role_id','Posisi','required|numeric|max_length[1]');
+        $this->form_validation->set_rules('unit_kerja','Unit Kerja','required');
+        $this->form_validation->set_rules('extention','Extention','required');
+		$this->form_validation->set_rules('nip','Nip','required|numeric');
+		$this->form_validation->set_rules('ttl','Tanggal Lahir','required');
+		$this->form_validation->set_rules('domain','Domain','required');
+		$this->form_validation->set_rules('username','Username','required|min_length[6]');
+        $this->form_validation->set_rules('password','Password','required|min_length[6]');
+        
+        
+        if ($this->form_validation->run() == TRUE) {
+            // Set Data and Update Data if there's no errors
+            $data['success'] = TRUE;
+            $this->admin_models->updateUser($id);
+        } else {
+            // Check Validation
+            foreach ( $_POST as $key => $value )
+            {
+                // Add to error
+                $data['messages'][$key] = form_error($key);
+            }
+        }
+        
+        echo json_encode($data);
     }
     
     // Delete User

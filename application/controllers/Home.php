@@ -73,6 +73,10 @@ class Home extends CI_Controller {
 		$data['count_all_users'] = $this->admin_models->getALlUserCount();
 		$data['count_uploader'] = $this->admin_models->getNumRowsData(2,'users');
 		$data['count_guest'] = $this->admin_models->getNumRowsData(3,'users');
+
+		// Ajax
+		$data['ajax'] = 'admin';
+
 		$this->load->view('dashboard/admin',$data); //ADMIN VIEWS
 	}
 	
