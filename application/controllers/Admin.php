@@ -30,8 +30,8 @@ class Admin extends CI_Controller {
 		$this->form_validation->set_rules('nip','Nip','required|numeric');
 		$this->form_validation->set_rules('ttl','Tanggal Lahir','required');
 		$this->form_validation->set_rules('domain','Domain','required');
-		$this->form_validation->set_rules('username','Username','required|min_length[9]');
-		$this->form_validation->set_rules('password','Password','required|min_length[9]');
+		$this->form_validation->set_rules('username','Username','required|min_length[6]');
+		$this->form_validation->set_rules('password','Password','required|min_length[6]');
         
         // Check Data valid
         if($this->form_validation->run() == false){
@@ -42,7 +42,8 @@ class Admin extends CI_Controller {
             $data['users'] = $this->admin_models->getAllUser();
             $this->load->model('auth_models');
             $data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
-
+            $data['role_info'] = $this->admin_models->getRoleName();
+		
             // Counting
             $data['count_all_users'] = $this->admin_models->getALlUserCount();
             $data['count_uploader'] = $this->admin_models->getNumRowsData(2,'users');

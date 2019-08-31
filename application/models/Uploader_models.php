@@ -2,17 +2,6 @@
 
 class Uploader_models extends CI_Model {
     
-    //Insert data from excel to db 
-    function insertDataFile($a,$b)
-    {
-        $query = array( 
-                'id'	     =>  NULL,
-                'a'  =>  $a, 
-                'b'    =>  $b
-            );
-        $this->db->insert('TEST',$query);
-    }
-
     // Get all data history
     function getDataHistory()
     {
@@ -31,5 +20,29 @@ class Uploader_models extends CI_Model {
             );
 
         $this->db->insert('upload_history',$query);
+    }
+
+    // Add upload data to database
+    function insertDataFile($produk,$kategori)
+    {
+        $query = array( 
+                'id' =>  NULL,
+                'produk'  =>  $produk, 
+                'kategori'  =>  $kategori
+            );
+
+        $this->db->insert('data_upload',$query);
+    }
+
+    // Get all qna table
+    public function getAllQna()
+    {
+        return $this->db->get_where('qna',array('status' => NULL));
+    }
+
+    // Get all request table
+    public function getAllRequest()
+    {
+        return $this->db->get_where('request',array('req_status' => NULL));
     }
 }

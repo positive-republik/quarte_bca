@@ -24,10 +24,17 @@ class Home extends CI_Controller {
 		// Get user detail by id
 		$this->load->model('auth_models');
 		$data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
+		
+		// Load if role uploader
+		if ($this->session->userdata('role') == 2) {
+			$this->load->model('uploader_models');
+			$data['qna'] = $this->uploader_models->getAllQna();
+			$data['req'] = $this->uploader_models->getAllRequest();
+		}
 
 		// Load views
 		$this->load->view('layouts/header',$data);
-		$this->load->view('layouts/sidebar');
+		$this->load->view('layouts/sidebar',$data);
 		$this->load->view('layouts/navbar',$data);
 		
 		// Select view by role
@@ -35,6 +42,8 @@ class Home extends CI_Controller {
 			$this->admin($data['user_info']);
 		} elseif($this->session->userdata('role') == 2) {
 			$this->uploader($data['user_info']);
+		} else {
+			$this->guest($data['user_info']);
 		}
 		
 		$this->load->view('layouts/footer');
@@ -58,11 +67,18 @@ class Home extends CI_Controller {
 		$this->load->view('dashboard/admin',$data); //ADMIN VIEWS
 	}
 	
+	// Uploader Data
 	public function uploader($user_info)
 	{
-		$this->load->model('uploader_models');
 		$data['user_info'] = $user_info;
 		$data['all_upload'] = $this->uploader_models->getDataHistory();
-		$this->load->view('dashboard/uploader',$data);
+		$this->load->view('dashboard/uploader',$data); //Uploader Views
+	}
+
+	// Guest Data
+	public function guest($user_info)
+	{
+		$data['user_info'] = $user_info;
+		$this->load->view('dashboard/guest',$data); //Uploader Views
 	}
 }

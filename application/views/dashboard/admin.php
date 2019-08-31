@@ -94,7 +94,7 @@
           <thead>
             <tr>
               <th>Name</th>
-              <th>Posisi</th>
+              <th>Hak Akses</th>
               <th>Unit Keja</th>
               <th>NIP</th>
               <th>Ttl</th>
@@ -167,7 +167,7 @@
           </div>
           <div class="form-group">
             <select class="form-control bg-light" name="role_id" required>
-              <option selected disabled>Posisi</option>
+              <option selected disabled>Hak Akses</option>
               <option value="1">Admin</option>
               <option value="2">Uploader</option>
               <option value="3">Guest</option>
@@ -177,9 +177,6 @@
             <input type="text" class="form-control bg-light" placeholder="Unit Kerja" name="unit_kerja" value="<?= set_value('unit_kerja') ?>" required>
           </div>
           <div class="form-group">
-            <input type="text" class="form-control bg-light" placeholder="Extention" name="extention" value="<?= set_value('extention') ?>" required>
-          </div>
-          <div class="form-group">
             <input type="text" class="form-control bg-light" placeholder="Nip" name="nip" value="<?= set_value('nip') ?>" required>
             <small  class="form-text text-danger"><?= form_error('nip') ?></small>
           </div>
@@ -187,10 +184,13 @@
             <input type="date" class="form-control bg-light" placeholder="Tanggal Lahir" name="ttl" value="<?= set_value('ttl') ?>" required>
           </div>
           <div class="form-group">
+            <input type="text" class="form-control bg-light" placeholder="Extention" name="extention" value="<?= set_value('extention') ?>" required>
+          </div>
+          <div class="form-group">
             <input type="text" class="form-control bg-light" placeholder="Domain" name="domain" value="<?= set_value('domain') ?>" required>
           </div>
           <div class="form-group">
-            <input type="text" class="form-control bg-light" placeholder="Username" name="username" value="<?= random_string('alnum', 9) ?>" required>
+            <input type="text" class="form-control bg-light" placeholder="Username" name="username" value="<?= random_string('alnum', 6) ?>" required>
             <small  class="form-text text-danger"><?= form_error('username') ?></small>
           </div>
           <div class="form-group">

@@ -17,6 +17,7 @@ class Uploader extends CI_Controller {
 		
     }
 
+    // Upload System
     public function upload()
     {
         if (isset($_FILES['excel'])) {
@@ -57,4 +58,5 @@ class Uploader extends CI_Controller {
             redirect(base_url());
         }
     }
+
 }
