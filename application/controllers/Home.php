@@ -20,7 +20,7 @@ class Home extends CI_Controller {
 	{
 		// Data for this page
 		$data['title'] = "Home | Quartee";
-
+		
 		// Get user detail by id
 		$this->load->model('auth_models');
 		$data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));

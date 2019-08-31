@@ -54,4 +54,10 @@ class Uploader_models extends CI_Model {
     {
         return $this->db->get_where('request',array('req_status' => NULL));
     }
+
+    // Get all request data in manage request page
+    public function getAllReqDataManage()
+    {
+        return $this->db->get_where('request',array('req_status' => NULL));
+    }
 }

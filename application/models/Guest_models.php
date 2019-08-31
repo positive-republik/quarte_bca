@@ -59,4 +59,11 @@ class guest_models extends CI_Model {
 
         $this->db->insert('request',$query);
     }
+
+    // Get all req data by id user
+    public function getReqData($id)
+    {
+        return $this->db->get_where('request_data',array('requester_id' => $id));
+    }
+
 }

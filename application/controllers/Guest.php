@@ -21,10 +21,10 @@ class Guest extends CI_Controller {
     public function request()
     {
 		// Data for this page
-		$data['title'] = "Request | Quartee";
+        $data['title'] = "Request | Quartee";
         $data['qna'] = $this->guest_models->getRessQna($this->session->userdata('id_user'));
         $data['req'] = $this->guest_models->getRessReq($this->session->userdata('id_user'));
-
+        $data['req_data'] = $this->guest_models->getReqData($this->session->userdata('id_user'));
 		// Get user detail by id
 		$data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
 		
