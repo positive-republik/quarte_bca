@@ -1,11 +1,13 @@
 $(document).ready(function() {
 
+    // Set Edit
     $('#dataTable').on('click', 'button.btnEdit', function() {
         var id = $(this).data('id');
 
         editUser(id);
     });
 
+    // Update Data
     $('form#updateData').on('submit', function(e) {
         e.preventDefault();
         var id = $('input[name=id]').val();
@@ -15,6 +17,16 @@ $(document).ready(function() {
         updateUser(form, id);
     });
 
+    // Delete Data
+    $('#dataTable').on('click', 'button.mDelete', function() {
+        var id = $(this).data('id');
+        $('#deleteUser').modal('show');
+
+        $('#deleteUser').on('click', 'button.btnDelete', function() {
+            window.location.href="http://localhost/project_/quarte_bca/Admin/delete/" + id;
+        });
+
+    });
 });
 
 function editUser(id) {
@@ -57,8 +69,4 @@ function updateUser(form, id) {
             }
         }
     });
-}
-
-function refresh() {
-    
 }
