@@ -145,7 +145,8 @@ class Uploader extends CI_Controller {
     public function responeReq()
     {   
          if (isset($_FILES['excel'])) {
-        
+            $requester_id = $this->input->post('requester_id');
+            
             // Data File
             $upload_dir = 'assets/vendor/phpspreadsheet/file';
             $target = basename($_FILES['excel']['name']);
@@ -163,10 +164,13 @@ class Uploader extends CI_Controller {
             $nr = count($xls_data); 
             $allData = 0;
             
-            //Loop data and insert into database
+            //Loop data and insert into database$requester_id
             for($i=2; $i<=$nr; $i++){
-                $this->uploader_models->insertReqData($xls_data[$i]['A'],$xls_data[$i]['B']);
+                $this->uploader_models->insertReqData($xls_data[$i]['A'],$xls_data[$i]['B'],$requester_id);
             }
+            // Get req id
+
+            $this->uploader_models->editStatusRequest($requester_id,2);
 
             // hapus kembali file .xls yang di upload tadi
             unlink($inputFileName);

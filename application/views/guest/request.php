@@ -5,7 +5,7 @@
     <div class="d-sm-flex align-items-center justify-content-between my-4">
         <h1 class="h3 mb-0 text-gray-800">Request</h1>
         <!-- Add button trigger -->
-        <a href="#" class="d-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addUser"><i class="fas fa-file-import fa-sm text-white-50"></i> Export To Excel</a>
+        <a href="<?= base_url('guest/export_excel_request/').$user_info['id'] ?>" class="d-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-file-import fa-sm text-white-50"></i> Export To Excel</a>
     </div>
 
     <!-- DataTales Users -->

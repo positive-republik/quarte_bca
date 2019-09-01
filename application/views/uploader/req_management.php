@@ -33,19 +33,20 @@
                             <td><?= $key['req_start'] ?></td>
                             <td><?= $key['req_end'] ?></td>
                             <td><?= $key['req_priority'] ?></td>
-                            <td><a href="#" class="badge badge-primary" data-toggle="modal" data-target="#exampleModal">Respon</a></td>
+                            <td><a href="#" class="badge badge-primary" data-toggle="modal" data-target="#ressModal<?= $key['id'] ?>">Respon</a></td>
                         </tr>
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="ressModal<?= $key['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="ressModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Respon Request</h5>
+                                        <h5 class="modal-title" id="ressModalLabel">Respon Request</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <form action="<?= base_url('uploader/responeReq') ?>" method="post" enctype="multipart/form-data">
+                                        <input type="hidden" name="requester_id" value="<?= $key['requester_id'] ?>">
                                         <div class="modal-body">
                                             <div class="input-group mt-4 mb-2">
                                                 <label class="input-group-btn">

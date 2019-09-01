@@ -7,6 +7,11 @@ class guest_models extends CI_Model {
         return $this->db->get_where('role',array('id' => $id))->result_array()[0];
     }
 
+    // getRequest Data
+    public function getRequestData($id)
+    {
+        return $this->db->get_where('request_data',array('requester_id'=>$id));
+    }
     // Fetch getAllQna
     public function getAllQna($id)
     {
@@ -81,6 +86,11 @@ class guest_models extends CI_Model {
             'status' => 3
         ];
         return $this->db->update('qna', $data, ['id' => $id]);
+    }
+
+    public function export_data_req($id)
+    {
+        return $this->db->get_where('request_data',array('requester_id'=>$id));
     }
 
     public function getQuestion()
