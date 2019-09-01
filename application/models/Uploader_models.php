@@ -90,7 +90,8 @@ class Uploader_models extends CI_Model {
             'status' => 2
         ];
         return $this->db->update('qna', $data, ['id' => $id]);
-        
+    }
+    
     // change status request
     function editStatusRequest($requester_id,$status)
     {
