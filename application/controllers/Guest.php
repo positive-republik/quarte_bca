@@ -24,7 +24,8 @@ class Guest extends CI_Controller {
         $data['title'] = "Request | Quartee";
         $data['qna'] = $this->guest_models->getRessQna($this->session->userdata('id_user'));
         $data['req'] = $this->guest_models->getRessReq($this->session->userdata('id_user'));
-        $data['req_data'] = $this->guest_models->getReqData($this->session->userdata('id_user'));
+        $data['req_data'] = $this->guest_models->getRequestData($this->session->userdata('id_user'));
+
 		// Get user detail by id
 		$data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
 		
@@ -34,6 +35,13 @@ class Guest extends CI_Controller {
         $this->load->view('layouts/navbar',$data);
 		$this->load->view('guest/request');
 		$this->load->view('layouts/footer');
+    }
+
+    // Export request data to excel
+    public function export_excel_request($id)
+    {
+		$data['export_data'] = $this->guest_models->export_data_req($id);
+        $this->load->view('guest/exportReqExcel',$data);
     }
 
     // Request Page

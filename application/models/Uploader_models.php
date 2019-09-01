@@ -62,16 +62,26 @@ class Uploader_models extends CI_Model {
     }
 
     // insert into request_data
-    public function insertReqData($produk, $kategori)
+    public function insertReqData($produk, $kategori,$requester_id)
     {
         $query = array( 
                 'id' =>  NULL,
                 'produk'  =>  $produk, 
                 'kategori'  =>  $kategori,
-                'requester_id'  =>  2,
-                'created_at'  =>  $kategori
+                'requester_id'  =>  $requester_id,
+                'created_at'  =>  NULL
             );
 
         $this->db->insert('request_data',$query);
+    }
+
+    // change status request
+    function editStatusRequest($requester_id,$status)
+    {
+         $data = [
+            'req_status' => $status,
+        ];
+        $this->db->where('requester_id', $requester_id);
+        $this->db->update('request', $data);
     }
 }
