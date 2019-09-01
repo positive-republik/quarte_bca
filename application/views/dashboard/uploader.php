@@ -11,32 +11,29 @@
 
     <!-- DataTales Users -->
     <div class="card shadow-sm mb-5">
-        <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">User Management</h6>
-        </div>
         <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Tanggal Upload</th>
-                    <th>Jumlah Upload</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $i=1; foreach($all_upload as $key) : ?>
-                <tr>
-                    <td><?= $i; ?></td>
-                    <td><?= substr($key['date'],0,10) ?></td>
-                    <td><?= $key['total'] ?></td>
-                    <td></td>
-                </tr>
-                <?php $i++; endforeach; ?>
-            </tbody>
-            </table>
-        </div>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Tanggal Upload</th>
+                        <th>Jumlah Upload</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i=1; foreach($all_upload as $key) : ?>
+                    <tr>
+                        <td><?= $i; ?></td>
+                        <td><?= substr($key['date'],0,10) ?></td>
+                        <td><?= $key['total'] ?></td>
+                        <td></td>
+                    </tr>
+                    <?php $i++; endforeach; ?>
+                </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -62,6 +59,11 @@
       </div>
       <form method="post" action="<?= base_url('uploader/upload') ?>" enctype="multipart/form-data">
         <div class="modal-body">
+            <?php if($getUploadCheck == 1) : ?>
+            <div class="alert alert-danger" role="alert">
+                Anda sudah mengupload data pada bulan ini. Yakin akan melanjutkannya dan menghapus data sebelumnya ?
+            </div>
+            <?php endif; ?>
             <div class="form-group">
                 <label for="full_name">Uploader Name</label>
                 <input type="text" class="form-control" id="full_name" value="<?= $user_info['full_name'] ?>" readonly>

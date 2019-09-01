@@ -30,7 +30,7 @@ class guest_models extends CI_Model {
     public function getRessReq($id)
     {
         $this->db->order_by("created_at", "DESC");
-        $this->db->where(array('requester_id' => $id,'req_status' => 1));
+        $this->db->where(array('requester_id' => $id,'req_status' => 2));
         return $this->db->get('request',5);
     }
 
@@ -105,15 +105,49 @@ class guest_models extends CI_Model {
     public function run_report($input)
     {   
         if (count($input['kategori']) < 2) {
-            return $this->db->get_where('data_upload',array('produk' => $input['produk'], 'kategori' => $input['kategori'][0]))->result_array();
+            return $this->db->select('kategori, produk, month, count(*) as cnt')->where(array('produk' => $input['produk'], 'kategori' => $input['kategori'][0]))->group_by(array("month","produk","kategori"))->having("cnt > 1", null, false)->get('data_upload')->result_array(); 
         } else {
+            $this->db->select('kategori, produk, month, count(*) as cnt');
             $this->db->where('produk', $input['produk']);
             $this->db->where('kategori', $input['kategori'][0]);
             for ($i=1; $i < count($input['kategori']); $i++) { 
                 $this->db->or_where('kategori', $input['kategori'][$i]);
             }
+            $this->db->group_by(array("month","produk","kategori"));
+            $this->db->having("cnt > 1", null, false);
             return $this->db->get('data_upload')->result_array();
         }
         
+    }
+
+    // Get data for month chart
+    public function run_report_month($input)
+    {
+        // Create month
+        $month = array('0' => 0);;
+        for ($i=1; $i <= 11; $i++) { 
+            array_push($month,0);
+        }
+        if (count($input['kategori']) < 2) {
+            $q=$this->db->select('month, count(*) as cnt')->group_by(array("month"))->get_where("data_upload",array('produk' => $input['produk'], 'kategori' => $input['kategori'][0]))->result_array(); 
+        } else {
+            $q=$this->db->select('month, count(*) as cnt');
+            $this->db->where('produk', $input['produk']);
+            $this->db->where('kategori', $input['kategori'][0]);
+            for ($i=1; $i < count($input['kategori']); $i++) { 
+                $this->db->or_where('kategori', $input['kategori'][$i]);
+            }
+            $this->db->group_by(array("month"));
+            $q=$this->db->get('data_upload')->result_array();
+        }
+        
+        for ($i=0; $i < 2; $i++) {
+            for ($z=0; $z < 11; $z++) { 
+                if ($z == $q[$i]['month']) {
+                    $month[$z] = $q[$i]['cnt'];
+                }
+            } 
+        }
+        return $month;
     }
 }

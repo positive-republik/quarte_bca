@@ -2,12 +2,29 @@
 
 class Uploader_models extends CI_Model {
     
+    // Get if uploader already upload in this month 
+    function checkUploadThisMonth()
+    {
+        $query = $this->db->get_where('upload_history',array('user_id'=>$this->session->userdata('id_user'),'month'=>date('m')));
+        if ($query->num_rows()>0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
     // Get all data history
     function getDataHistory()
     {
         return $this->db->get('upload_history')->result_array();
     }
     
+    // Delete data upload if double upload
+    function deleteDataUpload()
+    {
+        $this->db->delete('data_upload', array('user_id' => $this->session->userdata('id_user'),'month'=>date('m'))); 
+    }
+
     // Add upload history to database
     function addUploadHistory($numRows)
     {
@@ -27,8 +44,10 @@ class Uploader_models extends CI_Model {
     {
         $query = array( 
                 'id' =>  NULL,
+                'month' =>  date('m'),
                 'produk'  =>  $produk, 
-                'kategori'  =>  $kategori
+                'kategori'  =>  $kategori,
+                'user_id' => $this->session->userdata('id_user')
             );
 
         $this->db->insert('data_upload',$query);

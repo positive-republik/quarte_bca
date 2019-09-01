@@ -101,7 +101,11 @@ class Uploader extends CI_Controller {
 
     // Upload System
     public function upload()
-    {
+    {   
+        $uploadCek = $this->uploader_models->checkUploadThisMonth();
+        if ($uploadCek > 0) {
+            $this->uploader_models->deleteDataUpload();
+        }
         if (isset($_FILES['excel'])) {
         
             // Data File27768

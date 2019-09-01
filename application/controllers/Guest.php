@@ -155,6 +155,8 @@ class Guest extends CI_Controller {
         $data['data'] = $this->guest_models->run_report($input);
         $data['qna'] = $this->guest_models->getRessQna($this->session->userdata('id_user'));
         $data['req'] = $this->guest_models->getRessReq($this->session->userdata('id_user'));
+        $data['chartReq'] = true;
+        $data['chartVal'] = $this->guest_models->run_report_month($input);
 
 		// Get user detail by id
         $data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
@@ -164,6 +166,6 @@ class Guest extends CI_Controller {
         $this->load->view('layouts/sidebar',$data);
         $this->load->view('layouts/navbar',$data);
         $this->load->view('guest/report',$data);
-        $this->load->view('layouts/footer');
+        $this->load->view('layouts/footer',$data);
     }
 }
