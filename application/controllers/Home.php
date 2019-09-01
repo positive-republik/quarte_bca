@@ -85,6 +85,7 @@ class Home extends CI_Controller {
 	{
 		$data['user_info'] = $user_info;
 		$data['all_upload'] = $this->uploader_models->getDataHistory();
+		
 		$this->load->view('dashboard/uploader',$data); //Uploader Views
 	}
 

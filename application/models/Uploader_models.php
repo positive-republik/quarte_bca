@@ -46,7 +46,13 @@ class Uploader_models extends CI_Model {
     // Get all qna table
     public function getAllQna()
     {
-        return $this->db->get_where('qna',array('status' => NULL));
+        return $this->db->get_where('qna',array('status' => 1));
+    }
+
+    // Get QnA by id
+    public function getDataQnAById($id)
+    {
+        return $this->db->get_where('qna', ['id' => $id])->row_array();
     }
 
     // Get all request table
@@ -73,5 +79,17 @@ class Uploader_models extends CI_Model {
             );
 
         $this->db->insert('request_data',$query);
+    }
+
+    // update Answer
+    public function updateAnswer($id)
+    {
+        $data = [
+            'answer' => $this->input->post('answer'),
+            'answer_link' => $this->input->post('answer_link'),
+            'status' => 2
+        ];
+        return $this->db->update('qna', $data, ['id' => $id]);
+        
     }
 }

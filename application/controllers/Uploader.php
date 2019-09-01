@@ -47,6 +47,9 @@ class Uploader extends CI_Controller {
         $data['qna'] = $this->uploader_models->getAllQna();
         $data['req'] = $this->uploader_models->getAllRequest();
         $data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
+
+        // Ajax
+        $data['ajax'] = 'uploader';
         
         // Load views
 		$this->load->view('layouts/header',$data);
@@ -55,6 +58,45 @@ class Uploader extends CI_Controller {
         $this->load->view('uploader/qna_management',$data);
 		$this->load->view('layouts/footer');
 		
+    }
+
+    // Set Data Answer
+    public function setQnA($id)
+    {
+        $data = [
+            'question' => $this->uploader_models->getDataQnAById($id)
+        ];
+        $this->load->view('uploader/answer_question', $data);
+    }
+
+    // Update Answer
+    public function updateAnswer($id)
+    {
+        // Data to check on ajax
+        $data['success'] = FALSE;
+        $data['messages'] = [];
+
+        // Set delimiter errors
+        $this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
+        // Set rules
+        $this->form_validation->set_rules('answer','Answer','required');
+		$this->form_validation->set_rules('answer_link','Answer Link','required');
+        
+        
+        if ($this->form_validation->run() == TRUE) {
+            // Set Data and Update Data if there's no errors
+            $data['success'] = TRUE;
+            $this->uploader_models->updateAnswer($id);
+        } else {
+            // Check Validation
+            foreach ( $_POST as $key => $value )
+            {
+                // Add to error
+                $data['messages'][$key] = form_error($key);
+            }
+        }
+        
+        echo json_encode($data);
     }
 
     // Upload System
