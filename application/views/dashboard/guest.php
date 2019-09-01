@@ -37,35 +37,46 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between my-5">
         <!-- Request button trigger -->
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#reqData"><i class="fas fa-file-import fa-sm text-white-50"></i> Request Data</a>
+        <a href="#" class="d-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#reqData"><i class="fas fa-file-import fa-sm text-white-50"></i> Request Data</a>
     </div>
 
-    <form>
+    <form action="<?= base_url('guest/report') ?>" method="post">
         <div class="form-group">
             <label for="produk">Produk</label>
-            <select class="form-control" id="produk">
+            <select class="form-control" id="produk" name="produk" required>
                 <option selected disabled>-- Pilih Produk --</option>
                 <?php foreach($produk->result_array() as $key) : ?>
-                <option value="<?= $key['id'] ?>"><?= $key['produk'] ?></option>
+                <option value="<?= $key['produk'] ?>"><?= $key['produk'] ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
-        <div class="form-group">
+        <div class="form-group after-add-more">
             <label for="kategori">Kategori</label>
-            <select class="form-control" id="kategori">
+            <select class="form-control" id="kategori" name="kategori[]" required>
                 <option selected disabled>-- Pilih Kategori --</option>
                 <?php foreach($kategori->result_array() as $key) : ?>
-                <option value="<?= $key['id'] ?>"><?= $key['kategori'] ?></option>
+                <option value="<?= $key['kategori'] ?>"><?= $key['kategori'] ?></option>
                 <?php endforeach; ?>
             </select>
+        </div>
+        <button type="button" class="my-2 btn btn-sm btn-primary shadow-sm add-more"><i class="fas fa-plus-square fa-sm text-white-50"></i> Add New Kategori</button>
+        <div class="d-none copy">
+            <div class="copy d-none form-group">
+                <select class="form-control" id="kategori" name="kategori[]" >
+                    <option selected disabled>-- Pilih Kategori --</option>
+                    <?php foreach($kategori->result_array() as $key) : ?>
+                    <option value="<?= $key['kategori'] ?>"><?= $key['kategori'] ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
         </div>
         <div class="form-group">
             <label for="startDate">Bulan Awal</label>
-            <input type="date" id="startDate" class="form-control">
+            <input type="date" id="startDate" class="form-control" name="start" required>
         </div>
         <div class="form-group">
             <label for="endDate">Bulan Akhir</label>
-            <input type="date" id="endDate" class="form-control">
+            <input type="date" id="endDate" class="form-control" name="end" required>
         </div>
         <button type="submit" class="btn btn-primary w-100 mt-2 mb-5">Run Report</button>
     </form>

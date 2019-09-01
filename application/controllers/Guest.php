@@ -44,7 +44,7 @@ class Guest extends CI_Controller {
         $this->load->view('guest/exportReqExcel',$data);
     }
 
-    // Request Page
+    // Qna Page
     public function qna()
     {
 		// Data for this page
@@ -129,6 +129,7 @@ class Guest extends CI_Controller {
             redirect(base_url());
         }
     }
+    
     // Read QnA for update status to 3
     public function read($id)
     {
@@ -136,4 +137,33 @@ class Guest extends CI_Controller {
         redirect(base_url());
     }
 
+    // Run Report
+    public function report()
+    {
+        // Input
+        $input['produk'] = $this->input->post('produk',true);
+        $input['start'] = $this->input->post('start',true);
+        $input['end'] = $this->input->post('end',true);
+        
+        // loop al input kategori
+        for ($i=0; $i < count($this->input->post('kategori')); $i++) { 
+            $input['kategori'][$i] = $this->input->post('kategori')[$i];
+        }
+
+        // Data for this page
+        $data['title'] = "Qna | Quartee";
+        $data['data'] = $this->guest_models->run_report($input);
+        $data['qna'] = $this->guest_models->getRessQna($this->session->userdata('id_user'));
+        $data['req'] = $this->guest_models->getRessReq($this->session->userdata('id_user'));
+
+		// Get user detail by id
+        $data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
+
+        // Load views
+        $this->load->view('layouts/header',$data);
+        $this->load->view('layouts/sidebar',$data);
+        $this->load->view('layouts/navbar',$data);
+        $this->load->view('guest/report',$data);
+        $this->load->view('layouts/footer');
+    }
 }

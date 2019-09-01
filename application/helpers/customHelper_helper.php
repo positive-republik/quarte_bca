@@ -1,23 +1,12 @@
 <?php 
 
-function checkQnA($id)
+function checkSendKategori($bulan, $produk, $kategori)
 {
-    $CI =& get_instance();
-    
-    // $data = $CI->db->get('qna', ['id' => $id])->row_array();
-    // var_dump($data);
-    // exit;
+    $CI =& get_isntance();
 
-    if ( $id == 1 )
-    {
-        return 1;
-    }
-    elseif ( $id == 2 )
-    {
-        return 2;
-    }
-    else
-    {
-        return 3;
-    }
+    $CI->db->where('month', $bulan);
+    $CI->db->where('produk', $produk);
+    $CI->db->where('kategori', $kategori);
+    return $CI->db->get('produk')->row_array();
+
 }

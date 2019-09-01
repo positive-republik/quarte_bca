@@ -88,16 +88,32 @@ class guest_models extends CI_Model {
         return $this->db->update('qna', $data, ['id' => $id]);
     }
 
+    // Export data request to excel
     public function export_data_req($id)
     {
         return $this->db->get_where('request_data',array('requester_id'=>$id));
     }
 
+    // Get quest
     public function getQuestion()
     {
         $produk = $this->input->post('produk');
+        return $this->db->get_where('qna', ['produk' => $produk])->result_array();   
+    }
 
-        return $this->db->get_where('qna', ['produk' => $produk])->result_array();
+    // Start run report
+    public function run_report($input)
+    {   
+        if (count($input['kategori']) < 2) {
+            return $this->db->get_where('data_upload',array('produk' => $input['produk'], 'kategori' => $input['kategori'][0]))->result_array();
+        } else {
+            $this->db->where('produk', $input['produk']);
+            $this->db->where('kategori', $input['kategori'][0]);
+            for ($i=1; $i < count($input['kategori']); $i++) { 
+                $this->db->or_where('kategori', $input['kategori'][$i]);
+            }
+            return $this->db->get('data_upload')->result_array();
+        }
         
     }
 }
