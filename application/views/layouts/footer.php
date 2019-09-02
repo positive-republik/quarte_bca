@@ -58,6 +58,8 @@
 
   <!-- Page level custom scripts -->
   <script src="<?= base_url('assets/vendor/sb-admin/') ?>js/demo/datatables-demo.js"></script>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker3.css" rel="stylesheet"/>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
 
   <?php if ( isset($ajax) ) : ?>
   <!-- Ajax -->
@@ -66,6 +68,25 @@
   
   <!-- Uploader Page Script -->
   <script>
+      // Datepicker
+      $('#awalBulan').datepicker({
+        uiLibrary: 'bootstrap4',
+        format: 'yyyy-mm-dd',
+        minViewMode: "months"
+      });
+      $('#akhirBulan').datepicker({
+        uiLibrary: 'bootstrap4',
+        format: 'yyyy-mm-dd'
+      })
+      $('#awalBulan2').datepicker({
+        uiLibrary: 'bootstrap4',
+        format: 'yyyy-mm-dd',
+        minViewMode: "months"
+      });
+      $('#akhirBulan2').datepicker({
+        uiLibrary: 'bootstrap4',
+        format: 'yyyy-mm-dd'
+      })
       // Add img js
       $(function() {
         $(document).on('change', ':file', function() {
@@ -149,7 +170,7 @@
           pointHoverBorderColor: "rgba(78, 115, 223, 1)",
           pointHitRadius: 10,
           pointBorderWidth: 2,
-          data: [<?=$chartVal[0];?>, <?=$chartVal[1];?>, <?=$chartVal[2];?>, <?=$chartVal[3];?>, <?=$chartVal[4];?>, <?=$chartVal[5];?>, <?=$chartVal[6];?>, <?=$chartVal[7];?>, <?=$chartVal[8];?>, <?=$chartVal[9];?>, <?=$chartVal[10];?>, <?=$chartVal[11];?>],
+          data: [<?=$chartVal[1];?>, <?=$chartVal[2];?>, <?=$chartVal[3];?>, <?=$chartVal[4];?>, <?=$chartVal[5];?>, <?=$chartVal[6];?>, <?=$chartVal[7];?>, <?=$chartVal[8];?>, <?=$chartVal[9];?>, <?=$chartVal[10];?>, <?=$chartVal[11];?>, <?=$chartVal[12];?>],
         }],
       },
       options: {

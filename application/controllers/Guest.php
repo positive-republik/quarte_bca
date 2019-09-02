@@ -85,6 +85,8 @@ class Guest extends CI_Controller {
         $this->form_validation->set_rules('priority','Priority','required');
         $this->form_validation->set_rules('requester_name','Requester Name','required');
         $this->form_validation->set_rules('req_id','Requester Id','required');
+        $this->form_validation->set_rules('req_email','Requester Email','required');
+        $this->form_validation->set_rules('req_extention','Requester Extention','required');
 
         // Proses pengecekan data
         if($this->form_validation->run() == false){
@@ -100,7 +102,9 @@ class Guest extends CI_Controller {
             $input['endDate'] = $this->input->post('endDate',true);
             $input['priority'] = $this->input->post('priority',true);
             $input['requester_name'] = $this->input->post('requester_name',true);
-			$input['req_id'] = $this->input->post('req_id',true);
+            $input['req_id'] = $this->input->post('req_id',true);
+            $input['req_email'] = $this->input->post('req_email',true);
+            $input['req_extention'] = $this->input->post('req_extention',true);
 
 			 // Send to databse
             $this->guest_models->addReq($input);
@@ -144,12 +148,15 @@ class Guest extends CI_Controller {
         $input['produk'] = $this->input->post('produk',true);
         $input['start'] = $this->input->post('start',true);
         $input['end'] = $this->input->post('end',true);
+        $data['produk'] = $input['produk'];
+        $data['start'] = $input['start'];
+        $data['end'] = $input['end'];
         
         // loop al input kategori
         for ($i=0; $i < count($this->input->post('kategori')); $i++) { 
             $input['kategori'][$i] = $this->input->post('kategori')[$i];
         }
-
+        
         // Data for this page
         $data['title'] = "Qna | Quartee";
         $data['data'] = $this->guest_models->run_report($input);
@@ -157,8 +164,13 @@ class Guest extends CI_Controller {
         $data['req'] = $this->guest_models->getRessReq($this->session->userdata('id_user'));
         $data['chartReq'] = true;
         $data['chartVal'] = $this->guest_models->run_report_month($input);
+        $data['GetGrowthPercent'] = $this->GetGrowthPercent($data['chartVal']);
+        $data['counterDataReq'] = $this->guest_models->counterData($input['produk'],'REQ/');
+        $data['counterDataInf'] = $this->guest_models->counterData($input['produk'],'INF/');
+        $data['counterDataCompl'] = $this->guest_models->counterData($input['produk'],'COMPL/');
+        $data['counterDataSaran'] = $this->guest_models->counterData($input['produk'],'SARAN/');
 
-		// Get user detail by id
+        // Get user detail by id
         $data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
 
         // Load views
@@ -167,5 +179,54 @@ class Guest extends CI_Controller {
         $this->load->view('layouts/navbar',$data);
         $this->load->view('guest/report',$data);
         $this->load->view('layouts/footer',$data);
+    }
+
+    // EXport Excel report
+    public function excelreport()
+    {
+        // Input
+        $input['produk'] = $this->input->post('produk',true);
+        $input['start'] = $this->input->post('start',true);
+        $input['end'] = $this->input->post('end',true);
+        $data['produk'] = $input['produk'];
+        
+        // loop al input kategori
+        for ($i=0; $i < count($this->input->post('kategori')); $i++) { 
+            $input['kategori'][$i] = $this->input->post('kategori')[$i];
+        }
+
+        $data['data'] = $this->guest_models->run_report($input);
+
+        $this->load->view('guest/export_run_report',$data);
+    }
+
+    // Get GetGrowthPercent
+    public function GetGrowthPercent($param)
+    {
+        foreach ($param as $key) {
+            if ($key !== 0) {
+                $start_data = $key;
+                break;
+            } 
+            else {
+                $start_data = 0;
+            }
+        }
+
+        for ($i=11; $i > 0; $i--) { 
+            if ($param[$i] !== 0) {
+                $end_data = $param[$i];
+                break;
+            }
+            else {
+                $end_data = 0;
+            }
+        }
+        if ($start_data == NULL && $end_data == NULL || $start_data == 0 && $end_data == 0) {
+            return $resultStatistik = 0;
+        } else {
+            $resultStatistik = ($end_data / $start_data) - 2;
+            return $resultStatistik = round($resultStatistik,1);
+        }
     }
 }

@@ -47,7 +47,8 @@ class Uploader_models extends CI_Model {
                 'month' =>  date('m'),
                 'produk'  =>  $produk, 
                 'kategori'  =>  $kategori,
-                'user_id' => $this->session->userdata('id_user')
+                'user_id' => $this->session->userdata('id_user'),
+                'created_at' => NULL
             );
 
         $this->db->insert('data_upload',$query);
@@ -112,12 +113,13 @@ class Uploader_models extends CI_Model {
     }
     
     // change status request
-    function editStatusRequest($requester_id,$status)
+    function editStatusRequest($requester_id,$id,$status)
     {
          $data = [
             'req_status' => $status,
         ];
         $this->db->where('requester_id', $requester_id);
+        $this->db->where('id', $id);
         $this->db->update('request', $data);
     }
 }

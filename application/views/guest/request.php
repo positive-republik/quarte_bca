@@ -17,7 +17,7 @@
                         <tr>
                             <th>No</th>
                             <th>Produk</th>
-                            <th>Kategori</th>
+                            <th>Kaest tegori</th>
                         </tr>
                     </thead>
                     <tbody>
