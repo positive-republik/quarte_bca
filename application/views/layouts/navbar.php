@@ -101,7 +101,7 @@
                     Request Center
                   </h6>
                   <?php foreach($req->result_array() as $key) : ?>
-                  <a class="dropdown-item d-flex align-items-center" href="<?= base_url('guest/request') ?>">
+                  <a class="dropdown-item d-flex align-items-center" href="#">
                     <div class="mr-3">
                       <div class="icon-circle bg-primary">
                         <i class="fas fa-file-alt text-white"></i>

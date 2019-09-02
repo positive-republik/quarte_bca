@@ -144,6 +144,11 @@ class Guest extends CI_Controller {
     // Run Report
     public function report()
     {
+        if ($this->input->post() == NULL) {
+            redirect(base_url());
+            exit;
+        }
+
         // Input
         $input['produk'] = $this->input->post('produk',true);
         $input['start'] = $this->input->post('start',true);
@@ -165,10 +170,11 @@ class Guest extends CI_Controller {
         $data['chartReq'] = true;
         $data['chartVal'] = $this->guest_models->run_report_month($input);
         $data['GetGrowthPercent'] = $this->GetGrowthPercent($data['chartVal']);
-        $data['counterDataReq'] = $this->guest_models->counterData($input['produk'],'REQ/');
-        $data['counterDataInf'] = $this->guest_models->counterData($input['produk'],'INF/');
-        $data['counterDataCompl'] = $this->guest_models->counterData($input['produk'],'COMPL/');
-        $data['counterDataSaran'] = $this->guest_models->counterData($input['produk'],'SARAN/');
+        $data['counterDataReq'] = $this->guest_models->counterData($input['produk'],'REQ/',$input['start'],$input['end']);
+        $data['counterDataInf'] = $this->guest_models->counterData($input['produk'],'INF/',$input['start'],$input['end']);
+        $data['counterDataCompl'] = $this->guest_models->counterData($input['produk'],'COMPL/',$input['start'],$input['end']);
+        $data['counterDataSaran'] = $this->guest_models->counterData($input['produk'],'SARAN/',$input['start'],$input['end']);
+        $data['topReq'] = $this->guest_models->top10($input);
 
         // Get user detail by id
         $data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));

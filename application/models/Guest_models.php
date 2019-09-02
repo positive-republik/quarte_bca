@@ -113,7 +113,7 @@ class guest_models extends CI_Model {
             $this->db->where('produk', $input['produk']);
             $this->db->where('kategori', $input['kategori'][0]);
             for ($i=1; $i < count($input['kategori']); $i++) { 
-                $this->db->where('kategori', $input['kategori'][$i]);
+                $this->db->or_where('kategori', $input['kategori'][$i]);
             }
             $this->db->where('created_at > ', $input['start']);
             $this->db->where('created_at < ', $input['end']);
@@ -140,7 +140,7 @@ class guest_models extends CI_Model {
             $this->db->where('produk', $input['produk']);
             $this->db->where('kategori', $input['kategori'][0]);
             for ($i=1; $i < count($input['kategori']); $i++) { 
-                $this->db->where('kategori', $input['kategori'][$i]);
+                $this->db->or_where('kategori', $input['kategori'][$i]);
             }
             $this->db->where('created_at > ', $input['start']);
             $this->db->where('created_at < ', $input['end']);
@@ -160,7 +160,27 @@ class guest_models extends CI_Model {
     }
 
     // Get count data for statistik perkembangan
-    public function counterData($produk,$kategori) {
-        return $this->db->select('kategori, produk, count(kategori) as cnt')->like('kategori',$kategori,'both')->get_where('data_upload',array('produk'=>$produk))->row_array();
+    public function counterData($produk,$kategori,$start,$end) {
+        return $this->db->select('kategori, produk, count(kategori) as cnt')->like('kategori',$kategori,'both')->get_where('data_upload',array('produk'=>$produk,'created_at > ' => $start, 'created_at < ' => $end))->row_array();
     }
+
+    // Get data for top 10 
+    public function top10($input){
+        if (count($input['kategori']) < 2) {
+            $q=$this->db->select('produk,kategori, count(*) as cnt')->group_by("kategori")->order_by("cnt", "DESC")->get_where("data_upload",array('produk' => $input['produk'], 'kategori' => $input['kategori'][0], 'created_at > ' => $input['start'], 'created_at < ' => $input['end']),10)->result_array();
+            return $q;
+        } else {
+            $q=$this->db->select('produk,kategori, count(*) as cnt');
+            $this->db->where('produk', $input['produk']);
+            $this->db->where('kategori', $input['kategori'][0]);
+            for ($i=1; $i < count($input['kategori']); $i++) { 
+                $this->db->or_where('kategori', $input['kategori'][$i]);
+            }
+            $this->db->where('created_at > ', $input['start']);
+            $this->db->where('created_at < ', $input['end']);
+            $this->db->group_by("kategori");
+            $this->db->order_by("cnt","DESC");
+            return $q=$this->db->get('data_upload',10)->result_array();
+        }
+       }
 }
