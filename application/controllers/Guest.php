@@ -61,9 +61,7 @@ class Guest extends CI_Controller {
         if ($this->form_validation->run()) {
             // Get data question
             $data['quest'] = $this->guest_models->getQuestion();
-        } else {
-            // exit;
-        }
+        } 
         
 		// Load views
         $this->load->view('layouts/header',$data);
@@ -71,7 +69,6 @@ class Guest extends CI_Controller {
         $this->load->view('layouts/navbar',$data);
         $this->load->view('guest/qna',$data);
         $this->load->view('layouts/footer');
-		
     }
 
     // Add request data 
