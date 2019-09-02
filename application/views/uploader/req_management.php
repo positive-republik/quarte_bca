@@ -15,8 +15,6 @@
                         <tr>
                             <th>No</th>
                             <th>Judul Permintaan</th>
-                            <th>Tujuan Permintaan</th>
-                            <th>Nama Peminta</th>
                             <th>Awal Bulan</th>
                             <th>Akhir Bulan</th>
                             <th>Prioritas</th>
@@ -28,11 +26,17 @@
                         <tr>
                             <td><?= $i ?></td>
                             <td><?= $key['req_title'] ?></td>
-                            <td><?= $key['req_purpose'] ?></td>
-                            <td><?= $key['requester_name'] ?></td>
                             <td><?= $key['req_start'] ?></td>
                             <td><?= $key['req_end'] ?></td>
-                            <td><?= $key['req_priority'] ?></td>
+                            <?php if($key['req_priority'] == 1) : ?>
+                            <td><button type="button" class="badge badge-danger">Urgent</button></td>
+                            <?php elseif($key['req_priority'] == 2) : ?>
+                            <td><button type="button" class="badge badge-warning">High</button></td>
+                            <?php elseif($key['req_priority'] == 3) : ?>
+                            <td><button type="button" class="badge badge-primary">Medium</button></td>
+                            <?php elseif($key['req_priority'] == 4) : ?>
+                            <td><button type="button" class="badge badge-info">Low</button></td>
+                            <?php endif; ?>
                             <td><a href="#" class="badge badge-primary" data-toggle="modal" data-target="#ressModal<?= $key['id'] ?>">Respon</a></td>
                         </tr>
                         <!-- Modal -->
@@ -47,7 +51,24 @@
                                     </div>
                                     <form action="<?= base_url('uploader/responeReq') ?>" method="post" enctype="multipart/form-data">
                                         <input type="hidden" name="requester_id" value="<?= $key['requester_id'] ?>">
+                                        <input type="hidden" name="id" value="<?= $key['id'] ?>">
                                         <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="name">Nama Requester</label>
+                                                <input type="text" class="form-control" id="name" value="<?= $key['requester_name'] ?>" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="name">Email Requester</label>
+                                                <input type="text" class="form-control" id="name" value="<?= $key['req_email'] ?>" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="name">Extention Requester</label>
+                                                <input type="text" class="form-control" id="name" value="<?= $key['req_extention'] ?>" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tujuan">Tujuan Request</label>
+                                                <textarea class="form-control" id="tujuan" name="" id="" readonly><?= $key['req_purpose'] ?></textarea>
+                                            </div>
                                             <div class="input-group mt-4 mb-2">
                                                 <label class="input-group-btn">
                                                     <span class="btn btn-primary">

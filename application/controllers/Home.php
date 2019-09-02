@@ -30,6 +30,7 @@ class Home extends CI_Controller {
 			$this->load->model('uploader_models');
 			$data['qna'] = $this->uploader_models->getAllQna();
 			$data['req'] = $this->uploader_models->getAllRequest();
+			$data['getUploadCheck'] = $this->uploader_models->checkUploadThisMonth();
 		} 
 		// Load if role guest
 		elseif ($this->session->userdata('role') == 3) {

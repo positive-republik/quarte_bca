@@ -37,35 +37,44 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between my-5">
         <!-- Request button trigger -->
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#reqData"><i class="fas fa-file-import fa-sm text-white-50"></i> Request Data</a>
+        <a href="#" class="d-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#reqData"><i class="fas fa-file-import fa-sm text-white-50"></i> Request Data</a>
     </div>
 
-    <form>
+    <form action="<?= base_url('guest/report') ?>" method="post">
         <div class="form-group">
             <label for="produk">Produk</label>
-            <select class="form-control" id="produk">
+            <select class="form-control" id="produk" name="produk" required>
                 <option selected disabled>-- Pilih Produk --</option>
                 <?php foreach($produk->result_array() as $key) : ?>
-                <option value="<?= $key['id'] ?>"><?= $key['produk'] ?></option>
+                <option value="<?= $key['produk'] ?>"><?= $key['produk'] ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
-        <div class="form-group">
+        <div class="form-group after-add-more">
             <label for="kategori">Kategori</label>
-            <select class="form-control" id="kategori">
+            <select class="form-control" id="kategori" name="kategori[]" required>
                 <option selected disabled>-- Pilih Kategori --</option>
                 <?php foreach($kategori->result_array() as $key) : ?>
-                <option value="<?= $key['id'] ?>"><?= $key['kategori'] ?></option>
+                <option value="<?= $key['kategori'] ?>"><?= $key['kategori'] ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <button type="button" class="my-2 btn btn-sm btn-primary shadow-sm add-more"><i class="fas fa-plus-square fa-sm text-white-50"></i> Add New Kategori</button>
+        <div class="copy d-none form-group">
+            <select class="form-control" id="kategori" name="kategori[]" >
+                <option selected disabled>-- Pilih Kategori --</option>
+                <?php foreach($kategori->result_array() as $key) : ?>
+                <option value="<?= $key['kategori'] ?>"><?= $key['kategori'] ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
         <div class="form-group">
             <label for="startDate">Bulan Awal</label>
-            <input type="date" id="startDate" class="form-control">
+            <input id="awalBulan" class="form-control" name="start" required>
         </div>
         <div class="form-group">
             <label for="endDate">Bulan Akhir</label>
-            <input type="date" id="endDate" class="form-control">
+            <input id="akhirBulan" class="form-control" name="end" required>
         </div>
         <button type="submit" class="btn btn-primary w-100 mt-2 mb-5">Run Report</button>
     </form>
@@ -85,7 +94,8 @@
       <form action="<?= base_url('guest/addReqData') ?>"  method="post"> 
             <div class="modal-body">
                 <input type="hidden" class="form-control" value="<?= $user_info['id'] ?>" name="req_id" readonly>
-                
+                <input type="hidden" class="form-control" value="<?= $user_info['extention'] ?>" name="req_extention" readonly>
+                <input type="hidden" class="form-control" value="<?= $user_info['email'] ?>" name="req_email" readonly>
                 <div class="form-group">
                     <label for="reqTitle">Judul Permintaan</label>
                     <input type="text" class="form-control" id="reqTitle" name="reqTitle" required>
@@ -95,7 +105,7 @@
                     <input type="text" class="form-control" id="nama" value="<?= $user_info['full_name'] ?>" name="requester_name" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="posisi">Posisi</label>
+                    <label for="posisi">Hak Akses</label>
                     <input type="text" class="form-control" id="posisi" value="<?= $roleName['name_role'] ?>" readonly>
                 </div>
                 <div class="form-group">
@@ -103,17 +113,17 @@
                     <input type="text" class="form-control" id="req_purpose" name="req_purpose" required>
                 </div>
                 <div class="form-group">
-                    <label for="startDate">Bulan Awal</label>
-                    <input type="date" class="form-control" id="startDate" name="startDate" required>
+                    <label for="awalBulan2">Bulan Awal</label>
+                    <input class="form-control" id="awalBulan2" name="startDate" required>
                 </div>
                 <div class="form-group">
-                    <label for="endDate">Bulan Akhir</label>
-                    <input type="date" class="form-control" id="endDate" name="endDate" required>
+                    <label for="akhirBulan2">Bulan Akhir</label>
+                    <input class="form-control" id="akhirBulan2" name="endDate" required>
                 </div>
                 <div class="form-group">
                     <label for="priority">Prioritas</label>
                     <select class="form-control" id="priority" name="priority" required>
-                        <option value="1">Priority</option>
+                        <option value="1">Urgent</option>
                         <option value="2">Hight</option>
                         <option value="3">Medium</option>
                         <option value="4">Low</option>

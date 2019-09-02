@@ -101,7 +101,11 @@ class Uploader extends CI_Controller {
 
     // Upload System
     public function upload()
-    {
+    {   
+        $uploadCek = $this->uploader_models->checkUploadThisMonth();
+        if ($uploadCek > 0) {
+            $this->uploader_models->deleteDataUpload();
+        }
         if (isset($_FILES['excel'])) {
         
             // Data File27768
@@ -146,6 +150,7 @@ class Uploader extends CI_Controller {
     {   
          if (isset($_FILES['excel'])) {
             $requester_id = $this->input->post('requester_id');
+            $id = $this->input->post('id');
             
             // Data File
             $upload_dir = 'assets/vendor/phpspreadsheet/file';
@@ -162,15 +167,16 @@ class Uploader extends CI_Controller {
             
             // number of rows
             $nr = count($xls_data); 
-            $allData = 0;
-            
+        
             //Loop data and insert into database$requester_id
             for($i=2; $i<=$nr; $i++){
-                $this->uploader_models->insertReqData($xls_data[$i]['A'],$xls_data[$i]['B'],$requester_id);
+                if($xls_data[$i]['A'] != NULL && $xls_data[$i]['B'] != NULL){
+                    $this->uploader_models->insertReqData($xls_data[$i]['A'],$xls_data[$i]['B'],$requester_id);
+                }
             }
             // Get req id
 
-            $this->uploader_models->editStatusRequest($requester_id,2);
+            $this->uploader_models->editStatusRequest($requester_id,$id,2);
 
             // hapus kembali file .xls yang di upload tadi
             unlink($inputFileName);

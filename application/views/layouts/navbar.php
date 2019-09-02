@@ -101,7 +101,7 @@
                     Request Center
                   </h6>
                   <?php foreach($req->result_array() as $key) : ?>
-                  <a class="dropdown-item d-flex align-items-center" href="#">
+                  <a class="dropdown-item d-flex align-items-center" href="<?= base_url('guest/request') ?>">
                     <div class="mr-3">
                       <div class="icon-circle bg-primary">
                         <i class="fas fa-file-alt text-white"></i>
@@ -115,7 +115,7 @@
                   <?php endforeach; ?>
 
                   <?php if($req->num_rows()>0) : ?>
-                  <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                  <a class="dropdown-item text-center small text-gray-500" href="<?= base_url('guest/request') ?>" >Show All Alerts</a>
                     <?php elseif($req->num_rows()==0) : ?>
                     <div class="alert alert-warning" role="alert">
                       Anda belum merequest data. <a href="<?= base_url('guest/request'); ?>" class="alert-link">Klik Disini</a> untuk request data
