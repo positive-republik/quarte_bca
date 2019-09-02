@@ -127,7 +127,10 @@ class Guest extends CI_Controller {
 
         } else {
             $this->guest_models->addDataQnA();
-            redirect(base_url());
+            echo "<script>
+                    alert('Pertanyaan Berhasil dikirim, Tunggu beberapa saat..');
+                    document.location.href='".base_url()."';
+                </script>";
         }
     }
     
@@ -171,8 +174,7 @@ class Guest extends CI_Controller {
         $data['counterDataInf'] = $this->guest_models->counterData($input['produk'],'INF/',$input['start'],$input['end']);
         $data['counterDataCompl'] = $this->guest_models->counterData($input['produk'],'COMPL/',$input['start'],$input['end']);
         $data['counterDataSaran'] = $this->guest_models->counterData($input['produk'],'SARAN/',$input['start'],$input['end']);
-        $data['topReq'] = $this->guest_models->top10($input);
-
+       
         // Get user detail by id
         $data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
 

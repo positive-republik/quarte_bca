@@ -6,8 +6,8 @@
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url() ?>">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+        <div class="sidebar-brand-icon">
+          <img src="<?= base_url('assets/img/favicon.png') ?>" width="30">
         </div>
         <div class="sidebar-brand-text mx-3">Quartee</div>
       </a>
@@ -48,6 +48,13 @@
           <span>Request Management</span></a>
       </li>
 
+      <!-- Nav Item - Data Management -->
+      <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('uploader/filing_cabinet') ?>">
+          <i class="fas fa-fw fa-server"></i>
+          <span>Filing Cabinet</span></a>
+      </li>
+
       <!-- Divider -->
       <hr class="sidebar-divider">
       
@@ -69,6 +76,14 @@
         <a class="nav-link" href="<?= base_url('guest/request'); ?>">
           <i class="fas fa-fw fa-clipboard-list"></i>
           <span>Request</span></a>
+      </li>
+
+
+      <!-- Nav Item - Data Management -->
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fas fa-fw fa-server"></i>
+          <span>Filing Cabinet</span></a>
       </li>
 
       <!-- Divider -->

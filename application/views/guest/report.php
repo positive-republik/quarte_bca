@@ -110,15 +110,19 @@
         <div class="collapse show" id="topCompl">
           <div class="card-body">
             <ul class="list-group">
-              <?php if(isset($topReq)) : ?>
-                <?php foreach($topReq as $key) : ?>
-                  <?php if(stristr($key['kategori'], 'COMPL/')) : ?>
+              <?php if(isset($data)) : ?>
+                <?php for($z=0; $z < count($data); $z++) : ?>
+                  <?php if(stristr($data[$z]['kategori'], 'COMPL/')) : ?>
                   <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <?= $key['kategori']; ?>
-                    <span class="badge badge-primary badge-pill"><?= $key['cnt'] ?></span>
+                    <?= $data[$z]['kategori']; ?>
+                      <span class="badge badge-primary badge-pill float-right ml-auto mr-2"><?= date('M',mktime(0, 0, 0, $data[$z]['month'], 12)) ?></span>
+                    <span class="badge badge-primary badge-pill"><?= $data[$z]['cnt'] ?></span>
                   </li>
                   <?php endif; ?>
-                <?php endforeach; ?>
+                  <?php if($z > 10 ) : ?>
+                    <?php break; ?>
+                  <?php endif; ?>
+                <?php endfor; ?>
               <?php endif; ?>
             </ul>
           </div>
@@ -132,15 +136,19 @@
         <div class="collapse show" id="topReq">
           <div class="card-body">
             <ul class="list-group">
-              <?php if(isset($topReq)) : ?>
-                <?php foreach($topReq as $key) : ?>
-                  <?php if(stristr($key['kategori'], 'REQ/')) : ?>
+              <?php if(isset($data)) : ?>
+                <?php for($z=0; $z < count($data); $z++) : ?>
+                  <?php if(stristr($data[$z]['kategori'], 'REQ/')) : ?>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <?= $key['kategori']; ?>
-                      <span class="badge badge-primary badge-pill"><?= $key['cnt'] ?></span>
+                      <?= $data[$z]['kategori']; ?>
+                      <span class="badge badge-primary badge-pill float-right ml-auto mr-2"><?= date('M',mktime(0, 0, 0, $data[$z]['month'], 12)) ?></span>
+                    <span class="badge badge-primary badge-pill"><?= $data[$z]['cnt'] ?></span>
                     </li>
                   <?php endif; ?>
-                <?php endforeach; ?>
+                  <?php if($z > 10 ) : ?>
+                    <?php break; ?>
+                  <?php endif; ?>
+                <?php endfor; ?>
               <?php endif; ?>
             </ul>
           </div>
@@ -154,15 +162,19 @@
         <div class="collapse show" id="topInfo">
           <div class="card-body">
             <ul class="list-group">
-              <?php if(isset($topReq)) : ?>
-                <?php foreach($topReq as $key) : ?>
-                  <?php if(stristr($key['kategori'], 'INF/')) : ?>
+              <?php if(isset($data)) : ?>
+                <?php for($z=0; $z < count($data); $z++) : ?>
+                  <?php if(stristr($data[$z]['kategori'], 'INF/')) : ?>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <?= $key['kategori']; ?>
-                      <span class="badge badge-primary badge-pill"><?= $key['cnt'] ?></span>
+                      <?= $data[$z]['kategori']; ?>
+                      <span class="badge badge-primary badge-pill float-right ml-auto mr-2"><?= date('M',mktime(0, 0, 0, $data[$z]['month'], 12)) ?></span>
+                    <span class="badge badge-primary badge-pill"><?= $data[$z]['cnt'] ?></span>
                     </li>
                   <?php endif; ?>
-                <?php endforeach; ?>
+                  <?php if($z > 10 ) : ?>
+                    <?php break; ?>
+                  <?php endif; ?>
+                <?php endfor; ?>
               <?php endif; ?>
             </ul>
           </div>
@@ -176,15 +188,19 @@
         <div class="collapse show" id="topSaran">
           <div class="card-body">
             <ul class="list-group">
-              <?php if(isset($topReq)) : ?>
-                <?php foreach($topReq as $key) : ?>
-                  <?php if(stristr($key['kategori'], 'SARAN/')) : ?>
+              <?php if(isset($data)) : ?>
+                <?php for($z=0; $z < count($data); $z++) : ?>
+                  <?php if(stristr($data[$z]['kategori'], 'SARAN/')) : ?>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <?= $key['kategori']; ?>
-                      <span class="badge badge-primary badge-pill"><?= $key['cnt'] ?></span>
+                      <?= $data[$z]['kategori']; ?>
+                      <span class="badge badge-primary badge-pill float-right ml-auto mr-2"><?= date('M',mktime(0, 0, 0, $data[$z]['month'], 12)) ?></span>
+                    <span class="badge badge-primary badge-pill"><?= $data[$z]['cnt'] ?></span>
                     </li>
                   <?php endif; ?>
-                <?php endforeach; ?>
+                  <?php if($z > 10 ) : ?>
+                    <?php break; ?>
+                  <?php endif; ?>
+                <?php endfor; ?>
               <?php endif; ?>
             </ul>
           </div>

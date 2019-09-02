@@ -6,7 +6,7 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Data Upload</h1>
         <!-- Add button trigger -->
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addUser"><i class="fas fa-upload fa-sm text-white-50"></i> Upload Data</a>
+        <a href="#" class="d-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addUser"><i class="fas fa-upload fa-sm text-white-50"></i> Upload Data</a>
     </div>
 
     <!-- DataTales Users -->
@@ -40,32 +40,34 @@
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                <div class="alert alert-danger" role="alert">
-                                    <p>Data pada bulan ini akan terhapus dan <b>digantikan dengan yang baru</b>. Anda yakin ?</p>
+                            <form action="<?= base_url('uploader/edit') ?>" method="post" enctype="multipart/form-data">
+                                <div class="modal-body">
+                                    <div class="alert alert-danger" role="alert">
+                                        <p>Data pada bulan ini akan terhapus dan <b>digantikan dengan yang baru</b>. Anda yakin ?</p>
+                                    </div>
+                                    <input type="hidden" name="date" value="<?= $key['month'] ?>">
+                                    <div class="form-group">
+                                        <label for="full_name">Uploader Name</label>
+                                        <input type="text" class="form-control" id="full_name" value="<?= $user_info['full_name'] ?>" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="date">Upload Date</label>
+                                        <input type="text" class="form-control" id="date" value="<?= substr($key['date'],0,10) ?>" readonly>
+                                    </div>
+                                    <div class="input-group mt-4 mb-2">
+                                        <label class="input-group-btn">
+                                            <span class="btn btn-primary">
+                                            Browse<input type="file" id="media" name="excel" style="display: none;" required>
+                                            </span>
+                                        </label>
+                                        <input type="text" class="form-control input-lg" size="40" placeholder="File Excel..." readonly required>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="full_name">Uploader Name</label>
-                                    <input type="text" class="form-control" id="full_name" value="<?= $user_info['full_name'] ?>" readonly>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
                                 </div>
-                                <div class="form-group">
-                                    <label for="date">Upload Date</label>
-                                    <input type="text" class="form-control" id="date" value="<?= substr($key['date'],0,10) ?>" readonly>
-                                </div>
-                                <div class="input-group mt-4 mb-2">
-                                    <label class="input-group-btn">
-                                        <span class="btn btn-primary">
-                                        Browse<input type="file" id="media" name="excel" style="display: none;" required>
-                                        </span>
-                                    </label>
-                                    <input type="text" class="form-control input-lg" size="40" placeholder="File Excel..." readonly required>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                     <?php $i++; endforeach; ?>

@@ -163,7 +163,7 @@
                   <?php else: ?>
                   <div class="alert alert-warning" role="alert">
                     Anda belum mengajukan pertanyaan, klik <a href="<?= base_url('guest/qna'); ?>" class="alert-link">disini</a> untuk bertanya.
-                    <?php var_dump(count($qna->result_array())); ?>
+                    <!-- <?php var_dump(count($qna->result_array())); ?> -->
                   </div>
                   <?php endif; ?>
                     <!-- Check if null -->

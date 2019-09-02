@@ -41,21 +41,29 @@
     </div>
 
     <form action="<?= base_url('guest/report') ?>" method="post">
+        <?php if(!isset($_GET['produk'])) : ?>
         <div class="form-group">
-            <label for="produk">Produk</label>
-            <select class="form-control" id="produk" name="produk" required>
+            <label for="produk ">Produk</label>
+            <select class="form-control kategori" id="produk" name="produk">
                 <option selected disabled>-- Pilih Produk --</option>
                 <?php foreach($produk->result_array() as $key) : ?>
                 <option value="<?= $key['produk'] ?>"><?= $key['produk'] ?></option>
                 <?php endforeach; ?>
             </select>
         </div>
+        <a href="" class="my-2 btn btn-sm btn-primary shadow-sm show-kat">Show Kategori</a>
+        <?php endif; ?>
+
+        <?php if(isset($_GET['produk'])) : ?>
+        <input type="hidden" value="<?= $_GET['produk'] ?>" name="produk" required>
         <div class="form-group after-add-more">
             <label for="kategori">Kategori</label>
             <select class="form-control" id="kategori" name="kategori[]" required>
                 <option selected disabled>-- Pilih Kategori --</option>
                 <?php foreach($kategori->result_array() as $key) : ?>
-                <option value="<?= $key['kategori'] ?>"><?= $key['kategori'] ?></option>
+                    <?php if($key['produk_name'] == $_GET['produk']) : ?>
+                    <option value="<?= $key['kategori'] ?>"><?= $key['kategori'] ?></option>
+                    <?php endif; ?>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -64,7 +72,9 @@
             <select class="form-control" id="kategori" name="kategori[]" >
                 <option selected disabled>-- Pilih Kategori --</option>
                 <?php foreach($kategori->result_array() as $key) : ?>
-                <option value="<?= $key['kategori'] ?>"><?= $key['kategori'] ?></option>
+                    <?php if($key['produk_name'] == $_GET['produk']) : ?>
+                    <option value="<?= $key['kategori'] ?>"><?= $key['kategori'] ?></option>
+                    <?php endif; ?>
                 <?php endforeach; ?>
             </select>
         </div>
@@ -77,6 +87,7 @@
             <input id="akhirBulan" class="form-control" name="end" required>
         </div>
         <button type="submit" class="btn btn-primary w-100 mt-2 mb-5">Run Report</button>
+        <?php endif; ?>
     </form>
 </div>
 <!-- /.container-fluid -->
