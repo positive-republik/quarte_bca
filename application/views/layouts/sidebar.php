@@ -16,20 +16,23 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
+      <?php if($this->session->userdata('role') != 2) : ?>
       <li class="nav-item">
         <a class="nav-link" href="<?= base_url() ?>">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
-
-      <!-- Divider -->
       <hr class="sidebar-divider">
+      <?php else: ?>
+      <li class="nav-item">
+        <a class="nav-link" href="<?= base_url() ?>">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Data Upload</span></a>
+      </li>
+      <?php endif; ?>
+      <!-- Divider -->
       
       <?php if($this->session->userdata('role') == 2) : ?>
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Uploader Panel
-      </div>
 
       <!-- Nav Item - Data Management -->
       <li class="nav-item">
