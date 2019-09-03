@@ -5,8 +5,7 @@
     <div class="d-sm-flex align-items-center justify-content-between my-4">
         <h1 class="h3 mb-0 text-gray-800">QnA</h1>
         <!-- Add button trigger -->
-        <button href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addQnA"><i class="fas fa-user-plus fa-sm text-white-50"></i> Add New Question</button>
-				
+        <button href="#" class="d-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addQnA"><i class="fas fa-comment-medical fa-sm text-white-50"></i> Add New Question</button>
     </div>
 
 		<?php if ( isset($quest) ) : ?>
@@ -15,7 +14,7 @@
 					<div class="card w-100 my-2" >
 							<div class="card-body">
 									<h5 class="card-title"><?= $q['produk']; ?></h5>
-									<p class="card-text"><?= $q['question']; ?></p>
+									<p class="card-text"><?= $q['answer']; ?></p>
 									<a href="<?= $q['answer_link'] ?>" class="card-link">Klik Disini</a>
 							</div>
 					</div>

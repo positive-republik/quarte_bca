@@ -107,17 +107,19 @@ class Uploader extends CI_Controller {
             $this->uploader_models->deleteDataUpload();
         }
         if (isset($_FILES['excel'])) {
-        
+            
             // Data File27768
             $upload_dir = 'assets/vendor/phpspreadsheet/file';
-            $target = basename($_FILES['excel']['name']);
+            $temp = explode(".", $_FILES["excel"]["name"]);
+            $newfilename = round(microtime(true)) . '.' . end($temp);
+            $target = basename($newfilename);
             move_uploaded_file($_FILES['excel']['tmp_name'], "$upload_dir/$target");
             $inputFileName = $upload_dir.'/'.$target;
-
+            
             // create directly an object instance of the IOFactory class, and load the xlsx file
             $fxls = $inputFileName;
             $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($fxls);
-
+            
             // read excel data and store it into an array
             $xls_data = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
             
@@ -154,7 +156,10 @@ class Uploader extends CI_Controller {
             
             // Data File
             $upload_dir = 'assets/vendor/phpspreadsheet/file';
-            $target = basename($_FILES['excel']['name']);
+            $temp = explode(".", $_FILES["excel"]["name"]);
+            $newfilename = round(microtime(true)) . '.' . end($temp);
+            $target = basename($newfilename);
+
             move_uploaded_file($_FILES['excel']['tmp_name'], "$upload_dir/$target");
             $inputFileName = $upload_dir.'/'.$target;
 
@@ -176,14 +181,120 @@ class Uploader extends CI_Controller {
             }
             // Get req id
 
-            $this->uploader_models->editStatusRequest($requester_id,$id,2);
+            $this->uploader_models->editStatusRequest($requester_id,$id,2,$newfilename);
 
             // hapus kembali file .xls yang di upload tadi
-            unlink($inputFileName);
+            // unlink($inputFileName);
 
             redirect(base_url('uploader/req_manage'));
         } else {
             redirect(base_url());
         }
+    }
+
+    // Edit Upload data
+    public function edit()
+    {
+        if ($_FILES['excel'] == NULL) {
+            redirect(base_url());
+            exit;
+        }
+
+        $month = $this->input->post('date');
+        $this->uploader_models->editRemoveData($month);
+        // Data File
+        $upload_dir = 'assets/vendor/phpspreadsheet/file';
+        $target = basename($_FILES['excel']['name']);
+        move_uploaded_file($_FILES['excel']['tmp_name'], "$upload_dir/$target");
+        $inputFileName = $upload_dir.'/'.$target;
+
+        // create directly an object instance of the IOFactory class, and load the xlsx file
+        $fxls = $inputFileName;
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($fxls);
+
+        // read excel data and store it into an array
+        $xls_data = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+        
+        // number of rows
+        $nr = count($xls_data); 
+    
+        //Loop data and insert into database
+        for($i=2; $i<=$nr; $i++){
+            if($xls_data[$i]['A'] != NULL && $xls_data[$i]['B'] != NULL){
+                $this->uploader_models->insertDataFile($xls_data[$i]['A'],$xls_data[$i]['B'],$month);
+            }
+        }
+
+        // hapus kembali file .xls yang di upload tadi
+        unlink($inputFileName);
+
+        redirect(base_url());
+    }
+
+    public function filing_cabinet()
+    {
+        // Data for this page
+        $data['title'] = "Filing Cabinet | Quartee";
+        $data['data'] = $this->uploader_models->getAllCabinet();
+        
+        $data['qna'] = $this->uploader_models->getAllQna();
+        $data['req'] = $this->uploader_models->getAllRequest();
+        $data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
+
+        $this->load->model('guest_models');
+        $data['produk'] = $this->guest_models->getProduk();
+        $data['kategori'] = $this->guest_models->getKategori();
+
+        // Load views
+		$this->load->view('layouts/header',$data);
+		$this->load->view('layouts/sidebar',$data);
+        $this->load->view('layouts/navbar',$data);
+        $this->load->view('uploader/filing_cabinet',$data);
+		$this->load->view('layouts/footer');   
+    }
+
+    public function add_filing_cabinet()
+    {
+        if ($this->input->post() == null) {
+            redirect(base_url());
+            exit;
+        }
+
+        $upload_dir = 'assets/vendor/phpspreadsheet/file';
+        $temp = explode(".", $_FILES["excel"]["name"]);
+        $newfilename = round(microtime(true)) . '.' . end($temp);
+        $target = basename($newfilename);
+
+        move_uploaded_file($_FILES['excel']['tmp_name'], "$upload_dir/$target");
+        $insert['name'] = $this->input->post('full_name',true);
+        $insert['nama_file'] = $this->input->post('nama_file',true);
+        $insert['produk'] = $this->input->post('produk',true);
+        $insert['kategori'] = $this->input->post('kategori',true);
+        $insert['start'] = $this->input->post('start',true);
+        $insert['end'] = $this->input->post('end',true);
+        $insert['file'] = $newfilename;
+
+        $this->uploader_models->insertFilingCabinet($insert);
+
+        echo "<script>
+                alert('Add success');
+                document.location.href='".base_url('uploader/filing_cabinet')."';
+            </script>";
+    }
+
+    public function edit_filling_cabinet()
+    {
+        $upload_dir = 'assets/vendor/phpspreadsheet/file';
+        $temp = explode(".", $_FILES["excel"]["name"]);
+        $newfilename = round(microtime(true)) . '.' . end($temp);
+        $target = basename($newfilename);
+
+        move_uploaded_file($_FILES['excel']['tmp_name'], "$upload_dir/$target");
+        $input['id'] = $this->input->post('id',true);
+        $this->uploader_models->editFilingCabinet($input,$target);
+        echo "<script>
+                alert('Edit success');
+                document.location.href='".base_url('uploader/filing_cabinet')."';
+            </script>";
     }
 }

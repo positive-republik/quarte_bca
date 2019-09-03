@@ -14,7 +14,8 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Judul Permintaan</th>
+                            <th>Judul Request</th>
+                            <th>Tanggal Request</th>
                             <th>Awal Bulan</th>
                             <th>Akhir Bulan</th>
                             <th>Prioritas</th>
@@ -26,6 +27,7 @@
                         <tr>
                             <td><?= $i ?></td>
                             <td><?= $key['req_title'] ?></td>
+                            <td><?= substr($key['created_at'],0,10) ?></td>
                             <td><?= $key['req_start'] ?></td>
                             <td><?= $key['req_end'] ?></td>
                             <?php if($key['req_priority'] == 1) : ?>

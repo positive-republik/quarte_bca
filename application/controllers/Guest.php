@@ -61,9 +61,7 @@ class Guest extends CI_Controller {
         if ($this->form_validation->run()) {
             // Get data question
             $data['quest'] = $this->guest_models->getQuestion();
-        } else {
-            // exit;
-        }
+        } 
         
 		// Load views
         $this->load->view('layouts/header',$data);
@@ -71,10 +69,9 @@ class Guest extends CI_Controller {
         $this->load->view('layouts/navbar',$data);
         $this->load->view('guest/qna',$data);
         $this->load->view('layouts/footer');
-		
     }
 
-    // Add request data 
+    // Add request requestdata 
     public function addReqData()
     {
 		// Validasi input data
@@ -130,7 +127,10 @@ class Guest extends CI_Controller {
 
         } else {
             $this->guest_models->addDataQnA();
-            redirect(base_url());
+            echo "<script>
+                    alert('Pertanyaan Berhasil dikirim, Tunggu beberapa saat..');
+                    document.location.href='".base_url()."';
+                </script>";
         }
     }
     
@@ -144,6 +144,11 @@ class Guest extends CI_Controller {
     // Run Report
     public function report()
     {
+        if ($this->input->post() == NULL) {
+            redirect(base_url());
+            exit;
+        }
+
         // Input
         $input['produk'] = $this->input->post('produk',true);
         $input['start'] = $this->input->post('start',true);
@@ -160,16 +165,17 @@ class Guest extends CI_Controller {
         // Data for this page
         $data['title'] = "Qna | Quartee";
         $data['data'] = $this->guest_models->run_report($input);
+        $data['topten'] = $this->guest_models->run_report($input,true);
         $data['qna'] = $this->guest_models->getRessQna($this->session->userdata('id_user'));
         $data['req'] = $this->guest_models->getRessReq($this->session->userdata('id_user'));
         $data['chartReq'] = true;
         $data['chartVal'] = $this->guest_models->run_report_month($input);
         $data['GetGrowthPercent'] = $this->GetGrowthPercent($data['chartVal']);
-        $data['counterDataReq'] = $this->guest_models->counterData($input['produk'],'REQ/');
-        $data['counterDataInf'] = $this->guest_models->counterData($input['produk'],'INF/');
-        $data['counterDataCompl'] = $this->guest_models->counterData($input['produk'],'COMPL/');
-        $data['counterDataSaran'] = $this->guest_models->counterData($input['produk'],'SARAN/');
-
+        $data['counterDataReq'] = $this->guest_models->counterData($input['produk'],'REQ/',$input['start'],$input['end']);
+        $data['counterDataInf'] = $this->guest_models->counterData($input['produk'],'INF/',$input['start'],$input['end']);
+        $data['counterDataCompl'] = $this->guest_models->counterData($input['produk'],'COMPL/',$input['start'],$input['end']);
+        $data['counterDataSaran'] = $this->guest_models->counterData($input['produk'],'SARAN/',$input['start'],$input['end']);
+       
         // Get user detail by id
         $data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
 
@@ -228,5 +234,25 @@ class Guest extends CI_Controller {
             $resultStatistik = ($end_data / $start_data) - 2;
             return $resultStatistik = round($resultStatistik,1);
         }
+    }
+
+    // Filing cabinet guest
+    public function filing_cabinet()
+    {
+         // Data for this page
+        $data['title'] = "Filing Cabinet | Quartee";
+        $data['qna'] = $this->guest_models->getRessQna($this->session->userdata('id_user'));
+        $data['req'] = $this->guest_models->getRessReq($this->session->userdata('id_user'));
+        $this->load->model('uploader_models');
+        $data['data'] = $this->uploader_models->getAllCabinet();
+        // Get user detail by id
+        $data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
+
+        // Load views
+        $this->load->view('layouts/header',$data);
+        $this->load->view('layouts/sidebar',$data);
+        $this->load->view('layouts/navbar',$data);
+        $this->load->view('guest/filing_cabinet',$data);
+        $this->load->view('layouts/footer',$data);
     }
 }
