@@ -37,7 +37,7 @@
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Complaint <?= $produk ?></div>
+              <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Total Complaint <?= $produk ?></div>
               <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $counterDataCompl['cnt'] ?></div>
             </div>
             <div class="col-auto">
@@ -53,7 +53,7 @@
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Request <?= $produk ?></div>
+              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Total Request <?= $produk ?></div>
               <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $counterDataReq['cnt'] ?></div>
             </div>
             <div class="col-auto">
@@ -69,7 +69,7 @@
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Info <?= $produk ?></div>
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Info <?= $produk ?></div>
               <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $counterDataInf['cnt'] ?></div>
             </div>
             <div class="col-auto">
@@ -85,7 +85,7 @@
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Saran <?= $produk ?></div>
+              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Saran <?= $produk ?></div>
               <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $counterDataSaran['cnt'] ?></div>
             </div>
             <div class="col-auto">
@@ -100,18 +100,97 @@
 
   <!-- Statitik angka dan top ten -->
   <div class="row mb-4">
+    <!-- Top 10 -->
     <div class="col-md-8">
-      <!-- Top 10 -->
-      <div class="card shadow mb-4">
-        <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">Rekomendasi</h6>
+      <!-- Compl -->
+      <div class="card shadow">
+        <a href="#topCompl" class="d-block card-header py-3 border-left-danger" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="topCompl">
+          <h6 class="m-0 font-weight-bold text-danger">TOP 10 Complaint <?= $produk ?></h6>
+        </a>
+        <div class="collapse show" id="topCompl">
+          <div class="card-body">
+            <ul class="list-group">
+              <?php if(isset($topten)) : ?>
+                <?php for($z=0; $z < count($topten); $z++) : ?>
+                  <?php if(stristr($topten[$z]['kategori'], 'COMPL/')) : ?>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <?= $topten[$z]['kategori']; ?>
+                      <span class="badge badge-primary badge-pill float-right ml-auto mr-2"><?= date('M',mktime(0, 0, 0, $topten[$z]['month'], 12)) ?></span>
+                    <span class="badge badge-primary badge-pill"><?= $topten[$z]['cnt'] ?></span>
+                  </li>
+                  <?php endif; ?>
+                <?php endfor; ?>
+              <?php endif; ?>
+            </ul>
+          </div>
         </div>
-        <div class="card-body">
-          <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action border-left-danger ">TOP 10 Compl <?= $produk ?></a>
-            <a href="#" class="list-group-item list-group-item-action border-left-warning ">TOP 10 Req <?= $produk ?></a>
-            <a href="#" class="list-group-item list-group-item-action border-left-primary ">TOP 10 Inf <?= $produk ?></a>
-            <a href="#" class="list-group-item list-group-item-action border-left-success ">TOP 10 Saran <?= $produk ?></a>
+      </div>
+      <!-- Req -->
+      <div class="card shadow">
+        <a href="#topReq" class="d-block card-header py-3 border-left-warning" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="topReq">
+          <h6 class="m-0 font-weight-bold text-warning">TOP 10 Request <?= $produk ?></h6>
+        </a>
+        <div class="collapse show" id="topReq">
+          <div class="card-body">
+            <ul class="list-group">
+              <?php if(isset($topten)) : ?>
+                <?php for($z=0; $z < count($topten); $z++) : ?>
+                  <?php if(stristr($topten[$z]['kategori'], 'REQ/')) : ?>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <?= $topten[$z]['kategori']; ?>
+                      <span class="badge badge-primary badge-pill float-right ml-auto mr-2"><?= date('M',mktime(0, 0, 0, $topten[$z]['month'], 12)) ?></span>
+                    <span class="badge badge-primary badge-pill"><?= $topten[$z]['cnt'] ?></span>
+                  </li>
+                  <?php endif; ?>
+                <?php endfor; ?>
+              <?php endif; ?>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Info -->
+      <div class="card shadow">
+        <a href="#topInfo" class="d-block card-header py-3 border-left-primary" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="topInfo">
+          <h6 class="m-0 font-weight-bold text-primary">TOP 10 Info <?= $produk ?></h6>
+        </a>
+        <div class="collapse show" id="topInfo">
+          <div class="card-body">
+            <ul class="list-group">
+              <?php if(isset($topten)) : ?>
+                <?php for($z=0; $z < count($topten); $z++) : ?>
+                  <?php if(stristr($topten[$z]['kategori'], 'INF/')) : ?>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <?= $topten[$z]['kategori']; ?>
+                      <span class="badge badge-primary badge-pill float-right ml-auto mr-2"><?= date('M',mktime(0, 0, 0, $topten[$z]['month'], 12)) ?></span>
+                    <span class="badge badge-primary badge-pill"><?= $topten[$z]['cnt'] ?></span>
+                  </li>
+                  <?php endif; ?>
+                <?php endfor; ?>
+              <?php endif; ?>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Saran -->
+      <div class="card shadow">
+        <a href="#topSaran" class="d-block card-header py-3 border-left-success" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="topSaran">
+          <h6 class="m-0 font-weight-bold text-success">TOP 10 Saran <?= $produk ?></h6>
+        </a>
+        <div class="collapse show" id="topSaran">
+          <div class="card-body">
+            <ul class="list-group">
+              <?php if(isset($topten)) : ?>
+                <?php for($z=0; $z < count($topten); $z++) : ?>
+                  <?php if(stristr($topten[$z]['kategori'], 'SARAN/')) : ?>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <?= $topten[$z]['kategori']; ?>
+                      <span class="badge badge-primary badge-pill float-right ml-auto mr-2"><?= date('M',mktime(0, 0, 0, $topten[$z]['month'], 12)) ?></span>
+                    <span class="badge badge-primary badge-pill"><?= $topten[$z]['cnt'] ?></span>
+                  </li>
+                  <?php endif; ?>
+                <?php endfor; ?>
+              <?php endif; ?>
+            </ul>
           </div>
         </div>
       </div>
@@ -120,7 +199,7 @@
       <!-- Growth -->
       <div class="card shadow mb-4">
         <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">Grafik Perkembangan</h6>
+          <h6 class="m-0 font-weight-bold text-primary">GROWTH</h6>
         </div>
         <div class="card-body">
           <p><b>Plus (+)</b> adalah peningkatan , <b>Minus (-)</b> adalah penurunan</p>
@@ -129,7 +208,7 @@
       </div>
     </div>
   </div>
-  
+
   <!-- DataTales Users -->
   <div class="card shadow-sm mb-5">
     <div class="card-body">

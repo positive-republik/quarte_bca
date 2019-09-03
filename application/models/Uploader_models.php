@@ -23,6 +23,7 @@ class Uploader_models extends CI_Model {
     function deleteDataUpload()
     {
         $this->db->delete('data_upload', array('user_id' => $this->session->userdata('id_user'),'month'=>date('m'))); 
+        $this->db->delete('upload_history', array('user_id' => $this->session->userdata('id_user'),'month'=>date('m'))); 
     }
 
     // Add upload history to database
@@ -40,11 +41,15 @@ class Uploader_models extends CI_Model {
     }
 
     // Add upload data to database
-    function insertDataFile($produk,$kategori)
+    function insertDataFile($produk,$kategori,$month = null)
     {
+        if ($month == null) {
+            $month = date('m');
+        }
+
         $query = array( 
                 'id' =>  NULL,
-                'month' =>  date('m'),
+                'month' =>  $month,
                 'produk'  =>  $produk, 
                 'kategori'  =>  $kategori,
                 'user_id' => $this->session->userdata('id_user'),
@@ -59,7 +64,7 @@ class Uploader_models extends CI_Model {
         if ($checkProduk->num_rows() === 0) {
             $this->db->insert('produk',array('id' => NULL, 'produk' => $produk));
         } elseif ($checkKategori->num_rows() === 0) {
-            $this->db->insert('kategori',array('id' => NULL, 'kategori' => $kategori));
+            $this->db->insert('kategori',array('id' => NULL, 'kategori' => $kategori, 'produk_name' => $produk));
         }
     }
 
@@ -113,13 +118,52 @@ class Uploader_models extends CI_Model {
     }
     
     // change status request
-    function editStatusRequest($requester_id,$id,$status)
+    function editStatusRequest($requester_id,$id,$status,$newfilename)
     {
          $data = [
             'req_status' => $status,
+            'req_file' => $newfilename
         ];
         $this->db->where('requester_id', $requester_id);
         $this->db->where('id', $id);
         $this->db->update('request', $data);
+    }
+
+    // Edit Upload Data
+    function editRemoveData($month)
+    {
+        return $this->db->delete('data_upload',array('month'=>$month,'user_id'=>$this->session->userdata('id_user')));
+    }
+
+    // Get all filing cabinet
+    function getAllCabinet()
+    {
+        return $this->db->get('upload_reporting')->result_array();
+    }
+
+    function insertFilingCabinet($input)
+    {
+        $query = array( 
+                'id' =>  NULL,
+                'nama_file'  =>  $input['nama_file'], 
+                'kategori'  =>  $input['kategori'],
+                'produk'  =>  $input['produk'],
+                'start'  =>  $input['start'],
+                'end'  =>  $input['end'],
+                'created_by'  => $input['name'] ,
+                'created_at'  =>  NULL,
+                'file'  =>  $input['file']
+            );
+
+        $this->db->insert('upload_reporting',$query);
+    }
+
+    function editFilingCabinet($id,$temp)
+    {
+         $data = [
+            'file' => $temp
+        ];
+        $this->db->where('id', $id['id']);
+        $this->db->update('upload_reporting', $data);
     }
 }

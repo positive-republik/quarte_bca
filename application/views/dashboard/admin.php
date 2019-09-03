@@ -107,7 +107,6 @@
             </tr>
           </thead>
           <tbody>
-          
             <?php $i=0; foreach($users as $key) : ?>
             <tr>
               <td><?= $key['full_name'] ?></td>
@@ -126,7 +125,7 @@
                 <button type="button" class="badge badge-danger p-2 mDelete" data-id="<?= $key['id']; ?>" <?php echo ( $this->session->userdata('id_user') == $key['id'] ? 'disabled' : '' ); ?>><i class="fas fa-trash-alt"></i></button>
               </td>
             </tr>
-            <?php endforeach; ?>
+            <?php $i++; endforeach; ?>
           </tbody>
         </table>
       </div>

@@ -68,6 +68,12 @@
   
   <!-- Uploader Page Script -->
   <script>
+      $("select.kategori").change(function(){
+
+        var produk = $(this).children("option:selected").val();
+        $("a.show-kat").attr("href", "?produk="+produk);
+        $("kategori select").val(produk);
+      });
       // Datepicker
       $('#awalBulan').datepicker({
         uiLibrary: 'bootstrap4',
@@ -86,6 +92,16 @@
       $('#akhirBulan2').datepicker({
         uiLibrary: 'bootstrap4',
         format: 'yyyy-mm-dd'
+      })
+      $('#awalBulan3').datepicker({
+        uiLibrary: 'bootstrap4',
+        format: 'M-yyyy',
+        minViewMode: "months"
+      });
+      $('#akhirBulan3').datepicker({
+        uiLibrary: 'bootstrap4',
+        format: 'M-yyyy',
+        minViewMode: "months"
       })
       // Add img js
       $(function() {

@@ -101,7 +101,7 @@
                     Request Center
                   </h6>
                   <?php foreach($req->result_array() as $key) : ?>
-                  <a class="dropdown-item d-flex align-items-center" href="<?= base_url('guest/request') ?>">
+                  <a class="dropdown-item d-flex align-items-center" href="#">
                     <div class="mr-3">
                       <div class="icon-circle bg-primary">
                         <i class="fas fa-file-alt text-white"></i>
@@ -163,7 +163,7 @@
                   <?php else: ?>
                   <div class="alert alert-warning" role="alert">
                     Anda belum mengajukan pertanyaan, klik <a href="<?= base_url('guest/qna'); ?>" class="alert-link">disini</a> untuk bertanya.
-                    <?php var_dump(count($qna->result_array())); ?>
+                    <!-- <?php var_dump(count($qna->result_array())); ?> -->
                   </div>
                   <?php endif; ?>
                     <!-- Check if null -->
