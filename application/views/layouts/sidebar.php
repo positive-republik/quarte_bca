@@ -81,7 +81,7 @@
 
       <!-- Nav Item - Data Management -->
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="<?= base_url('guest/filing_cabinet'); ?>">
           <i class="fas fa-fw fa-server"></i>
           <span>Filing Cabinet</span></a>
       </li>

@@ -110,17 +110,14 @@
         <div class="collapse show" id="topCompl">
           <div class="card-body">
             <ul class="list-group">
-              <?php if(isset($data)) : ?>
-                <?php for($z=0; $z < count($data); $z++) : ?>
-                  <?php if(stristr($data[$z]['kategori'], 'COMPL/')) : ?>
+              <?php if(isset($topten)) : ?>
+                <?php for($z=0; $z < count($topten); $z++) : ?>
+                  <?php if(stristr($topten[$z]['kategori'], 'COMPL/')) : ?>
                   <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <?= $data[$z]['kategori']; ?>
-                      <span class="badge badge-primary badge-pill float-right ml-auto mr-2"><?= date('M',mktime(0, 0, 0, $data[$z]['month'], 12)) ?></span>
-                    <span class="badge badge-primary badge-pill"><?= $data[$z]['cnt'] ?></span>
+                    <?= $topten[$z]['kategori']; ?>
+                      <span class="badge badge-primary badge-pill float-right ml-auto mr-2"><?= date('M',mktime(0, 0, 0, $topten[$z]['month'], 12)) ?></span>
+                    <span class="badge badge-primary badge-pill"><?= $topten[$z]['cnt'] ?></span>
                   </li>
-                  <?php endif; ?>
-                  <?php if($z > 10 ) : ?>
-                    <?php break; ?>
                   <?php endif; ?>
                 <?php endfor; ?>
               <?php endif; ?>
@@ -136,17 +133,14 @@
         <div class="collapse show" id="topReq">
           <div class="card-body">
             <ul class="list-group">
-              <?php if(isset($data)) : ?>
-                <?php for($z=0; $z < count($data); $z++) : ?>
-                  <?php if(stristr($data[$z]['kategori'], 'REQ/')) : ?>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <?= $data[$z]['kategori']; ?>
-                      <span class="badge badge-primary badge-pill float-right ml-auto mr-2"><?= date('M',mktime(0, 0, 0, $data[$z]['month'], 12)) ?></span>
-                    <span class="badge badge-primary badge-pill"><?= $data[$z]['cnt'] ?></span>
-                    </li>
-                  <?php endif; ?>
-                  <?php if($z > 10 ) : ?>
-                    <?php break; ?>
+              <?php if(isset($topten)) : ?>
+                <?php for($z=0; $z < count($topten); $z++) : ?>
+                  <?php if(stristr($topten[$z]['kategori'], 'REQ/')) : ?>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <?= $topten[$z]['kategori']; ?>
+                      <span class="badge badge-primary badge-pill float-right ml-auto mr-2"><?= date('M',mktime(0, 0, 0, $topten[$z]['month'], 12)) ?></span>
+                    <span class="badge badge-primary badge-pill"><?= $topten[$z]['cnt'] ?></span>
+                  </li>
                   <?php endif; ?>
                 <?php endfor; ?>
               <?php endif; ?>
@@ -162,17 +156,14 @@
         <div class="collapse show" id="topInfo">
           <div class="card-body">
             <ul class="list-group">
-              <?php if(isset($data)) : ?>
-                <?php for($z=0; $z < count($data); $z++) : ?>
-                  <?php if(stristr($data[$z]['kategori'], 'INF/')) : ?>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <?= $data[$z]['kategori']; ?>
-                      <span class="badge badge-primary badge-pill float-right ml-auto mr-2"><?= date('M',mktime(0, 0, 0, $data[$z]['month'], 12)) ?></span>
-                    <span class="badge badge-primary badge-pill"><?= $data[$z]['cnt'] ?></span>
-                    </li>
-                  <?php endif; ?>
-                  <?php if($z > 10 ) : ?>
-                    <?php break; ?>
+              <?php if(isset($topten)) : ?>
+                <?php for($z=0; $z < count($topten); $z++) : ?>
+                  <?php if(stristr($topten[$z]['kategori'], 'INF/')) : ?>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <?= $topten[$z]['kategori']; ?>
+                      <span class="badge badge-primary badge-pill float-right ml-auto mr-2"><?= date('M',mktime(0, 0, 0, $topten[$z]['month'], 12)) ?></span>
+                    <span class="badge badge-primary badge-pill"><?= $topten[$z]['cnt'] ?></span>
+                  </li>
                   <?php endif; ?>
                 <?php endfor; ?>
               <?php endif; ?>
@@ -188,17 +179,14 @@
         <div class="collapse show" id="topSaran">
           <div class="card-body">
             <ul class="list-group">
-              <?php if(isset($data)) : ?>
-                <?php for($z=0; $z < count($data); $z++) : ?>
-                  <?php if(stristr($data[$z]['kategori'], 'SARAN/')) : ?>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <?= $data[$z]['kategori']; ?>
-                      <span class="badge badge-primary badge-pill float-right ml-auto mr-2"><?= date('M',mktime(0, 0, 0, $data[$z]['month'], 12)) ?></span>
-                    <span class="badge badge-primary badge-pill"><?= $data[$z]['cnt'] ?></span>
-                    </li>
-                  <?php endif; ?>
-                  <?php if($z > 10 ) : ?>
-                    <?php break; ?>
+              <?php if(isset($topten)) : ?>
+                <?php for($z=0; $z < count($topten); $z++) : ?>
+                  <?php if(stristr($topten[$z]['kategori'], 'SARAN/')) : ?>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <?= $topten[$z]['kategori']; ?>
+                      <span class="badge badge-primary badge-pill float-right ml-auto mr-2"><?= date('M',mktime(0, 0, 0, $topten[$z]['month'], 12)) ?></span>
+                    <span class="badge badge-primary badge-pill"><?= $topten[$z]['cnt'] ?></span>
+                  </li>
                   <?php endif; ?>
                 <?php endfor; ?>
               <?php endif; ?>

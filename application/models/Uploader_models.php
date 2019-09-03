@@ -157,4 +157,13 @@ class Uploader_models extends CI_Model {
 
         $this->db->insert('upload_reporting',$query);
     }
+
+    function editFilingCabinet($id,$temp)
+    {
+         $data = [
+            'file' => $temp
+        ];
+        $this->db->where('id', $id['id']);
+        $this->db->update('upload_reporting', $data);
+    }
 }

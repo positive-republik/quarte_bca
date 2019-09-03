@@ -71,7 +71,7 @@ class Guest extends CI_Controller {
         $this->load->view('layouts/footer');
     }
 
-    // Add request data 
+    // Add request requestdata 
     public function addReqData()
     {
 		// Validasi input data
@@ -165,6 +165,7 @@ class Guest extends CI_Controller {
         // Data for this page
         $data['title'] = "Qna | Quartee";
         $data['data'] = $this->guest_models->run_report($input);
+        $data['topten'] = $this->guest_models->run_report($input,true);
         $data['qna'] = $this->guest_models->getRessQna($this->session->userdata('id_user'));
         $data['req'] = $this->guest_models->getRessReq($this->session->userdata('id_user'));
         $data['chartReq'] = true;
@@ -233,5 +234,25 @@ class Guest extends CI_Controller {
             $resultStatistik = ($end_data / $start_data) - 2;
             return $resultStatistik = round($resultStatistik,1);
         }
+    }
+
+    // Filing cabinet guest
+    public function filing_cabinet()
+    {
+         // Data for this page
+        $data['title'] = "Filing Cabinet | Quartee";
+        $data['qna'] = $this->guest_models->getRessQna($this->session->userdata('id_user'));
+        $data['req'] = $this->guest_models->getRessReq($this->session->userdata('id_user'));
+        $this->load->model('uploader_models');
+        $data['data'] = $this->uploader_models->getAllCabinet();
+        // Get user detail by id
+        $data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
+
+        // Load views
+        $this->load->view('layouts/header',$data);
+        $this->load->view('layouts/sidebar',$data);
+        $this->load->view('layouts/navbar',$data);
+        $this->load->view('guest/filing_cabinet',$data);
+        $this->load->view('layouts/footer',$data);
     }
 }

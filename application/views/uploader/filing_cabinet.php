@@ -24,6 +24,7 @@
                             <th>Created At</th>
                             <th>File Excel</th>
                             <th>Link Share</th>
+                            <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,8 +41,62 @@
                             <td><?= $q['created_by'] ?></td>
                             <td><?= substr($q['created_at'],0,10) ?></td>
                             <td><?= $q['file'] ?></td>
-                            <td><a href="" data-id="<?= $q['id']; ?>" class="badge badge-primary mQnA">Copy Link</a></td>
+                            <td><a href="#" class="badge badge-primary mQnA" data-toggle="modal" data-target="#copy">Copy Link</a></td>
+                            <td><a href="#" class="badge badge-warning" data-toggle="modal" data-target="#edit">Edit</a></td>
                         </tr>
+                        <!-- Edit Modal -->
+                        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="editLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editLabel">Edit</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="<?= base_url('uploader/edit_filling_cabinet') ?>"  method="post" enctype="multipart/form-data">
+                                        <div class="modal-body">
+                                        <input type="hidden" value="<?= $q['id'] ?>" name="id">
+                                            <div class="input-group mt-4 mb-2">
+                                                <label class="input-group-btn">
+                                                    <span class="btn btn-primary">
+                                                    Browse<input type="file" id="media" name="excel" style="display: none;" required>
+                                                    </span>
+                                                </label>
+                                                <input type="text" class="form-control input-lg" size="40" placeholder="File Excel..." readonly required>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Link Modal -->
+                        <div class="modal fade" id="copy" tabindex="-1" role="dialog" aria-labelledby="copyLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="copyLabel">Copy Link</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label>Link File</label>
+                                            <input class="form-control" value="<?= base_url('assets/vendor/phpspreadsheet/file/'.$q['file'])  ?>" required>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <a href="<?= base_url('assets/vendor/phpspreadsheet/file/'.$q['file'])  ?>" class="btn btn-success" target="_blank" rel="noopener noreferrer" download>Download File</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     <?php endforeach; ?>
                     </tbody>
                 </table>

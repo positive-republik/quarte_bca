@@ -281,4 +281,20 @@ class Uploader extends CI_Controller {
                 document.location.href='".base_url('uploader/filing_cabinet')."';
             </script>";
     }
+
+    public function edit_filling_cabinet()
+    {
+        $upload_dir = 'assets/vendor/phpspreadsheet/file';
+        $temp = explode(".", $_FILES["excel"]["name"]);
+        $newfilename = round(microtime(true)) . '.' . end($temp);
+        $target = basename($newfilename);
+
+        move_uploaded_file($_FILES['excel']['tmp_name'], "$upload_dir/$target");
+        $input['id'] = $this->input->post('id',true);
+        $this->uploader_models->editFilingCabinet($input,$target);
+        echo "<script>
+                alert('Edit success');
+                document.location.href='".base_url('uploader/filing_cabinet')."';
+            </script>";
+    }
 }
