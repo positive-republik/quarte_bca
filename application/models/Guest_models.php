@@ -112,15 +112,19 @@ class guest_models extends CI_Model {
             $this->db->select('kategori, produk, month, count(*) as cnt');
             $this->db->where('produk', $input['produk']);
             $this->db->where('kategori', $input['kategori'][0]);
-            for ($i=1; $i < count($input['kategori']); $i++) { 
-                $this->db->or_where('kategori', $input['kategori'][$i]);
-            }
             $this->db->where('created_at > ', $input['start']);
             $this->db->where('created_at < ', $input['end']);
+            for ($i=1; $i < count($input['kategori']); $i++) { 
+                $this->db->or_where('kategori', $input['kategori'][$i]);
+                $this->db->where('produk', $input['produk']);
+                $this->db->where('created_at > ', $input['start']);
+                $this->db->where('created_at < ', $input['end']);
+            }
             $this->db->group_by(array("month","produk","kategori"));
             $this->db->having("cnt > 1", null, false);
             $this->db->order_by('cnt','desc');
             return $this->db->get('data_upload')->result_array();
+            
         }
         
     }
@@ -138,14 +142,17 @@ class guest_models extends CI_Model {
             $q=$this->db->select('month, count(*) as cnt')->group_by(array("month"))->get_where("data_upload",array('produk' => $input['produk'], 'kategori' => $input['kategori'][0], 'created_at > ' => $input['start'], 'created_at < ' => $input['end']))->result_array(); 
         } else {
             $q=$this->db->select('month, count(*) as cnt');
-            $this->db->where('produk', $input['produk']);
-            $this->db->where('kategori', $input['kategori'][0]);
+            $q=$this->db->where('produk', $input['produk']);
+            $q=$this->db->where('kategori', $input['kategori'][0]);
+            $q=$this->db->where('created_at > ', $input['start']);
+            $q=$this->db->where('created_at < ', $input['end']);
             for ($i=1; $i < count($input['kategori']); $i++) { 
-                $this->db->or_where('kategori', $input['kategori'][$i]);
+                $q=$this->db->or_where('kategori', $input['kategori'][$i]);
+                $q=$this->db->where('produk', $input['produk']);
+                $q=$this->db->where('created_at > ', $input['start']);
+                $q=$this->db->where('created_at < ', $input['end']);
             }
-            $this->db->where('created_at > ', $input['start']);
-            $this->db->where('created_at < ', $input['end']);
-            $this->db->group_by(array("month"));
+            $q=$this->db->group_by(array("month"));
             $q=$this->db->get('data_upload')->result_array();
         }
         
