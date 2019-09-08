@@ -37,7 +37,7 @@
     <input type="text" class="form-control bg-light" placeholder="Username" name="username" id="username" value="<?= $user['username']; ?>">
 </div>
 <div class="form-group">
-    <input type="text" class="form-control bg-light" placeholder="Password"  name="password" id="password">
+    <input type="text" class="form-control bg-light" placeholder="Password"  name="password" id="password" value="<?= $pass; ?>">
 </div>
 
 <input type="hidden" name="id" value="<?= $user['id']; ?>">

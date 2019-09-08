@@ -28,7 +28,7 @@ class Home extends CI_Controller {
 		// Load if role uploader
 		if ($this->session->userdata('role') == 2) {
 			$this->load->model('uploader_models');
-			$data['qna'] = $this->uploader_models->getAllQna();
+			$data['qna'] = $this->uploader_models->getAllQnaNav();
 			$data['req'] = $this->uploader_models->getAllRequest();
 			$data['getUploadCheck'] = $this->uploader_models->checkUploadThisMonth();
 		} 
@@ -69,7 +69,12 @@ class Home extends CI_Controller {
 		$data['user_info'] = $user_info;
 		$data['users'] = $this->admin_models->getAllUser();
 		$data['role_info'] = $this->admin_models->getRoleName();
-		
+		$data['pass'] = $this->admin_models->getPass()->result_array();
+		$data['passDec'] = array ();
+		foreach ($data['pass'] as $key) {
+			$ext = [$key['id'],$this->admin_models->encrypt_decrypt('decrypt',$key['password'])];
+			array_push($data['passDec'],$ext);
+		}
 		// Counting
 		$data['count_all_users'] = $this->admin_models->getALlUserCount();
 		$data['count_uploader'] = $this->admin_models->getNumRowsData(2,'users');

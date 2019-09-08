@@ -71,7 +71,25 @@ class Uploader_models extends CI_Model {
     // Get all qna table
     public function getAllQna()
     {
-        return $this->db->get_where('qna',array('status' => 1));
+        return $this->db->order_by("status", "ASC")->get('qna');
+    }
+
+    // Get all qna table for navbar
+    public function getAllQnaNav()
+    {
+        return $this->db->order_by("id", "ASC")->get_where('qna',array('status'=>1));
+    }
+
+    // Delete request
+    public function deleteReq($id)
+    {
+        $this->db->delete('request',array('id'=>$id));
+    }
+
+    // Delete Qna
+    public function deleteQna($id)
+    {
+        $this->db->delete('qna',array('id'=>$id));
     }
 
     // Get QnA by id
@@ -89,21 +107,7 @@ class Uploader_models extends CI_Model {
     // Get all request data in manage request page
     public function getAllReqDataManage()
     {
-        return $this->db->get_where('request',array('req_status' => NULL));
-    }
-
-    // insert into request_data
-    public function insertReqData($produk, $kategori,$requester_id)
-    {
-        $query = array( 
-                'id' =>  NULL,
-                'produk'  =>  $produk, 
-                'kategori'  =>  $kategori,
-                'requester_id'  =>  $requester_id,
-                'created_at'  =>  NULL
-            );
-
-        $this->db->insert('request_data',$query);
+        return $this->db->order_by("req_status", "ASC")->get('request');
     }
 
     // update Answer
@@ -112,20 +116,26 @@ class Uploader_models extends CI_Model {
         $data = [
             'answer' => $this->input->post('answer'),
             'answer_link' => $this->input->post('answer_link'),
-            'status' => 2
+            'status' => 2,
+            'answer_name' => $id['user_info']['full_name'],
+            'answer_id' => $this->session->userdata('id_user'),
+            'update_at' => date('Y-m-d')
         ];
-        return $this->db->update('qna', $data, ['id' => $id]);
+        return $this->db->update('qna', $data, ['id' => $id['id']]);
     }
     
     // change status request
-    function editStatusRequest($requester_id,$id,$status,$newfilename)
+    function editStatusRequest($input)
     {
          $data = [
-            'req_status' => $status,
-            'req_file' => $newfilename
+            'req_status' => 2,
+            'req_link' => $input['req_link'],
+            'req_note' => $input['note'],
+            'answer_name' => $input['user_info']['full_name'],
+            'update_at' => date('Y-m-d')
         ];
-        $this->db->where('requester_id', $requester_id);
-        $this->db->where('id', $id);
+        $this->db->where('requester_id', $input['requester_id']);
+        $this->db->where('id', $input['id']);
         $this->db->update('request', $data);
     }
 
@@ -158,12 +168,22 @@ class Uploader_models extends CI_Model {
         $this->db->insert('upload_reporting',$query);
     }
 
-    function editFilingCabinet($id,$temp)
+    function editFilingCabinet($input,$temp)
     {
          $data = [
+            'nama_file' => $input['name'],
+            'kategori' => $input['kategori'],
+            'produk' => $input['produk'],
+            'start' => $input['start'],
+            'end' => $input['end'],
             'file' => $temp
         ];
-        $this->db->where('id', $id['id']);
+        $this->db->where('id', $input['id']);
         $this->db->update('upload_reporting', $data);
+    }
+
+    function deleteFilingCabinet($id)
+    {
+        $this->db->delete('upload_reporting',array('id'=>$id));
     }
 }

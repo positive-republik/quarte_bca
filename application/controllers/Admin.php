@@ -19,6 +19,27 @@ class Admin extends CI_Controller {
 		}
     }
 
+
+    // Encrypt use open ssl 
+    function encrypt_decrypt($action, $string) {
+        $output = false;
+        $encrypt_method = "AES-256-CBC";
+        $secret_key = 'This is my secret key';
+        $secret_iv = 'This is my secret iv';
+        // hash
+        $key = hash('sha256', $secret_key);
+        
+        // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
+        $iv = substr(hash('sha256', $secret_iv), 0, 16);
+        if ( $action == 'encrypt' ) {
+            $output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
+            $output = base64_encode($output);
+        } else if( $action == 'decrypt' ) {
+            $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
+        }
+        return $output;
+    }
+
     //add user into database
 	public function addUser()
 	{
@@ -56,7 +77,6 @@ class Admin extends CI_Controller {
             $this->load->view('dashboard/admin',$data);
             $this->load->view('layouts/footer', $data);
         }else {
-
             // Input Data Filter
             $input['full_name'] = $this->input->post('full_name',true);
             $input['role_id'] = $this->input->post('role_id',true);
@@ -66,7 +86,7 @@ class Admin extends CI_Controller {
             $input['email'] = $this->input->post('email',true);
 			$input['domain'] = $this->input->post('domain',true);
 			$input['username'] = $this->input->post('username',true);
-			$input['password'] = $this->input->post('password',true);
+			$input['password'] = $this->encrypt_decrypt('encrypt', $this->input->post('password',true));
 
 			 // Send to databse
             $check = $this->admin_models->addUser($input);
@@ -81,9 +101,10 @@ class Admin extends CI_Controller {
     public function setData($id)
     {
         $data = [
-            'user' => $this->admin_models->getDataFromId($id)
+            'user' => $this->admin_models->getDataFromId($id),
+            'pass' => $this->admin_models->encrypt_decrypt('decrypt',$this->admin_models->getDataFromId($id)['password'])
         ];
-        // var_dump($data);
+
         $this->load->view('admin/edit', $data);
     }
 
@@ -105,7 +126,6 @@ class Admin extends CI_Controller {
 		$this->form_validation->set_rules('domain','Domain','required');
 		$this->form_validation->set_rules('username','Username','required|min_length[6]');
         $this->form_validation->set_rules('password','Password','required|min_length[6]');
-        
         
         if ($this->form_validation->run() == TRUE) {
             // Set Data and Update Data if there's no errors

@@ -3,7 +3,6 @@ $(document).ready(function() {
     // Set Edit
     $('#dataTable').on('click', 'button.btnEdit', function() {
         var id = $(this).data('id');
-
         editUser(id);
     });
 
@@ -12,8 +11,6 @@ $(document).ready(function() {
         e.preventDefault();
         var id = $('input[name=id]').val();
         var form = $(this);
-
-
         updateUser(form, id);
     });
 

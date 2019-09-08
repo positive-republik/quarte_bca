@@ -25,6 +25,7 @@
                             <th>File Excel</th>
                             <th>Link Share</th>
                             <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,6 +44,7 @@
                             <td><?= $q['file'] ?></td>
                             <td><a href="#" class="badge badge-primary mQnA" data-toggle="modal" data-target="#copy">Copy Link</a></td>
                             <td><a href="#" class="badge badge-warning" data-toggle="modal" data-target="#edit">Edit</a></td>
+                            <td><a href="<?= base_url('uploader/deleteFilingCabinet/').$q['id'] ?>" class="badge badge-danger" onclick="return alert('Yakin ingin menghapus');">Delete</a></td>
                         </tr>
                         <!-- Edit Modal -->
                         <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="editLabel" aria-hidden="true">
@@ -57,6 +59,26 @@
                                     <form action="<?= base_url('uploader/edit_filling_cabinet') ?>"  method="post" enctype="multipart/form-data">
                                         <div class="modal-body">
                                         <input type="hidden" value="<?= $q['id'] ?>" name="id">
+                                            <div class="form-group">
+                                                <label for="name">Nama File</label>
+                                                <input type="text" class="form-control" id="name" name="file_name" value="<?= $q['nama_file'] ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="kategori">Kategori File</label>
+                                                <input type="text" class="form-control" id="kategori" name="file_kategori" value="<?= $q['kategori'] ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="produk">Produk</label>
+                                                <input type="text" class="form-control" id="produk" name="file_produk" value="<?= $q['produk'] ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="awalBulan4">Priode Awal</label>
+                                                <input type="text" class="form-control" id="awalBulan4" value="<?= $q['start'] ?>" name="start">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="akhirBulan4">Priode Akhir</label>
+                                                <input type="text" class="form-control" id="akhirBulan4" value="<?= $q['end'] ?>" name="end">
+                                            </div>
                                             <div class="input-group mt-4 mb-2">
                                                 <label class="input-group-btn">
                                                     <span class="btn btn-primary">
@@ -135,21 +157,11 @@
             </div>
             <div class="form-group">
                 <label for="produk ">Produk</label>
-                <select class="form-control kategori" id="produk" name="produk" required>
-                    <option selected disabled>-- Pilih Produk --</option>
-                    <?php foreach($produk->result_array() as $key) : ?>
-                    <option value="<?= $key['produk'] ?>"><?= $key['produk'] ?></option>
-                    <?php endforeach; ?>
-                </select>
+                <input type="text" id="produk" class="form-control" name="produk" required>
             </div>
             <div class="form-group">
                 <label for="kategori ">kategori</label>
-                <select class="form-control kategori" id="kategori" name="kategori" required>
-                    <option selected disabled>-- Pilih kategori --</option>
-                    <?php foreach($kategori->result_array() as $key) : ?>
-                    <option value="<?= $key['kategori'] ?>"><?= $key['kategori'] ?></option>
-                    <?php endforeach; ?>
-                </select>
+                <input type="text" id="kategori" class="form-control" name="kategori" required>
             </div>
             <div class="form-group">
               <label for="awalBulan3">Bulan Awal</label>

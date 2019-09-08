@@ -14,20 +14,30 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>Nama Penanya</th>
                             <th>Produk</th>
                             <th>Peranyaan</th>
+                            <th>Tanggal Pertanyaan</th>
                             <th>Respon</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                     <?php
                     $i =1;
-                    foreach ( $qna->result_array() as $q ) : ?>
+                    foreach ( $data->result_array() as $q ) : ?>
                         <tr>
                             <td><?= $i++; ?></td>
+                            <td><?= $q['asker_name']; ?></td>
                             <td><?= $q['produk']; ?></td>
                             <td><?= $q['question']; ?></td>
+                            <td><?= substr($q['created_at'],0,10) ?></td>
+                            <?php if($q['status'] == null || $q['status'] == 1) : ?>
                             <td><a href="" data-id="<?= $q['id']; ?>" class="badge badge-primary mQnA">Respon</a></td>
+                            <?php else : ?>
+                            <td><a href="" data-id="<?= $q['id']; ?>" class="badge badge-secondary mQnA">Respon</a></td>
+                            <?php endif; ?>
+                            <td><a href="<?= base_url('uploader/delete/qna/'.$q['id']) ?>" class="badge badge-danger" onclick="return alert('Yakin ingin menghapus');">Delete</a></td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>

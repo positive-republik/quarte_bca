@@ -20,6 +20,7 @@
                             <th>Akhir Bulan</th>
                             <th>Prioritas</th>
                             <th>Respon</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,7 +40,12 @@
                             <?php elseif($key['req_priority'] == 4) : ?>
                             <td><button type="button" class="badge badge-info">Low</button></td>
                             <?php endif; ?>
+                            <?php if($key['req_status'] == NULL ||$key['req_status'] == 1 ) : ?>
                             <td><a href="#" class="badge badge-primary" data-toggle="modal" data-target="#ressModal<?= $key['id'] ?>">Respon</a></td>
+                            <?php else : ?>
+                            <td><a href="#" class="badge badge-secondary" data-toggle="modal" data-target="#ressModal<?= $key['id'] ?>">Respon</a></td>
+                            <?php endif; ?>
+                            <td><a href="<?= base_url('uploader/delete/req/'.$key['id']) ?>" class="badge badge-danger" onclick="return alert('Yakin ingin menghapus');">Delete</a></td>
                         </tr>
                         <!-- Modal -->
                         <div class="modal fade" id="ressModal<?= $key['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="ressModalLabel" aria-hidden="true">
@@ -51,7 +57,7 @@
                                         <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form action="<?= base_url('uploader/responeReq') ?>" method="post" enctype="multipart/form-data">
+                                    <form action="<?= base_url('uploader/responeReq') ?>" method="post">
                                         <input type="hidden" name="requester_id" value="<?= $key['requester_id'] ?>">
                                         <input type="hidden" name="id" value="<?= $key['id'] ?>">
                                         <div class="modal-body">
@@ -71,14 +77,33 @@
                                                 <label for="tujuan">Tujuan Request</label>
                                                 <textarea class="form-control" id="tujuan" name="" id="" readonly><?= $key['req_purpose'] ?></textarea>
                                             </div>
-                                            <div class="input-group mt-4 mb-2">
-                                                <label class="input-group-btn">
-                                                    <span class="btn btn-primary">
-                                                    Browse<input type="file" id="media" name="excel" style="display: none;" required>
-                                                    </span>
-                                                </label>
-                                                <input type="text" class="form-control input-lg" size="40" placeholder="File Excel..." readonly required>
+                                            <?php if($key['req_status'] == NULL ||$key['req_status'] == 1 ) : ?>
+                                            <div class="form-group">
+                                                <label for="note">Catatan Request</label>
+                                                <textarea class="form-control" id="note" name="note"></textarea>
                                             </div>
+                                            <div class="form-group">
+                                                <label for="link">Link Request</label>
+                                                <input type="text" class="form-control" id="link" name="req_link">
+                                            </div>
+                                            <?php else : ?>
+                                            <div class="form-group">
+                                                <label for="name">Nama Responder</label>
+                                                <input type="text" class="form-control" id="name" value="<?= $key['answer_name'] ?>" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="responder">Waktu Respon</label>
+                                                <input type="text" class="form-control" id="responder" value="<?= $key['update_at'] ?>" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="note">Catatan Request</label>
+                                                <textarea class="form-control" id="note" name="note"><?= $key['req_note'] ?></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="link">Link Request</label>
+                                                <input type="text" class="form-control" id="link" name="req_link" value="<?= $key['req_link'] ?>">
+                                            </div>
+                                            <?php endif; ?>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
