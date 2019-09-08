@@ -2,9 +2,9 @@
       <!-- End of Main Content -->
 
       <!-- Footer -->
-      <footer class="sticky-footer bg-white shadow">
+      <footer class="sticky-footer bg-dark shadow mt-5">
         <div class="container my-auto">
-          <div class="copyright text-center my-auto">
+          <div class="copyright text-center my-auto text-white">
             <span>Copyright &copy; Quartee 2019</span>
           </div>
         </div>
@@ -66,6 +66,8 @@
   <script src="<?= base_url('assets/js/' . $ajax . '.js'); ?>"></script>
   <?php endif; ?>
   
+  <script src="<?= base_url('assets/js/navbar.js'); ?>"></script>
+
   <!-- Uploader Page Script -->
   <script>
       $("select.kategori").change(function(){
@@ -99,6 +101,16 @@
         minViewMode: "months"
       });
       $('#akhirBulan3').datepicker({
+        uiLibrary: 'bootstrap4',
+        format: 'M-yyyy',
+        minViewMode: "months"
+      })
+      $('#awalBulan4').datepicker({
+        uiLibrary: 'bootstrap4',
+        format: 'M-yyyy',
+        minViewMode: "months"
+      });
+      $('#akhirBulan4').datepicker({
         uiLibrary: 'bootstrap4',
         format: 'M-yyyy',
         minViewMode: "months"

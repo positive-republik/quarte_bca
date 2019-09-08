@@ -52,11 +52,15 @@ class admin_models extends CI_Model {
         //     'password'	 =>  password_hash('ismanyan',PASSWORD_DEFAULT),
         //     'created_at' =>  NULL
         // );
-        
-        $check = $this->db->get_where('users',array('username' => $input['username']));
+        $check = $this->db->where('username',$input['username']);
+        $check = $this->db->or_where('full_name',$input['full_name']);
+        $check = $this->db->or_where('nip',$input['nip']);
+        $check = $this->db->or_where('email',$input['email']);
+        $check = $this->db->or_where('domain',$input['domain']);
+        $check = $this->db->get('users');
         if ($check->num_rows() > 0) {
             echo "<script>
-                    alert('Username already exists');
+                    alert('Data pada user ini sudah ada !');
                     document.location.href='".base_url()."';
                 </script>";
             exit;
@@ -72,7 +76,7 @@ class admin_models extends CI_Model {
                 'email'        =>  $input['email'],
                 'domain'	 =>  $input['domain'],
                 'username'	 =>  $input['username'],
-                'password'	 =>  password_hash($input['password'],PASSWORD_DEFAULT),
+                'password'	 =>  $input['password'],
                 'created_at' =>  NULL,
             );
             // Execute
@@ -84,6 +88,18 @@ class admin_models extends CI_Model {
     // Update user
     public function updateUser($id)
     {
+        $output = false;
+        $encrypt_method = "AES-256-CBC";
+        $secret_key = 'This is my secret key';
+        $secret_iv = 'This is my secret iv';
+        // hash
+        $key = hash('sha256', $secret_key);
+        
+        // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
+        $iv = substr(hash('sha256', $secret_iv), 0, 16);
+        $output = openssl_encrypt($_POST['password'], $encrypt_method, $key, 0, $iv);
+        $output = base64_encode($output);
+
         $data = [
             'full_name'  =>  $_POST['full_name'], 
             'role_id'    =>  $_POST['role_id'], 
@@ -93,7 +109,7 @@ class admin_models extends CI_Model {
             'email'        =>  $_POST['email'],
             'domain'	 =>  $_POST['domain'],
             'username'	 =>  $_POST['username'],
-            'password'	 =>  password_hash($_POST['password'],PASSWORD_DEFAULT)
+            'password'	 =>  $output
         ];
         return $this->db->update('users', $data, ['id' => $id]);
     }
@@ -102,5 +118,32 @@ class admin_models extends CI_Model {
     function deleteUser($id)
     {
         $this->db->delete('users', array('id' => $id)); 
+    }
+
+    // Decrypt password
+    function getPass()
+    {
+        $pass = $this->db->select('id,password');
+        return $pass = $this->db->get('users');
+    }
+
+    // Encrypt use open ssl 
+    function encrypt_decrypt($action, $string) {
+        $output = false;
+        $encrypt_method = "AES-256-CBC";
+        $secret_key = 'This is my secret key';
+        $secret_iv = 'This is my secret iv';
+        // hash
+        $key = hash('sha256', $secret_key);
+        
+        // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
+        $iv = substr(hash('sha256', $secret_iv), 0, 16);
+        if ( $action == 'encrypt' ) {
+            $output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
+            $output = base64_encode($output);
+        } else if( $action == 'decrypt' ) {
+            $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
+        }
+        return $output;
     }
 }

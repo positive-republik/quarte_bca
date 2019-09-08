@@ -10,7 +10,7 @@ class guest_models extends CI_Model {
     // getRequest Data
     public function getRequestData($id)
     {
-        return $this->db->get_where('request_data',array('requester_id'=>$id));
+        return $this->db->get_where('request',array('requester_id'=>$id,'req_status !='=>null));
     }
     // Fetch getAllQna
     public function getAllQna($id)
@@ -21,17 +21,17 @@ class guest_models extends CI_Model {
     // Fetch qna where answered limit 5
     public function getRessQna($id)
     {
+        $this->db->where(array('asker_id' => $id,'answer !=' => NULL));
         $this->db->order_by("created_at", "DESC");
-        $this->db->where(array('asker_id' => $id,'answer !=' => NULL,'status' => 2));
-        return $this->db->get('qna',5);
+        return $this->db->get('qna');
     }
 
     // Fetch qna where request limit 5
     public function getRessReq($id)
     {
-        $this->db->where(array('requester_id' => $id,'req_status' => 2));
+        $this->db->where(array('requester_id' => $id));
         $this->db->order_by("created_at", "DESC");
-        return $this->db->get('request',5);
+        return $this->db->get('request');
     }
 
     // fetch produk 
@@ -107,18 +107,18 @@ class guest_models extends CI_Model {
     public function run_report($input)
     {   
         if (count($input['kategori']) < 2) {
-            return $this->db->select('kategori, produk, month, count(*) as cnt')->where(array('produk' => $input['produk'], 'kategori' => $input['kategori'][0], 'created_at >' => $input['start'], 'created_at <' => $input['end']))->group_by(array("month","produk","kategori"))->having("cnt > 1", null, false)->order_by('cnt','desc')->get('data_upload')->result_array(); 
+            return $this->db->select('kategori, produk, month, count(*) as cnt')->where(array('produk' => $input['produk'], 'kategori' => $input['kategori'][0], 'created_at >=' => $input['start'], 'created_at <=' => $input['end']))->group_by(array("month","produk","kategori"))->having("cnt > 1", null, false)->order_by('cnt','desc')->get('data_upload')->result_array(); 
         } else {
             $this->db->select('kategori, produk, month, count(*) as cnt');
             $this->db->where('produk', $input['produk']);
             $this->db->where('kategori', $input['kategori'][0]);
-            $this->db->where('created_at > ', $input['start']);
-            $this->db->where('created_at < ', $input['end']);
+            $this->db->where('created_at >= ', $input['start']);
+            $this->db->where('created_at <= ', $input['end']);
             for ($i=1; $i < count($input['kategori']); $i++) { 
                 $this->db->or_where('kategori', $input['kategori'][$i]);
                 $this->db->where('produk', $input['produk']);
-                $this->db->where('created_at > ', $input['start']);
-                $this->db->where('created_at < ', $input['end']);
+                $this->db->where('created_at >= ', $input['start']);
+                $this->db->where('created_at <= ', $input['end']);
             }
             $this->db->group_by(array("month","produk","kategori"));
             $this->db->having("cnt > 1", null, false);
@@ -139,18 +139,18 @@ class guest_models extends CI_Model {
         }
         
         if (count($input['kategori']) < 2) {
-            $q=$this->db->select('month, count(*) as cnt')->group_by(array("month"))->get_where("data_upload",array('produk' => $input['produk'], 'kategori' => $input['kategori'][0], 'created_at > ' => $input['start'], 'created_at < ' => $input['end']))->result_array(); 
+            $q=$this->db->select('month, count(*) as cnt')->group_by(array("month"))->get_where("data_upload",array('produk' => $input['produk'], 'kategori' => $input['kategori'][0], 'created_at >= ' => $input['start'], 'created_at <= ' => $input['end']))->result_array(); 
         } else {
             $q=$this->db->select('month, count(*) as cnt');
             $q=$this->db->where('produk', $input['produk']);
             $q=$this->db->where('kategori', $input['kategori'][0]);
-            $q=$this->db->where('created_at > ', $input['start']);
-            $q=$this->db->where('created_at < ', $input['end']);
+            $q=$this->db->where('created_at >= ', $input['start']);
+            $q=$this->db->where('created_at <= ', $input['end']);
             for ($i=1; $i < count($input['kategori']); $i++) { 
                 $q=$this->db->or_where('kategori', $input['kategori'][$i]);
                 $q=$this->db->where('produk', $input['produk']);
-                $q=$this->db->where('created_at > ', $input['start']);
-                $q=$this->db->where('created_at < ', $input['end']);
+                $q=$this->db->where('created_at >= ', $input['start']);
+                $q=$this->db->where('created_at <= ', $input['end']);
             }
             $q=$this->db->group_by(array("month"));
             $q=$this->db->get('data_upload')->result_array();
@@ -167,9 +167,51 @@ class guest_models extends CI_Model {
         return $month;
     }
 
+    public function topTen($input,$type,$start,$end)
+    {
+        if (count($input['kategori']) < 2) {
+            $q=$this->db->select('kategori, count(kategori) as cnt');
+            $q=$this->db->where('produk', $input['produk']);
+            $q=$this->db->where('kategori', $input['kategori'][0]);
+            $q=$this->db->where('created_at >= ', $input['start']);
+            $q=$this->db->where('created_at <= ', $input['end']);
+            $q=$this->db->order_by('cnt','desc');
+            $q=$this->db->group_by(array("kategori"));
+            $q=$this->db->get('data_upload',10)->result_array();
+            return $q;
+        } else {
+            $q=$this->db->select('kategori, count(kategori) as cnt');
+            $q=$this->db->where('produk', $input['produk']);
+            $q=$this->db->where('kategori', $input['kategori'][0]);
+            $q=$this->db->where('created_at >= ', $input['start']);
+            $q=$this->db->where('created_at <= ', $input['end']);
+            for ($i=1; $i < count($input['kategori']); $i++) { 
+                $q=$this->db->or_where('kategori', $input['kategori'][$i]);
+                $q=$this->db->where('produk', $input['produk']);
+                $q=$this->db->where('created_at >= ', $input['start']);
+                $q=$this->db->where('created_at <= ', $input['end']);
+            }
+            $q=$this->db->order_by('cnt','desc');
+            $q=$this->db->group_by(array("kategori"));
+            $q=$this->db->get('data_upload',10)->result_array();
+
+            return $q;
+        }
+    
+    }
     // Get count data for statistik perkembangan
     public function counterData($produk,$kategori,$start,$end) {
-        return $this->db->select('kategori, produk, count(kategori) as cnt')->like('kategori',$kategori,'both')->get_where('data_upload',array('produk'=>$produk,'created_at > ' => $start, 'created_at < ' => $end))->row_array();
+        return $this->db->select('kategori, produk, count(kategori) as cnt')->like('kategori',$kategori,'both')->get_where('data_upload',array('produk'=>$produk,'created_at >= ' => $start, 'created_at <= ' => $end))->row_array();
+    }
+
+    public function getDetailChat($id)
+    {
+        return $this->db->get_where('qna',array('id'=>$id));
+    }
+
+    public function getDetailReq($id)
+    {
+        return $this->db->get_where('request',array('id'=>$id));
     }
 
 }

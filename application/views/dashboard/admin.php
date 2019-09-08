@@ -82,7 +82,6 @@
 
   </div>
   <!-- End Content Row -->
-   
   <!-- DataTales Users -->
   <div class="card shadow-sm mb-5">
     <div class="card-header py-3">

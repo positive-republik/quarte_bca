@@ -2,7 +2,7 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gray-900 sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url() ?>">
@@ -76,14 +76,6 @@
         <a class="nav-link" href="<?= base_url('guest/request'); ?>">
           <i class="fas fa-fw fa-clipboard-list"></i>
           <span>Request</span></a>
-      </li>
-
-
-      <!-- Nav Item - Data Management -->
-      <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('guest/filing_cabinet'); ?>">
-          <i class="fas fa-fw fa-server"></i>
-          <span>Filing Cabinet</span></a>
       </li>
 
       <!-- Divider -->

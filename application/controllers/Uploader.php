@@ -24,10 +24,10 @@ class Uploader extends CI_Controller {
         $data['title'] = "Request Management | Quartee";
         $data['reqDataManage'] = $this->uploader_models->getAllReqDataManage();
         
-        $data['qna'] = $this->uploader_models->getAllQna();
+        $data['qna'] = $this->uploader_models->getAllQnaNav();
         $data['req'] = $this->uploader_models->getAllRequest();
         $data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
-        
+   
         // Load views
 		$this->load->view('layouts/header',$data);
 		$this->load->view('layouts/sidebar',$data);
@@ -44,7 +44,8 @@ class Uploader extends CI_Controller {
         $data['title'] = "Qna Management | Quartee";
         $data['reqDataManage'] = $this->uploader_models->getAllReqDataManage();
         
-        $data['qna'] = $this->uploader_models->getAllQna();
+        $data['qna'] = $this->uploader_models->getAllQnaNav();
+        $data['data'] = $this->uploader_models->getAllQna();
         $data['req'] = $this->uploader_models->getAllRequest();
         $data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
 
@@ -75,7 +76,10 @@ class Uploader extends CI_Controller {
         // Data to check on ajax
         $data['success'] = FALSE;
         $data['messages'] = [];
-
+        
+        // Get user detail by id
+		$data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
+        $data['id'] = $id;
         // Set delimiter errors
         $this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
         // Set rules
@@ -86,7 +90,7 @@ class Uploader extends CI_Controller {
         if ($this->form_validation->run() == TRUE) {
             // Set Data and Update Data if there's no errors
             $data['success'] = TRUE;
-            $this->uploader_models->updateAnswer($id);
+            $this->uploader_models->updateAnswer($data);
         } else {
             // Check Validation
             foreach ( $_POST as $key => $value )
@@ -97,6 +101,19 @@ class Uploader extends CI_Controller {
         }
         
         echo json_encode($data);
+    }
+
+    // delete qna / request
+    public function delete($type,$id)
+    {
+        if ($type == 'req') {
+            $this->uploader_models->deleteReq($id);
+            redirect(base_url('uploader/req_manage'));
+        } else {
+            $this->uploader_models->deleteQna($id);
+            redirect(base_url('uploader/qna_manage'));
+        }
+
     }
 
     // Upload System
@@ -150,46 +167,15 @@ class Uploader extends CI_Controller {
     // respone request
     public function responeReq()
     {   
-         if (isset($_FILES['excel'])) {
-            $requester_id = $this->input->post('requester_id');
-            $id = $this->input->post('id');
-            
-            // Data File
-            $upload_dir = 'assets/vendor/phpspreadsheet/file';
-            $temp = explode(".", $_FILES["excel"]["name"]);
-            $newfilename = round(microtime(true)) . '.' . end($temp);
-            $target = basename($newfilename);
+        $input['requester_id'] = $this->input->post('requester_id');
+        $input['id'] = $this->input->post('id');
+        $input['note'] = $this->input->post('note');
+        $input['req_link'] = $this->input->post('req_link');
+        $input['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
 
-            move_uploaded_file($_FILES['excel']['tmp_name'], "$upload_dir/$target");
-            $inputFileName = $upload_dir.'/'.$target;
-
-            // create directly an object instance of the IOFactory class, and load the xlsx file
-            $fxls = $inputFileName;
-            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($fxls);
-
-            // read excel data and store it into an array
-            $xls_data = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-            
-            // number of rows
-            $nr = count($xls_data); 
+        $this->uploader_models->editStatusRequest($input);
         
-            //Loop data and insert into database$requester_id
-            for($i=2; $i<=$nr; $i++){
-                if($xls_data[$i]['A'] != NULL && $xls_data[$i]['B'] != NULL){
-                    $this->uploader_models->insertReqData($xls_data[$i]['A'],$xls_data[$i]['B'],$requester_id);
-                }
-            }
-            // Get req id
-
-            $this->uploader_models->editStatusRequest($requester_id,$id,2,$newfilename);
-
-            // hapus kembali file .xls yang di upload tadi
-            // unlink($inputFileName);
-
-            redirect(base_url('uploader/req_manage'));
-        } else {
-            redirect(base_url());
-        }
+        redirect(base_url('uploader/req_manage'));
     }
 
     // Edit Upload data
@@ -237,7 +223,7 @@ class Uploader extends CI_Controller {
         $data['title'] = "Filing Cabinet | Quartee";
         $data['data'] = $this->uploader_models->getAllCabinet();
         
-        $data['qna'] = $this->uploader_models->getAllQna();
+        $data['qna'] = $this->uploader_models->getAllQnaNav();
         $data['req'] = $this->uploader_models->getAllRequest();
         $data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
 
@@ -291,10 +277,38 @@ class Uploader extends CI_Controller {
 
         move_uploaded_file($_FILES['excel']['tmp_name'], "$upload_dir/$target");
         $input['id'] = $this->input->post('id',true);
+        $input['name'] = $this->input->post('file_name',true);
+        $input['produk'] = $this->input->post('file_produk',true);
+        $input['kategori'] = $this->input->post('file_kategori',true);
+        $input['start'] = $this->input->post('start',true);
+        $input['end'] = $this->input->post('end',true);
         $this->uploader_models->editFilingCabinet($input,$target);
         echo "<script>
                 alert('Edit success');
                 document.location.href='".base_url('uploader/filing_cabinet')."';
             </script>";
+    }
+
+    public function deleteFilingCabinet($id)
+    {
+        $this->uploader_models->deleteFilingCabinet($id);
+        redirect(base_url('uploader/filing_cabinet'));
+    }
+
+    
+    // get detail qna
+    public function detailQna($id)
+    {
+        $this->load->model('guest_models');
+        $arr = json_encode($this->guest_models->getDetailChat($id)->result_array());
+        echo $arr;
+    }
+
+    // get detail qna
+    public function detailReq($id)
+    {
+        $this->load->model('guest_models');
+        $arr = json_encode($this->guest_models->getDetailReq($id)->result_array());
+        echo $arr;
     }
 }

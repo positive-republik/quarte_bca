@@ -1,9 +1,7 @@
 <div class="form-body without-side">
     <div class="website-logo">
-        <a href="index.html">
-            <div class="logo">
-                <img class="logo-size" src="<?= base_url('assets/vendor/io-form/') ?>images/logo-light.svg" alt="">
-            </div>
+        <a href="<?= base_url() ?>">
+            <img class="" src="<?= base_url('assets/img/favicon.png') ?>" alt="" width="40">
         </a>
     </div>
     <div class="row">
@@ -21,7 +19,7 @@
                         <input class="form-control" type="text" name="username" placeholder="Username" value="<?= set_value('username') ?>" required>
                         <input class="form-control" type="password" name="password" placeholder="Password" required>
                         <div class="form-button">
-                            <button id="submit" type="submit" class="ibtn w-100">Login</button>
+                            <button id="submit" type="submit" class="ibtn btn btn-primray w-100">Login</button>
                         </div>
                     </form>
                 </div>

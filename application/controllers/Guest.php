@@ -25,6 +25,7 @@ class Guest extends CI_Controller {
         $data['qna'] = $this->guest_models->getRessQna($this->session->userdata('id_user'));
         $data['req'] = $this->guest_models->getRessReq($this->session->userdata('id_user'));
         $data['req_data'] = $this->guest_models->getRequestData($this->session->userdata('id_user'));
+        $data['roleName'] = $this->guest_models->getRoleById($this->session->userdata('role'));
 
 		// Get user detail by id
 		$data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
@@ -52,6 +53,7 @@ class Guest extends CI_Controller {
         $data['qna'] = $this->guest_models->getRessQna($this->session->userdata('id_user'));
         $data['req'] = $this->guest_models->getRessReq($this->session->userdata('id_user'));
         $data['produk'] = $this->guest_models->getProduk();
+        $data['kategori'] = $this->guest_models->getKategori();
 
 		// Get user detail by id
         $data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
@@ -133,6 +135,20 @@ class Guest extends CI_Controller {
                 </script>";
         }
     }
+
+    // get detail qna
+    public function detailQna($id)
+    {
+        $arr = json_encode($this->guest_models->getDetailChat($id)->result_array());
+        echo $arr;
+    }
+
+    // get detail qna
+    public function detailReq($id)
+    {
+        $arr = json_encode($this->guest_models->getDetailReq($id)->result_array());
+        echo $arr;
+    }
     
     // Read QnA for update status to 3
     public function read($id)
@@ -165,7 +181,7 @@ class Guest extends CI_Controller {
         // Data for this page
         $data['title'] = "Qna | Quartee";
         $data['data'] = $this->guest_models->run_report($input);
-        $data['topten'] = $this->guest_models->run_report($input,true);
+        $data['toptenReq'] = $this->guest_models->topTen($input,'REQ/',$input['start'],$input['end']);
         $data['qna'] = $this->guest_models->getRessQna($this->session->userdata('id_user'));
         $data['req'] = $this->guest_models->getRessReq($this->session->userdata('id_user'));
         $data['chartReq'] = true;
@@ -232,7 +248,12 @@ class Guest extends CI_Controller {
             return $resultStatistik = 0;
         } else {
             $resultStatistik = ($end_data / $start_data) - 2;
-            return $resultStatistik = round($resultStatistik,1);
+            $resultStatistik = round($resultStatistik,2);
+            if ($resultStatistik < 0) {
+                return $resultStatistik;
+            } else {
+                return "+ ".$resultStatistik;
+            }   
         }
     }
 
@@ -255,4 +276,5 @@ class Guest extends CI_Controller {
         $this->load->view('guest/filing_cabinet',$data);
         $this->load->view('layouts/footer',$data);
     }
+
 }
