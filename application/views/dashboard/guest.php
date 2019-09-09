@@ -12,16 +12,16 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="<?= base_url('assets/img/slider/1.jpeg')?>" class="d-block w-100">
+                <img src="<?= base_url('assets/img/slider/1.png')?>" class="d-block w-100">
             </div>
             <div class="carousel-item">
-                <img src="<?= base_url('assets/img/slider/2.jpeg') ?>" class="d-block w-100">
+                <img src="<?= base_url('assets/img/slider/2.png') ?>" class="d-block w-100">
             </div>
             <div class="carousel-item">
-                <img src="<?= base_url('assets/img/slider/3.jpeg') ?>" class="d-block w-100">
+                <img src="<?= base_url('assets/img/slider/3.png') ?>" class="d-block w-100">
             </div>
             <div class="carousel-item">
-                <img src="<?= base_url('assets/img/slider/4.jpeg') ?>" class="d-block w-100">
+                <img src="<?= base_url('assets/img/slider/4.png') ?>" class="d-block w-100">
             </div>
         </div>
         <a class="carousel-control-prev" href="#guestSlider" role="button" data-slide="prev">

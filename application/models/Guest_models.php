@@ -18,18 +18,20 @@ class guest_models extends CI_Model {
         return $this->db->get_where('qna',array('asker_id' => $id));
     }
 
-    // Fetch qna where answered limit 5
+    // Fetch qna where answered 
     public function getRessQna($id)
     {
         $this->db->where(array('asker_id' => $id,'answer !=' => NULL));
+        $this->db->order_by("status", "ASC");
         $this->db->order_by("created_at", "DESC");
         return $this->db->get('qna');
     }
 
-    // Fetch qna where request limit 5
+    // Fetch qna where request 
     public function getRessReq($id)
     {
-        $this->db->where(array('requester_id' => $id));
+        $this->db->where(array('requester_id' => $id, 'req_status !=' => NULL));
+        $this->db->order_by("req_status", "ASC");
         $this->db->order_by("created_at", "DESC");
         return $this->db->get('request');
     }
@@ -206,11 +208,21 @@ class guest_models extends CI_Model {
 
     public function getDetailChat($id)
     {
+        $data = [
+            'status' => 3
+        ];
+        $this->db->where('id', $id);
+        $this->db->update('qna', $data);
         return $this->db->get_where('qna',array('id'=>$id));
     }
 
     public function getDetailReq($id)
     {
+        $data = [
+            'req_status' => 3
+        ];
+        $this->db->where('id', $id);
+        $this->db->update('request', $data);
         return $this->db->get_where('request',array('id'=>$id));
     }
 

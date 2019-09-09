@@ -67,6 +67,7 @@ class Uploader extends CI_Controller {
         $data = [
             'question' => $this->uploader_models->getDataQnAById($id)
         ];
+
         $this->load->view('uploader/answer_question', $data);
     }
 

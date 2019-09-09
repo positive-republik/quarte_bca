@@ -35,7 +35,7 @@ function updateAnswer(form, id) {
                 $('#mAnswerQnA').find('.has-error').removeClass('has-error');
                 $('#mAnswerQnA').find('.has-error').removeClass('has-success');
 
-                window.location.href="http://localhost/project_/quarte_bca/uploader/qna_manage";
+                window.location.href ="http://localhost/project_/quarte_bca/uploader/qna_manage";
             }
             else
             {
