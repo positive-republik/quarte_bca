@@ -208,21 +208,25 @@ class guest_models extends CI_Model {
 
     public function getDetailChat($id)
     {
-        $data = [
-            'status' => 3
-        ];
-        $this->db->where('id', $id);
-        $this->db->update('qna', $data);
+        if ($this->session->userdata('role') == 3) {
+            $data = [
+                'status' => 3
+            ];
+            $this->db->where('id', $id);
+            $this->db->update('qna', $data);
+        }
         return $this->db->get_where('qna',array('id'=>$id));
     }
 
     public function getDetailReq($id)
     {
-        $data = [
-            'req_status' => 3
-        ];
-        $this->db->where('id', $id);
-        $this->db->update('request', $data);
+        if ($this->session->userdata('role') == 3) {
+            $data = [
+                'req_status' => 3
+            ];
+            $this->db->where('id', $id);
+            $this->db->update('request', $data);
+        }
         return $this->db->get_where('request',array('id'=>$id));
     }
 
