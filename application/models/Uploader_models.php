@@ -77,7 +77,9 @@ class Uploader_models extends CI_Model {
     // Get all qna table for navbar
     public function getAllQnaNav()
     {
-        return $this->db->order_by("id", "ASC")->get_where('qna',array('status'=>1));
+        $this->db->order_by("status", "ASC");
+        $this->db->order_by("created_at", "DESC");
+        return $this->db->get('qna');
     }
 
     // Delete request
@@ -101,7 +103,9 @@ class Uploader_models extends CI_Model {
     // Get all request table
     public function getAllRequest()
     {
-        return $this->db->get_where('request',array('req_status' => NULL));
+        $this->db->order_by("req_status", "ASC");
+        $this->db->order_by("created_at", "DESC");
+        return $this->db->get('request');
     }
 
     // Get all request data in manage request page

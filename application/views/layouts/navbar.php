@@ -26,7 +26,15 @@
                     <i class="fas fa-bell fa-fw"></i>
                     <!-- Counter - Request -->
                     <?php if ($req->num_rows() > 0) : ?>
-                      <span class="badge badge-danger badge-counter"><?= $req->num_rows() ?></span>
+                      <?php $countQna = 0;
+                            foreach ($req->result_array() as $key) : ?>
+                        <?php if ($key['req_status'] == null) {
+                                  $countQna = $countQna + 1;
+                                } ?>
+                      <?php endforeach; ?>
+                      <?php if ($countQna > 0) : ?>
+                        <span class="badge badge-danger badge-counter"><?= $countQna; ?></span>
+                      <?php endif; ?>
                     <?php endif; ?>
                   </a>
                   <!-- Dropdown - Request -->
@@ -34,20 +42,35 @@
                     <h6 class="dropdown-header bg-gray-800 border-0">
                       Request Center
                     </h6>
-                    <?php foreach ($req->result_array() as $key) : ?>
-                      <a class="dropdown-item d-flex align-items-center upload_req" href="#" data-toggle="modal" data-target="#uploadreqModal" data-id="<?= $key['id'] ?>">
-                        <div class="mr-3">
-                          <div class="icon-circle bg-gray-800">
-                            <i class="fas fa-file-alt text-white"></i>
-                          </div>
-                        </div>
-                        <div>
-                          <div class="small text-gray-500"><?= substr($key['created_at'], 0, 10) ?></div>
-                          <div class="font-weight-bold text-truncate"><?= $key['req_title'] ?></div>
-                        </div>
-                      </a>
-                    <?php endforeach; ?>
-                    <a class="dropdown-item text-center small text-gray-500" href="<?= base_url('uploader/req_manage') ?>">Read More Request</a>
+                    <?php if (count($req->result_array()) != 0) : ?>
+                      <?php foreach ($req->result_array() as $key) : ?>
+                        <?php if ($key['req_status'] != null) : ?>
+                          <a class="dropdown-item d-flex align-items-center reqDetail" href="#" data-toggle="modal" data-target="#reqModal" data-id="<?= $key['id'] ?>" style="background-color:#eee;">
+                          <?php else : ?>
+                            <a class="dropdown-item d-flex align-items-center reqDetail" href="#" data-toggle="modal" data-target="#reqModal" data-id="<?= $key['id'] ?>">
+                            <?php endif; ?>
+                            <div class="mr-3">
+                              <div class="dropdown-list-image mr-3">
+                                <div class="icon-circle bg-gray-800 ">
+                                  <i class="fas fa-file-alt text-white"></i>
+                                </div>
+                                <!-- <a href="#" class="badge badge-primary">Primary</a> -->
+                                <?php if ($key['req_status'] != null) : ?>
+                                  <div class="status-indicator bg-danger"></div>
+                                <?php else : ?>
+                                  <div class="status-indicator bg-success"></div>
+                                <?php endif; ?>
+                              </div>
+                              <div class="status-indicator bg-success"></div>
+                            </div>
+                            <div>
+                              <div class="font-weight-bold text-truncate"><?= $key['req_title'] ?></div>
+                              <div class="small text-gray-500 text-truncate"><?= $key['answer_name'] ?> · <?= substr($key['created_at'], 0, 10) ?></div>
+                            </div>
+                            </a>
+                          <?php endforeach; ?>
+                        <?php endif; ?>
+                        <a class="dropdown-item text-center small text-gray-500" href="<?= base_url('uploader/req_manage') ?>">Read More Request</a>
                   </div>
                 </li>
 
@@ -56,8 +79,16 @@
                   <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-envelope fa-fw"></i>
                     <!-- Counter - Qna -->
-                    <?php if ($qna->num_rows() > 0) : ?>
-                      <span class="badge badge-danger badge-counter"><?= $qna->num_rows() ?></span>
+                    <?php if ($req->num_rows() > 0) : ?>
+                      <?php $countQna = 0;
+                            foreach ($qna->result_array() as $key) : ?>
+                        <?php if ($key['status'] == 1) {
+                                  $countQna = $countQna + 1;
+                                } ?>
+                      <?php endforeach; ?>
+                      <?php if ($countQna > 0) : ?>
+                        <span class="badge badge-danger badge-counter"><?= $countQna; ?></span>
+                      <?php endif; ?>
                     <?php endif; ?>
                   </a>
                   <!-- Dropdown - Qna -->
@@ -65,19 +96,38 @@
                     <h6 class="dropdown-header bg-gray-800 border-0">
                       Qna Center
                     </h6>
-                    <?php foreach ($qna->result_array() as $key) : ?>
-                      <a class="dropdown-item d-flex align-items-center qna_uploader" href="#" data-toggle="modal" data-target="#uploadqnaModal" data-id="<?= $key['id'] ?>">
-                        <div class="dropdown-list-image mr-3">
-                          <img class="rounded-circle" src="<?= base_url('assets/img/pp.png') ?>" alt="">
-                          <div class="status-indicator bg-danger"></div>
-                        </div>
-                        <div class="font-weight-bold">
-                          <div class="text-truncate"><?= $key['question'] ?></div>
-                          <div class="small text-gray-500"><?= $key['asker_name'] ?> · <?= substr($key['created_at'], 0, 10) ?></div>
-                        </div>
-                      </a>
-                    <?php endforeach; ?>
-                    <a class="dropdown-item text-center small text-gray-500" href="<?= base_url('uploader/qna_manage') ?>">Read More Messages</a>
+                    <?php if (count($qna->result_array()) != 0) : ?>
+                      <?php foreach ($qna->result_array() as $key) : ?>
+                        <?php if ($key['status'] != 1) : ?>
+                          <a class="dropdown-item d-flex align-items-center qna-detail" data-toggle="modal" data-target="#qnaModal" data-id="<?= $key['id'] ?>" style="background-color:#eee;">
+                          <?php else : ?>
+                            <a class="dropdown-item d-flex align-items-center qna-detail" data-toggle="modal" data-target="#qnaModal" data-id="<?= $key['id'] ?>">
+                            <?php endif; ?>
+                            <div class="dropdown-list-image mr-3 ">
+                              <img class="rounded-circle" src="<?= base_url('assets/img/pp.png') ?>" alt="">
+                              <!-- <a href="#" class="badge badge-primary">Primary</a> -->
+                              <?php if ($key['status'] != 1) : ?>
+                                <div class="status-indicator bg-danger"></div>
+                              <?php else : ?>
+                                <div class="status-indicator bg-success"></div>
+                              <?php endif; ?>
+                            </div>
+                            <?php if ($key['status'] != 1) : ?>
+                              <div class="font-weight-bold">
+                                <div class="text-truncate"><?= $key['produk'] ?></div>
+                                <div class="small text-gray-500"><?= $key['answer_name'] ?> · <?= substr($key['created_at'], 0, 16) ?> </div>
+                              </div>
+                            <?php else : ?>
+                              <div class="font-weight-bold text-black">
+                                <div class="text-truncate"><?= $key['produk'] ?></div>
+                                <div class="small text-gray-500"><?= $key['answer_name'] ?> · <?= substr($key['created_at'], 0, 16) ?> </div>
+                              </div>
+                            <?php endif; ?>
+                            </a>
+                          <?php endforeach; ?>
+                        <?php endif; ?>
+
+                        <a class="dropdown-item text-center small text-gray-500" href="<?= base_url('uploader/qna_manage') ?>">Read More Messages</a>
                   </div>
                 </li>
               <?php endif; ?>
