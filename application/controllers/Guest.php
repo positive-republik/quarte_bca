@@ -247,7 +247,7 @@ class Guest extends CI_Controller {
         if ($start_data == NULL && $end_data == NULL || $start_data == 0 && $end_data == 0) {
             return $resultStatistik = 0;
         } else {
-            $resultStatistik = ($end_data / $start_data) - 2;
+            $resultStatistik = (($end_data / $start_data) - 1) * 100;
             $resultStatistik = round($resultStatistik,2);
             if ($resultStatistik < 0) {
                 return $resultStatistik;

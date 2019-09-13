@@ -174,28 +174,25 @@ class guest_models extends CI_Model {
         if (count($input['kategori']) < 2) {
             $q=$this->db->select('kategori, count(kategori) as cnt');
             $q=$this->db->where('produk', $input['produk']);
-            $q=$this->db->where('kategori', $input['kategori'][0]);
             $q=$this->db->where('created_at >= ', $input['start']);
             $q=$this->db->where('created_at <= ', $input['end']);
             $q=$this->db->order_by('cnt','desc');
             $q=$this->db->group_by(array("kategori"));
-            $q=$this->db->get('data_upload',10)->result_array();
+            $q=$this->db->get('data_upload')->result_array();
             return $q;
         } else {
             $q=$this->db->select('kategori, count(kategori) as cnt');
             $q=$this->db->where('produk', $input['produk']);
-            $q=$this->db->where('kategori', $input['kategori'][0]);
             $q=$this->db->where('created_at >= ', $input['start']);
             $q=$this->db->where('created_at <= ', $input['end']);
             for ($i=1; $i < count($input['kategori']); $i++) { 
-                $q=$this->db->or_where('kategori', $input['kategori'][$i]);
                 $q=$this->db->where('produk', $input['produk']);
                 $q=$this->db->where('created_at >= ', $input['start']);
                 $q=$this->db->where('created_at <= ', $input['end']);
             }
             $q=$this->db->order_by('cnt','desc');
             $q=$this->db->group_by(array("kategori"));
-            $q=$this->db->get('data_upload',10)->result_array();
+            $q=$this->db->get('data_upload')->result_array();
 
             return $q;
         }
