@@ -109,9 +109,17 @@ class guest_models extends CI_Model {
     public function run_report($input)
     {   
         if (count($input['kategori']) < 2) {
-            return $this->db->select('kategori, produk, month, count(*) as cnt')->where(array('produk' => $input['produk'], 'kategori' => $input['kategori'][0], 'created_at >=' => $input['start'], 'created_at <=' => $input['end']))->group_by(array("month","produk","kategori"))->having("cnt > 1", null, false)->order_by('cnt','desc')->get('data_upload')->result_array(); 
+            return $this->db->select('kategori, produk, month, created_at, count(created_at) as cnt')->
+            where(array(
+                'produk' => $input['produk'], 
+                'kategori' => $input['kategori'][0], 
+                'created_at >=' => $input['start'], 
+                'created_at <=' => $input['end']))->
+            group_by(array("month","produk","kategori","created_at"))->having("cnt > 1", null, false)->order_by('cnt','desc')->
+            get('data_upload')->
+            result_array(); 
         } else {
-            $this->db->select('kategori, produk, month, count(*) as cnt');
+            $this->db->select('kategori, produk, month, created_at, count(*) as cnt');
             $this->db->where('produk', $input['produk']);
             $this->db->where('kategori', $input['kategori'][0]);
             $this->db->where('created_at >= ', $input['start']);
@@ -122,7 +130,7 @@ class guest_models extends CI_Model {
                 $this->db->where('created_at >= ', $input['start']);
                 $this->db->where('created_at <= ', $input['end']);
             }
-            $this->db->group_by(array("month","produk","kategori"));
+            $this->db->group_by(array("month","produk","kategori","created_at"));
             $this->db->having("cnt > 1", null, false);
             $this->db->order_by('cnt','desc');
             return $this->db->get('data_upload')->result_array();

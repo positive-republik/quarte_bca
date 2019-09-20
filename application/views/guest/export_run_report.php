@@ -15,7 +15,7 @@ header("Content-Disposition: filename=report_".date('d-M-y').".xls");
             <?php $i=1; foreach($data as $key) : ?>
             <tr>
                 <td><?= $i ?></td>
-                <td><?= date('M',mktime(0, 0, 0, $key['month'], 12)) ?></td>
+                <td><?= date('M',mktime(0, 0, 0, $key['month'], 12)) ?> <?= substr($key['created_at'],0,4) ?></td>
                 <td><?= $key['produk'] ?></td>
                 <td><?= $key['kategori'] ?></td>
                 <td><?= $key['cnt'] ?></td>
