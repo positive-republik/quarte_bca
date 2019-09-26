@@ -2,10 +2,10 @@
 -- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Sep 08, 2019 at 11:20 AM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.8
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 26 Sep 2019 pada 15.32
+-- Versi server: 10.4.6-MariaDB
+-- Versi PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_upload`
+-- Struktur dari tabel `data_upload`
 --
 
 CREATE TABLE `data_upload` (
@@ -38,7 +38,7 @@ CREATE TABLE `data_upload` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `data_upload`
+-- Dumping data untuk tabel `data_upload`
 --
 
 INSERT INTO `data_upload` (`id`, `month`, `produk`, `kategori`, `user_id`, `created_at`) VALUES
@@ -24374,7 +24374,7 @@ INSERT INTO `data_upload` (`id`, `month`, `produk`, `kategori`, `user_id`, `crea
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kategori`
+-- Struktur dari tabel `kategori`
 --
 
 CREATE TABLE `kategori` (
@@ -24384,7 +24384,7 @@ CREATE TABLE `kategori` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `kategori`
+-- Dumping data untuk tabel `kategori`
 --
 
 INSERT INTO `kategori` (`id`, `kategori`, `produk_name`) VALUES
@@ -24419,7 +24419,7 @@ INSERT INTO `kategori` (`id`, `kategori`, `produk_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `produk`
+-- Struktur dari tabel `produk`
 --
 
 CREATE TABLE `produk` (
@@ -24428,7 +24428,7 @@ CREATE TABLE `produk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `produk`
+-- Dumping data untuk tabel `produk`
 --
 
 INSERT INTO `produk` (`id`, `produk`) VALUES
@@ -24439,7 +24439,7 @@ INSERT INTO `produk` (`id`, `produk`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `qna`
+-- Struktur dari tabel `qna`
 --
 
 CREATE TABLE `qna` (
@@ -24451,17 +24451,26 @@ CREATE TABLE `qna` (
   `question` text NOT NULL,
   `answer_id` bigint(20) DEFAULT NULL,
   `answer_name` varchar(255) DEFAULT NULL,
+  `modified_by` varchar(256) DEFAULT NULL,
   `answer` text DEFAULT NULL,
   `answer_link` text NOT NULL,
   `status` varchar(1) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `update_at` varchar(50) DEFAULT NULL
+  `update_at` varchar(50) DEFAULT NULL,
+  `modified_at` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `qna`
+--
+
+INSERT INTO `qna` (`id`, `produk`, `kategori`, `asker_id`, `asker_name`, `question`, `answer_id`, `answer_name`, `modified_by`, `answer`, `answer_link`, `status`, `created_at`, `update_at`, `modified_at`) VALUES
+(1, 'BCA KLIKPAY', '', 30, 'guest12345', 'Test Test 123', 21, 'uploader testing', 'uploader testing', 'juacncokssss', 'asu.coms', '2', '2019-09-25 13:39:24', '2019-09-25', '2019-09-25');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `request`
+-- Struktur dari tabel `request`
 --
 
 CREATE TABLE `request` (
@@ -24486,7 +24495,7 @@ CREATE TABLE `request` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `request_data`
+-- Struktur dari tabel `request_data`
 --
 
 CREATE TABLE `request_data` (
@@ -24500,7 +24509,7 @@ CREATE TABLE `request_data` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `role`
+-- Struktur dari tabel `role`
 --
 
 CREATE TABLE `role` (
@@ -24510,7 +24519,7 @@ CREATE TABLE `role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `role`
+-- Dumping data untuk tabel `role`
 --
 
 INSERT INTO `role` (`id`, `name_role`, `job_desc`) VALUES
@@ -24521,7 +24530,7 @@ INSERT INTO `role` (`id`, `name_role`, `job_desc`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `upload_history`
+-- Struktur dari tabel `upload_history`
 --
 
 CREATE TABLE `upload_history` (
@@ -24533,7 +24542,7 @@ CREATE TABLE `upload_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `upload_history`
+-- Dumping data untuk tabel `upload_history`
 --
 
 INSERT INTO `upload_history` (`id`, `user_id`, `month`, `date`, `total`) VALUES
@@ -24548,7 +24557,7 @@ INSERT INTO `upload_history` (`id`, `user_id`, `month`, `date`, `total`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `upload_reporting`
+-- Struktur dari tabel `upload_reporting`
 --
 
 CREATE TABLE `upload_reporting` (
@@ -24563,10 +24572,18 @@ CREATE TABLE `upload_reporting` (
   `file` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `upload_reporting`
+--
+
+INSERT INTO `upload_reporting` (`id`, `nama_file`, `kategori`, `produk`, `start`, `end`, `created_by`, `created_at`, `file`) VALUES
+(4, 'Test 2', 'test', 'test', 'Jul-2020', 'Oct-2019', 'uploader testing', '2019-09-25 17:17:37', '1569431858.png'),
+(5, 'test 4', 'test 3', 'test 3', 'Jan-2019', 'Jul-2019', 'uploader testing', '2019-09-25 17:18:01', '1569431882.png');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -24584,12 +24601,12 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`id`, `full_name`, `role_id`, `unit_kerja`, `extention`, `nip`, `email`, `domain`, `username`, `password`, `created_at`) VALUES
+(21, 'uploader testing', '2', '-', '-', '123456789', 'uploader@gmail.com', 'upload.com', 'uploader123', 'L1g4NzN1Vmt1ZmZIK2lkNjdpSXo2QT09', '2019-09-02 20:24:56'),
 (26, 'admin testing', '1', '-', '-', '123456789', 'admin@admin.com', '-', 'admin12345', 'Z29aWVZRK1pRbThsL3J0emF6ZlI0QT09', '2019-08-31 05:56:33'),
-(29, 'uploader testing', '2', '-', '-', '123456789', 'uploader@gmail.com', 'upload.com', 'uploader123', 'L1g4NzN1Vmt1ZmZIK2lkNjdpSXo2QT09', '2019-09-02 20:24:56'),
 (30, 'guest', '3', '-', '-', '123', 'guest@gmail.com', 'sss', 'guest12345', 'RUJQcDFtTk0zc1NVV1VFN20zS2UrUT09', '2019-09-05 16:52:26'),
 (34, 'admin testing', '1', 'kasdkas', 'nskanb', '8219819', 'sanjsa@gmail.com', 'snkadnas', 'kF0IZw', 'MXNEWjlYR08ySlNaRktjd0Yyb0FFQT09', '2019-09-07 05:51:38');
 
@@ -24598,127 +24615,127 @@ INSERT INTO `users` (`id`, `full_name`, `role_id`, `unit_kerja`, `extention`, `n
 --
 
 --
--- Indexes for table `data_upload`
+-- Indeks untuk tabel `data_upload`
 --
 ALTER TABLE `data_upload`
   ADD PRIMARY KEY (`id`),
   ADD KEY `month` (`month`);
 
 --
--- Indexes for table `kategori`
+-- Indeks untuk tabel `kategori`
 --
 ALTER TABLE `kategori`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `produk`
+-- Indeks untuk tabel `produk`
 --
 ALTER TABLE `produk`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `qna`
+-- Indeks untuk tabel `qna`
 --
 ALTER TABLE `qna`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `request`
+-- Indeks untuk tabel `request`
 --
 ALTER TABLE `request`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `request_data`
+-- Indeks untuk tabel `request_data`
 --
 ALTER TABLE `request_data`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `role`
+-- Indeks untuk tabel `role`
 --
 ALTER TABLE `role`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `upload_history`
+-- Indeks untuk tabel `upload_history`
 --
 ALTER TABLE `upload_history`
   ADD PRIMARY KEY (`id`),
   ADD KEY `month` (`month`);
 
 --
--- Indexes for table `upload_reporting`
+-- Indeks untuk tabel `upload_reporting`
 --
 ALTER TABLE `upload_reporting`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `data_upload`
+-- AUTO_INCREMENT untuk tabel `data_upload`
 --
 ALTER TABLE `data_upload`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24287;
 
 --
--- AUTO_INCREMENT for table `kategori`
+-- AUTO_INCREMENT untuk tabel `kategori`
 --
 ALTER TABLE `kategori`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
--- AUTO_INCREMENT for table `produk`
+-- AUTO_INCREMENT untuk tabel `produk`
 --
 ALTER TABLE `produk`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `qna`
+-- AUTO_INCREMENT untuk tabel `qna`
 --
 ALTER TABLE `qna`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `request`
+-- AUTO_INCREMENT untuk tabel `request`
 --
 ALTER TABLE `request`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `request_data`
+-- AUTO_INCREMENT untuk tabel `request_data`
 --
 ALTER TABLE `request_data`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `role`
+-- AUTO_INCREMENT untuk tabel `role`
 --
 ALTER TABLE `role`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `upload_history`
+-- AUTO_INCREMENT untuk tabel `upload_history`
 --
 ALTER TABLE `upload_history`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `upload_reporting`
+-- AUTO_INCREMENT untuk tabel `upload_reporting`
 --
 ALTER TABLE `upload_reporting`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;

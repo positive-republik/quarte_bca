@@ -54,22 +54,11 @@ html, body {
 }
 
 .website-logo img {
-    width: 100px;
+    width: 100%;
 }
 
 .website-logo a {
     display: inline-block;
-}
-
-.website-logo .logo {
-    display: inline-block;
-    background-image: url("../images/logo-light.svg");
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-.website-logo .logo img {
-    width: 100px;
 }
 
 .website-logo .logo img.logo-size {
@@ -1231,9 +1220,9 @@ html, body {
 .form-body.without-side .form-content .form-items {
     padding: 35px 30px;
     border-radius: 10px;
-    background-color: #fff;
-    -webkit-box-shadow: 0 6px 15px rgba(0, 0, 0, 0.16);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.16);
+    /* background-color: #fff; */
+    /* -webkit-box-shadow: 0 6px 15px rgba(0, 0, 0, 0.16); */
+    /* box-shadow: 0 6px 15px rgba(0, 0, 0, 0.16); */
 }
 
 .form-body.without-side .form-content .form-items form {

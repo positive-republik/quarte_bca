@@ -5,12 +5,17 @@
       <div id="content">
 
         <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-dark text-gray-100 bg-gray-800 topbar mb-4 static-top shadow">
+        <nav class="navbar navbar-expand navbar-dark text-gray-100 topbar mb-4 static-top shadow">
 
           <!-- Sidebar Toggle (Topbar) -->
           <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
           </button>
+
+
+          <ul class="navbar-nav ml-auto d-none d-md-block">
+            <img src="<?= base_url('assets/img/logo.png') ?>" width="200">
+          </ul>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -79,7 +84,7 @@
                   <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-envelope fa-fw"></i>
                     <!-- Counter - Qna -->
-                    <?php if ($req->num_rows() > 0) : ?>
+                    <?php if ($qna->num_rows() > 0) : ?>
                       <?php $countQna = 0;
                             foreach ($qna->result_array() as $key) : ?>
                         <?php if ($key['status'] == 1) {

@@ -17,6 +17,27 @@ class Uploader extends CI_Controller {
 		$this->load->model('auth_models');        
     }
 
+    // Custom data upload
+    public function custom()
+    {
+
+        // Data for this page
+        $data['title'] = "Custom | Quartee";
+
+        $data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
+        $data['qna'] = $this->uploader_models->getAllQnaNav();
+        $data['req'] = $this->uploader_models->getAllRequest();
+        $data['getUploadCheck'] = $this->uploader_models->checkUploadThisMonth();
+        $data['all_upload'] = $this->uploader_models->getDataHistory();
+		
+        // Load views
+        $this->load->view('layouts/header', $data);
+        $this->load->view('layouts/sidebar', $data);
+        $this->load->view('layouts/navbar', $data);
+        $this->load->view('uploader/custom', $data);
+        $this->load->view('layouts/footer');
+    }
+
     // Request management page
     public function req_manage()
     {
@@ -104,6 +125,13 @@ class Uploader extends CI_Controller {
         echo json_encode($data);
     }
 
+    // MODIF QNA
+    public function modifqna($id)
+    {
+        $this->uploader_models->modifAnswer($id);
+        redirect(base_url('uploader/qna_manage'));
+    }
+
     // delete qna / request
     public function delete($type,$id)
     {
@@ -159,9 +187,9 @@ class Uploader extends CI_Controller {
             // hapus kembali file .xls yang di upload tadi
             unlink($inputFileName);
 
-            redirect(base_url().'?safe=1');
+            redirect($_SERVER['HTTP_REFERER'].'?safe=1');
         } else {
-            redirect(base_url());
+            redirect($_SERVER['HTTP_REFERER']);
         }
     }
     
@@ -180,15 +208,17 @@ class Uploader extends CI_Controller {
     }
 
     // Edit Upload data
-    public function edit()
+    public function edit($id)
     {
         if ($_FILES['excel'] == NULL) {
             redirect(base_url());
             exit;
         }
 
-        $month = $this->input->post('date');
-        $this->uploader_models->editRemoveData($month);
+        $month = $this->input->post('month');
+
+        $this->uploader_models->editRemoveData($month,$id);
+
         // Data File
         $upload_dir = 'assets/vendor/phpspreadsheet/file';
         $target = basename($_FILES['excel']['name']);
@@ -203,19 +233,22 @@ class Uploader extends CI_Controller {
         $xls_data = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
         
         // number of rows
-        $nr = count($xls_data); 
-    
+        $nr = count($xls_data);
+        $allData = 0;
         //Loop data and insert into database
         for($i=2; $i<=$nr; $i++){
             if($xls_data[$i]['A'] != NULL && $xls_data[$i]['B'] != NULL){
                 $this->uploader_models->insertDataFile($xls_data[$i]['A'],$xls_data[$i]['B'],$month);
+                $allData++;
             }
         }
 
-        // hapus kembali file .xls yang di upload tadi
-        unlink($inputFileName);
+        // Add upload history
+        $this->uploader_models->addUploadHistory($allData);
 
-        redirect(base_url());
+        // hapus kembali file .xls yang di upload tadi
+        // unlink($inputFileName);
+        redirect($_SERVER['HTTP_REFERER']);
     }
 
     public function filing_cabinet()

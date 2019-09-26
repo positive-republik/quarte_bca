@@ -23,7 +23,7 @@
   --cyan: #36b9cc;
   --white: #fff;
   --gray: #858796;
-  --gray-dark: #5a5c69;
+  --gray-dark: black;
   --primary: #4e73df;
   --secondary: #858796;
   --success: #1cc88a;
@@ -31,7 +31,7 @@
   --warning: #f6c23e;
   --danger: #e74a3b;
   --light: #f8f9fc;
-  --dark: #5a5c69;
+  --dark: black;
   --breakpoint-xs: 0;
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
@@ -1916,7 +1916,7 @@ pre code {
 
 .table .thead-dark th {
   color: #fff;
-  background-color: #5a5c69;
+  background-color: black;
   border-color: #6c6e7e;
 }
 
@@ -1928,7 +1928,7 @@ pre code {
 
 .table-dark {
   color: #fff;
-  background-color: #5a5c69;
+  background-color: black;
 }
 
 .table-dark th,
@@ -2269,7 +2269,7 @@ textarea.form-control {
 .was-validated .custom-select:valid, .custom-select.is-valid {
   border-color: #1cc88a;
   padding-right: calc((1em + 0.75rem) * 3 / 4 + 1.75rem);
-  background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%235a5c69' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px, url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%231cc88a' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e") #fff no-repeat center right 1.75rem/calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+  background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%2black' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px, url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%231cc88a' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e") #fff no-repeat center right 1.75rem/calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
 }
 
 .was-validated .custom-select:valid:focus, .custom-select.is-valid:focus {
@@ -2396,7 +2396,7 @@ textarea.form-control {
 .was-validated .custom-select:invalid, .custom-select.is-invalid {
   border-color: #e74a3b;
   padding-right: calc((1em + 0.75rem) * 3 / 4 + 1.75rem);
-  background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%235a5c69' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px, url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23e74a3b' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23e74a3b' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E") #fff no-repeat center right 1.75rem/calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+  background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%2black' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px, url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23e74a3b' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23e74a3b' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E") #fff no-repeat center right 1.75rem/calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
 }
 
 .was-validated .custom-select:invalid:focus, .custom-select.is-invalid:focus {
@@ -2866,8 +2866,8 @@ fieldset:disabled a.btn {
 
 .btn-dark {
   color: #fff;
-  background-color: #5a5c69;
-  border-color: #5a5c69;
+  background-color: black;
+  border-color: black;
 }
 
 .btn-dark:hover {
@@ -2883,8 +2883,8 @@ fieldset:disabled a.btn {
 
 .btn-dark.disabled, .btn-dark:disabled {
   color: #fff;
-  background-color: #5a5c69;
-  border-color: #5a5c69;
+  background-color: black;
+  border-color: black;
 }
 
 .btn-dark:not(:disabled):not(.disabled):active, .btn-dark:not(:disabled):not(.disabled).active,
@@ -3139,14 +3139,14 @@ fieldset:disabled a.btn {
 }
 
 .btn-outline-dark {
-  color: #5a5c69;
-  border-color: #5a5c69;
+  color: black;
+  border-color: black;
 }
 
 .btn-outline-dark:hover {
   color: #fff;
-  background-color: #5a5c69;
-  border-color: #5a5c69;
+  background-color: black;
+  border-color: black;
 }
 
 .btn-outline-dark:focus, .btn-outline-dark.focus {
@@ -3155,15 +3155,15 @@ fieldset:disabled a.btn {
 }
 
 .btn-outline-dark.disabled, .btn-outline-dark:disabled {
-  color: #5a5c69;
+  color: black;
   background-color: transparent;
 }
 
 .btn-outline-dark:not(:disabled):not(.disabled):active, .btn-outline-dark:not(:disabled):not(.disabled).active,
 .show > .btn-outline-dark.dropdown-toggle {
   color: #fff;
-  background-color: #5a5c69;
-  border-color: #5a5c69;
+  background-color: black;
+  border-color: black;
 }
 
 .btn-outline-dark:not(:disabled):not(.disabled):active:focus, .btn-outline-dark:not(:disabled):not(.disabled).active:focus,
@@ -4011,7 +4011,7 @@ input[type="button"].btn-block {
   line-height: 1.5;
   color: #6e707e;
   vertical-align: middle;
-  background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%235a5c69' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px;
+  background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%2black' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px;
   background-color: #fff;
   border: 1px solid #d1d3e2;
   border-radius: 0.35rem;
@@ -4417,6 +4417,7 @@ input[type="button"].btn-block {
 }
 
 .navbar {
+  background-color: black;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -5416,7 +5417,7 @@ a.badge-light:focus, a.badge-light.focus {
 
 .badge-dark {
   color: #fff;
-  background-color: #5a5c69;
+  background-color: black;
 }
 
 a.badge-dark:hover, a.badge-dark:focus {
@@ -6985,7 +6986,7 @@ button.bg-light:focus {
 }
 
 .bg-dark {
-  background-color: #5a5c69 !important;
+  background-color: black !important;
 }
 
 a.bg-dark:hover, a.bg-dark:focus,
@@ -7071,7 +7072,7 @@ button.bg-dark:focus {
 }
 
 .border-dark {
-  border-color: #5a5c69 !important;
+  border-color: black !important;
 }
 
 .border-white {
@@ -10428,7 +10429,7 @@ a.text-light:hover, a.text-light:focus {
 }
 
 .text-dark {
-  color: #5a5c69 !important;
+  color: black !important;
 }
 
 a.text-dark:hover, a.text-dark:focus {
@@ -10615,7 +10616,7 @@ a:focus {
 }
 
 .scroll-to-top:hover {
-  background: #5a5c69;
+  background: black;
 }
 
 .scroll-to-top i {
@@ -10734,9 +10735,9 @@ a:focus {
 }
 
 .bg-gradient-dark {
-  background-color: #5a5c69;
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(10%, #5a5c69), to(#373840));
-  background-image: linear-gradient(180deg, #5a5c69 10%, #373840 100%);
+  background-color: black;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(10%, black), to(#373840));
+  background-image: linear-gradient(180deg, black 10%, #373840 100%);
   background-size: cover;
 }
 
@@ -10769,7 +10770,7 @@ a:focus {
 }
 
 .bg-gray-800 {
-  background-color: #5a5c69 !important;
+  background-color: black !important;
 }
 
 .bg-gray-900 {
@@ -10817,7 +10818,7 @@ a:focus {
 }
 
 .text-gray-800 {
-  color: #5a5c69 !important;
+  color: black !important;
 }
 
 .text-gray-900 {
@@ -10896,11 +10897,11 @@ a:focus {
 }
 
 .border-left-dark {
-  border-left: 0.25rem solid #5a5c69 !important;
+  border-left: 0.25rem solid black !important;
 }
 
 .border-bottom-dark {
-  border-bottom: 0.25rem solid #5a5c69 !important;
+  border-bottom: 0.25rem solid black !important;
 }
 
 .progress-sm {
@@ -11114,6 +11115,7 @@ a:focus {
 }
 
 .sidebar {
+  background-image: url("../img/background.png");
   width: 6.5rem;
   min-height: 100vh;
 }
@@ -11747,7 +11749,7 @@ form.user .btn-user {
 }
 
 .error {
-  color: #5a5c69;
+  color: black;
   font-size: 7rem;
   position: relative;
   line-height: 1;
@@ -11892,7 +11894,7 @@ form.user .btn-user {
   left: 2px;
   text-shadow: -1px 0 #e74a3b;
   top: 0;
-  color: #5a5c69;
+  color: black;
   background: #f8f9fc;
   overflow: hidden;
   clip: rect(0, 900px, 0, 0);
@@ -12037,7 +12039,7 @@ form.user .btn-user {
   left: -2px;
   text-shadow: 1px 0 #4e73df;
   top: 0;
-  color: #5a5c69;
+  color: black;
   background: #f8f9fc;
   overflow: hidden;
   clip: rect(0, 900px, 0, 0);
@@ -12045,6 +12047,10 @@ form.user .btn-user {
 }
 
 footer.sticky-footer {
+  background-image: url('../img/background.png');
+  background-position: left;
+  border:0px solid white !important;
+  /* background-color: red; */
   padding: 2rem 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;

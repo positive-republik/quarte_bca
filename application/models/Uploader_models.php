@@ -29,11 +29,19 @@ class Uploader_models extends CI_Model {
     // Add upload history to database
     function addUploadHistory($numRows)
     {
+        if ($this->input->post('date') !== null) {
+            $month = substr($this->input->post('date'), 5, 8);
+            $date = $this->input->post('date');
+        } else {
+            $month = date('m');
+            $date = null;
+        }
+        
         $query = array( 
                 'id' =>  NULL,
                 'user_id'  =>  $this->session->userdata('id_user'), 
-                'month'  =>  date('m'),
-                'date' => NULL,
+                'month'  =>  $month,
+                'date' => $date,
                 'total' => $numRows
             );
 
@@ -43,8 +51,16 @@ class Uploader_models extends CI_Model {
     // Add upload data to database
     function insertDataFile($produk,$kategori,$month = null)
     {
-        if ($month == null) {
+        // if ($month == null) {
+        //     $month = date('m');
+        // }
+
+        if ($this->input->post('date') !== null) {
+            $month = substr($this->input->post('date'), 5, 8);
+            $created = $this->input->post('date');
+        } else {
             $month = date('m');
+            $created = null;
         }
 
         $query = array( 
@@ -53,7 +69,7 @@ class Uploader_models extends CI_Model {
                 'produk'  =>  $produk, 
                 'kategori'  =>  $kategori,
                 'user_id' => $this->session->userdata('id_user'),
-                'created_at' => NULL
+                'created_at' => $created
             );
 
         $this->db->insert('data_upload',$query);
@@ -71,7 +87,10 @@ class Uploader_models extends CI_Model {
     // Get all qna table
     public function getAllQna()
     {
-        return $this->db->order_by("status", "ASC")->get('qna');
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->join('qna', 'qna.asker_id=users.id');
+        return $this->db->order_by("status", "ASC")->get();
     }
 
     // Get all qna table for navbar
@@ -121,11 +140,24 @@ class Uploader_models extends CI_Model {
             'answer' => $this->input->post('answer'),
             'answer_link' => $this->input->post('answer_link'),
             'status' => 2,
-            'answer_name' => $id['user_info']['full_name'],
             'answer_id' => $this->session->userdata('id_user'),
-            'update_at' => date('Y-m-d')
+            'update_at' => date('Y-m-d'),
+            'answer_name' => $this->session->userdata('name')
         ];
         return $this->db->update('qna', $data, ['id' => $id['id']]);
+    }
+    
+    // update Answer
+    public function modifAnswer($id)
+    {
+        $data = [
+            'answer' => $this->input->post('answer'),
+            'answer_link' => $this->input->post('answer_link'),
+            'modified_at' => date('Y-m-d'),
+            'modified_by' => $this->session->userdata('name')
+        ];
+        return $this->db->update('qna', $data, ['id' => $id]);
+        
     }
     
     // change status request
@@ -144,9 +176,10 @@ class Uploader_models extends CI_Model {
     }
 
     // Edit Upload Data
-    function editRemoveData($month)
+    function editRemoveData($month,$id)
     {
-        return $this->db->delete('data_upload',array('month'=>$month,'user_id'=>$this->session->userdata('id_user')));
+        $this->db->delete('data_upload',array('month'=>$month,'user_id'=>$this->session->userdata('id_user')));
+        $this->db->delete('upload_history', array('id' => $id, 'user_id' => $this->session->userdata('id_user')));
     }
 
     // Get all filing cabinet

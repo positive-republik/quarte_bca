@@ -2,7 +2,7 @@
       <!-- End of Main Content -->
 
       <!-- Footer -->
-      <footer class="sticky-footer bg-dark shadow mt-5">
+      <footer class="sticky-footer shadow mt-5">
         <div class="container my-auto">
           <div class="copyright text-center my-auto text-white">
             <span>Copyright &copy; Quartee 2019</span>

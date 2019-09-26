@@ -29,7 +29,8 @@ class auth_models extends CI_Model {
                 $newdata = array(
                         'id_user' => $query->row_array()['id'],
                         'logged_in' => TRUE,
-                        'role' => $query->row_array()['role_id']
+                        'role' => $query->row_array()['role_id'],
+                        'name' => $query->row_array()['full_name']
                 );
                 $this->session->set_userdata($newdata);
             } else {

@@ -21,7 +21,6 @@
 .website-logo {
     display: inline-block;
     top: 140px;
-    left: 80px;
     right: initial;
     bottom: initial;
 }
@@ -52,7 +51,7 @@
 
 .img-holder {
     width: 550px;
-    background-color: #152733;
+    background-image: url("../images/background.png");
 }
 
 .img-holder .info-holder h3 {
@@ -443,8 +442,6 @@
 
     .website-logo {
         top: 50px;
-        left: 50px;
-        right: initial;
         bottom: initial;
     }
 
