@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 26 Sep 2019 pada 15.32
+-- Waktu pembuatan: 13 Okt 2019 pada 10.18
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.9
 
@@ -21,6 +21,27 @@ SET time_zone = "+00:00";
 --
 -- Database: `quartee_bca`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `banner`
+--
+
+CREATE TABLE `banner` (
+  `id` int(11) NOT NULL,
+  `img` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `banner`
+--
+
+INSERT INTO `banner` (`id`, `img`) VALUES
+(9, '45a333433cff69b6a312c4d347f48203.png'),
+(10, 'fc4d876b35d98a38e46cba2429d20538.png'),
+(11, 'd323b13c603b8e59e80bb4b3d30c2f6c.png'),
+(12, '7ea16b5463938382a1e36df3e7dc3287.png');
 
 -- --------------------------------------------------------
 
@@ -24460,13 +24481,6 @@ CREATE TABLE `qna` (
   `modified_at` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `qna`
---
-
-INSERT INTO `qna` (`id`, `produk`, `kategori`, `asker_id`, `asker_name`, `question`, `answer_id`, `answer_name`, `modified_by`, `answer`, `answer_link`, `status`, `created_at`, `update_at`, `modified_at`) VALUES
-(1, 'BCA KLIKPAY', '', 30, 'guest12345', 'Test Test 123', 21, 'uploader testing', 'uploader testing', 'juacncokssss', 'asu.coms', '2', '2019-09-25 13:39:24', '2019-09-25', '2019-09-25');
-
 -- --------------------------------------------------------
 
 --
@@ -24572,14 +24586,6 @@ CREATE TABLE `upload_reporting` (
   `file` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `upload_reporting`
---
-
-INSERT INTO `upload_reporting` (`id`, `nama_file`, `kategori`, `produk`, `start`, `end`, `created_by`, `created_at`, `file`) VALUES
-(4, 'Test 2', 'test', 'test', 'Jul-2020', 'Oct-2019', 'uploader testing', '2019-09-25 17:17:37', '1569431858.png'),
-(5, 'test 4', 'test 3', 'test 3', 'Jan-2019', 'Jul-2019', 'uploader testing', '2019-09-25 17:18:01', '1569431882.png');
-
 -- --------------------------------------------------------
 
 --
@@ -24613,6 +24619,12 @@ INSERT INTO `users` (`id`, `full_name`, `role_id`, `unit_kerja`, `extention`, `n
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `banner`
+--
+ALTER TABLE `banner`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `data_upload`
@@ -24681,6 +24693,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `banner`
+--
+ALTER TABLE `banner`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
 -- AUTO_INCREMENT untuk tabel `data_upload`
 --
 ALTER TABLE `data_upload`
@@ -24708,7 +24726,7 @@ ALTER TABLE `qna`
 -- AUTO_INCREMENT untuk tabel `request`
 --
 ALTER TABLE `request`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `request_data`
