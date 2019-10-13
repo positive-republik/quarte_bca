@@ -31,10 +31,13 @@ class Home extends CI_Controller {
 			$data['qna'] = $this->uploader_models->getAllQnaNav();
 			$data['req'] = $this->uploader_models->getAllRequest();
 			$data['getUploadCheck'] = $this->uploader_models->checkUploadThisMonth();
-		} 
+		}
 		// Load if role guest
 		elseif ($this->session->userdata('role') == 3) {
 			$this->load->model('guest_models');
+			$this->load->model('uploader_models');
+			$data['banner'] = $this->uploader_models->getAllBanner();
+
 			$data['qna'] = $this->guest_models->getRessQna($this->session->userdata('id_user'));
 			$data['req'] = $this->guest_models->getRessReq($this->session->userdata('id_user'));
 			$data['produk'] = $this->guest_models->getProduk();

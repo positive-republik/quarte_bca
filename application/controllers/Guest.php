@@ -172,6 +172,7 @@ class Guest extends CI_Controller {
         $data['produk'] = $input['produk'];
         $data['start'] = $input['start'];
         $data['end'] = $input['end'];
+        $data['allKategori'] = $this->input->post('kategori');
         
         // loop al input kategori
         for ($i=0; $i < count($this->input->post('kategori')); $i++) { 
@@ -199,7 +200,7 @@ class Guest extends CI_Controller {
         $this->load->view('layouts/header',$data);
         $this->load->view('layouts/sidebar',$data);
         $this->load->view('layouts/navbar',$data);
-        $this->load->view('guest/report',$data);
+        $this->load->view('guest/report', array($data,$input));
         $this->load->view('layouts/footer',$data);
     }
 
@@ -277,4 +278,23 @@ class Guest extends CI_Controller {
         $this->load->view('layouts/footer',$data);
     }
 
+    // page history request
+    public function history()
+    {
+        // Data for this page
+        $data['title'] = "History | Quartee";
+        $data['qna'] = $this->guest_models->getRessQna($this->session->userdata('id_user'));
+        $data['req'] = $this->guest_models->getRessReq($this->session->userdata('id_user'));
+        $this->load->model('uploader_models');
+        $data['data'] = $this->uploader_models->getAllHistory($this->session->userdata('id_user'));
+        // Get user detail by id
+        $data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
+
+        // Load views
+        $this->load->view('layouts/header', $data);
+        $this->load->view('layouts/sidebar', $data);
+        $this->load->view('layouts/navbar', $data);
+        $this->load->view('guest/history');
+        $this->load->view('layouts/footer', $data); 
+    }
 }

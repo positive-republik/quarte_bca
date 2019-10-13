@@ -25,9 +25,17 @@
       <hr class="sidebar-divider">
     <?php else : ?>
       <li class="nav-item">
-        <a class="nav-link" href="<?= base_url() ?>">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Data Upload</span></a>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Data Upload :</h6>
+            <a class="collapse-item" href="<?= base_url() ?>">Real Time</a>
+            <a class="collapse-item" href="<?= base_url('uploader/custom') ?>">Custom</a>
+          </div>
+        </div>
       </li>
     <?php endif; ?>
     <!-- Divider -->
@@ -55,6 +63,13 @@
           <span>Filing Cabinet</span></a>
       </li>
 
+      <!-- Nav Item - Data Management -->
+      <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('uploader/banner') ?>">
+          <i class="fas fa-fw fa-image"></i>
+          <span>Banner Management</span></a>
+      </li>
+
       <!-- Divider -->
       <hr class="sidebar-divider">
 
@@ -76,6 +91,13 @@
         <a class="nav-link" href="<?= base_url('guest/request'); ?>">
           <i class="fas fa-fw fa-clipboard-list"></i>
           <span>Request</span></a>
+      </li>
+
+      <!-- Nav Item - Data Management -->
+      <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('guest/history'); ?>">
+          <i class="fas fa-fw fa-history"></i>
+          <span>History</span></a>
       </li>
 
       <!-- Divider -->

@@ -4,16 +4,16 @@
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Report Result</h1>
-    
+
     <!-- Export button -->
-    <form action="<?= base_url('guest/excelreport') ?>"  method="post">
-        <input type="hidden" name="start" value="<?= $this->input->post('start') ?>" required>
-        <input type="hidden" name="end"  value="<?= $this->input->post('end') ?>" required>
-        <?php foreach($this->input->post('kategori') as $key) : ?>
-        <input type="hidden" name="kategori[]"  value="<?= $key ?>" required>
-        <?php endforeach; ?>
-        <input type="hidden" name="produk"  value="<?= $this->input->post('produk') ?>" required>
-        <button type="submit" class="d-inline-block btn btn-sm btn-primary shadow-sm" ><i class="fas fa-file-import fa-sm text-white-50"></i> Export To Excel</a>
+    <form action="<?= base_url('guest/excelreport') ?>" method="post">
+      <input type="hidden" name="start" value="<?= $this->input->post('start') ?>" required>
+      <input type="hidden" name="end" value="<?= $this->input->post('end') ?>" required>
+      <?php foreach ($this->input->post('kategori') as $key) : ?>
+        <input type="hidden" name="kategori[]" value="<?= $key ?>" required>
+      <?php endforeach; ?>
+      <input type="hidden" name="produk" value="<?= $this->input->post('produk') ?>" required>
+      <button type="submit" class="d-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-file-import fa-sm text-white-50"></i> Export To Excel</a>
     </form>
   </div>
 
@@ -23,12 +23,19 @@
       <h6 class="m-0 font-weight-bold text-primary">Grafik Perkembangan </h6>
     </div>
     <div class="card-body">
+      <p class="text-primary"><b> Priode :</b> <?= $start ?> - <?= $end ?> </p>
+      <p class="text-primary"><b> Product :</b> <?= $produk ?> </p>
+      <p class="text-primary"><b> Categori :</b>
+        <?php foreach ($allKategori as $key) : ?>
+          <?= $key ?> ,
+        <?php endforeach; ?>
+      </p>
       <div class="chart-area">
         <canvas id="myAreaChart"></canvas>
       </div>
     </div>
   </div>
-  
+
   <!-- Statistik Perkembangan -->
   <div class="row my-5">
 
@@ -110,13 +117,13 @@
         <div class="collapse show" id="topCompl">
           <div class="card-body">
             <ul class="list-group">
-              <?php if(isset($toptenReq)) : ?>
-                <?php for($z=0; $z < count($toptenReq); $z++) : ?>
-                  <?php if(stristr($toptenReq[$z]['kategori'], 'COMPL/')) : ?>
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <?= $toptenReq[$z]['kategori']; ?>
-                    <span class="badge badge-primary badge-pill"><?= $toptenReq[$z]['cnt'] ?></span>
-                  </li>
+              <?php if (isset($toptenReq)) : ?>
+                <?php for ($z = 0; $z < count($toptenReq); $z++) : ?>
+                  <?php if (stristr($toptenReq[$z]['kategori'], 'COMPL/')) : ?>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <?= $toptenReq[$z]['kategori']; ?>
+                      <span class="badge badge-primary badge-pill"><?= $toptenReq[$z]['cnt'] ?></span>
+                    </li>
                   <?php endif; ?>
                 <?php endfor; ?>
               <?php endif; ?>
@@ -132,13 +139,13 @@
         <div class="collapse show" id="topReq">
           <div class="card-body">
             <ul class="list-group">
-              <?php if(isset($toptenReq)) : ?>
-                <?php for($z=0; $z < count($toptenReq); $z++) : ?>
-                  <?php if(stristr($toptenReq[$z]['kategori'], 'REQ/')) : ?>
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <?= $toptenReq[$z]['kategori']; ?>
-                    <span class="badge badge-primary badge-pill"><?= $toptenReq[$z]['cnt'] ?></span>
-                  </li>
+              <?php if (isset($toptenReq)) : ?>
+                <?php for ($z = 0; $z < count($toptenReq); $z++) : ?>
+                  <?php if (stristr($toptenReq[$z]['kategori'], 'REQ/')) : ?>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <?= $toptenReq[$z]['kategori']; ?>
+                      <span class="badge badge-primary badge-pill"><?= $toptenReq[$z]['cnt'] ?></span>
+                    </li>
                   <?php endif; ?>
                 <?php endfor; ?>
               <?php endif; ?>
@@ -154,13 +161,13 @@
         <div class="collapse show" id="topInfo">
           <div class="card-body">
             <ul class="list-group">
-              <?php if(isset($toptenReq)) : ?>
-                <?php for($z=0; $z < count($toptenReq); $z++) : ?>
-                  <?php if(stristr($toptenReq[$z]['kategori'], 'INF/')) : ?>
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <?= $toptenReq[$z]['kategori']; ?>
-                    <span class="badge badge-primary badge-pill"><?= $toptenReq[$z]['cnt'] ?></span>
-                  </li>
+              <?php if (isset($toptenReq)) : ?>
+                <?php for ($z = 0; $z < count($toptenReq); $z++) : ?>
+                  <?php if (stristr($toptenReq[$z]['kategori'], 'INF/')) : ?>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <?= $toptenReq[$z]['kategori']; ?>
+                      <span class="badge badge-primary badge-pill"><?= $toptenReq[$z]['cnt'] ?></span>
+                    </li>
                   <?php endif; ?>
                 <?php endfor; ?>
               <?php endif; ?>
@@ -176,13 +183,13 @@
         <div class="collapse show" id="topSaran">
           <div class="card-body">
             <ul class="list-group">
-              <?php if(isset($toptenReq)) : ?>
-                <?php for($z=0; $z < count($toptenReq); $z++) : ?>
-                  <?php if(stristr($toptenReq[$z]['kategori'], 'SARAN/')) : ?>
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <?= $toptenReq[$z]['kategori']; ?>
-                    <span class="badge badge-primary badge-pill"><?= $toptenReq[$z]['cnt'] ?></span>
-                  </li>
+              <?php if (isset($toptenReq)) : ?>
+                <?php for ($z = 0; $z < count($toptenReq); $z++) : ?>
+                  <?php if (stristr($toptenReq[$z]['kategori'], 'SARAN/')) : ?>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <?= $toptenReq[$z]['kategori']; ?>
+                      <span class="badge badge-primary badge-pill"><?= $toptenReq[$z]['cnt'] ?></span>
+                    </li>
                   <?php endif; ?>
                 <?php endfor; ?>
               <?php endif; ?>
@@ -220,16 +227,18 @@
             </tr>
           </thead>
           <tbody>
-          
-            <?php $i=1; foreach($data as $key) : ?>
-            <tr>
+
+            <?php $i = 1;
+            foreach ($data as $key) : ?>
+              <tr>
                 <td><?= $i ?></td>
-                <td><?= date('M',mktime(0, 0, 0, $key['month'], 12)) ?> <?= substr($key['created_at'],0,4) ?></td>
+                <td><?= date('M', mktime(0, 0, 0, $key['month'], 12)) ?> <?= substr($key['created_at'], 0, 4) ?></td>
                 <td><?= $key['produk'] ?></td>
                 <td><?= $key['kategori'] ?></td>
                 <td><?= $key['cnt'] ?></td>
-            </tr>
-            <?php $i++; endforeach; ?>
+              </tr>
+            <?php $i++;
+            endforeach; ?>
           </tbody>
         </table>
       </div>

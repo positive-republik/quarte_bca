@@ -223,4 +223,30 @@ class Uploader_models extends CI_Model {
     {
         $this->db->delete('upload_reporting',array('id'=>$id));
     }
+
+    // get all history request data
+    public function getAllHistory($id)
+    {
+        return $this->db->order_by('id','DESC')->get_where('request',array('requester_id'=>$id));
+    }
+
+    // Get all banner
+    public function getAllBanner()
+    {
+        return $this->db->get('banner')->result_array();
+    }
+
+    public function upload_banner($name)
+    {
+        $data = [
+            'id' => null,
+            'img' => $name
+        ];
+        $this->db->insert('banner',$data);
+    }
+
+    public function delete_banner($id)
+    {
+        $this->db->delete('banner',array('id'=>$id));
+    }
 }

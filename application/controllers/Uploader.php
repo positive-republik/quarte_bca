@@ -38,6 +38,65 @@ class Uploader extends CI_Controller {
         $this->load->view('layouts/footer');
     }
 
+    // Banner Manage 
+    public function banner()
+    {
+
+        // Data for this page
+        $data['title'] = "Banner Management | Quartee";
+
+        $data['user_info'] = $this->auth_models->getUserDetail($this->session->userdata('id_user'));
+        $data['qna'] = $this->uploader_models->getAllQnaNav();
+        $data['req'] = $this->uploader_models->getAllRequest();
+
+        $data['banner'] = $this->uploader_models->getAllBanner();
+
+        // Load views
+        $this->load->view('layouts/header', $data);
+        $this->load->view('layouts/sidebar', $data);
+        $this->load->view('layouts/navbar', $data);
+        $this->load->view('uploader/banner',$data);
+        $this->load->view('layouts/footer');
+    }
+
+    // Upload new banner
+    public function upload_banner()
+    {
+        $name = $this->_banner();
+
+        $this->uploader_models->upload_banner($name);
+        redirect($_SERVER['HTTP_REFERER']);
+    }
+    
+
+    // Edit banner
+    public function delete_banner($id)
+    {
+        $this->uploader_models->delete_banner($id);
+        redirect($_SERVER['HTTP_REFERER']);
+    }
+
+    // Upload banner
+    private function _banner()
+    {
+        $config['upload_path']          = './assets/img/slider/';
+        $config['allowed_types']        = 'jpg|png|jpeg';
+        $config['overwrite']            = true;
+        $config['max_size']             = 5024; // 5MB
+        $config['encrypt_name']         = true;
+        // $config['max_width']            = 1024;
+        // $config['max_height']           = 768;
+
+        $this->load->library('upload', $config);
+
+        // Cek upload
+        if (!$this->upload->do_upload('banner')) {
+            return array('file_name' => 'defaultImage.png');
+        } else {
+            return $this->upload->data()['file_name'];
+        }
+    }
+
     // Request management page
     public function req_manage()
     {
