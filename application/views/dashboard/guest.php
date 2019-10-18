@@ -8,10 +8,8 @@
             foreach ($banner as $key) : ?>
                 <?php if ($i == 0) : ?>
                     <li data-target="#guestSlider" data-slide-to="<?= $i ?>" class="active"></li>
-
                 <?php else : ?>
                     <li data-target="#guestSlider" data-slide-to="<?= $i ?>"></li>
-
                 <?php endif; ?>
             <?php $i++;
             endforeach; ?>
@@ -130,7 +128,7 @@
                         </div>
                         <div class="form-group">
                             <label for="req_purpose">Detail Permintaan</label>
-                            <textarea class="form-control" aria-label="With textarea" id="req_purpose" name="req_purpose" required></textarea>
+                            <textarea class="form-control" aria-label="With textarea" id="req_purpose" name="req_purpose" required placeholder="Isi dengan detail permintaan anda serta tujuan permintaan data ini ..."></textarea>
                         </div>
                         <div class="form-group">
                             <label for="awalBulan2">Bulan Awal</label>

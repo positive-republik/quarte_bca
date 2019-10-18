@@ -133,8 +133,8 @@
                     <input type="text" class="form-control" id="posisi" value="<?= $roleName['name_role'] ?>" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="req_purpose">Tujuan Permintaan</label>
-                    <input type="text" class="form-control" id="req_purpose" name="req_purpose" required>
+                    <label for="req_purpose">Detail Permintaan</label>
+                    <textarea class="form-control" aria-label="With textarea" id="req_purpose" name="req_purpose" required placeholder="Isi dengan detail permintaan anda serta tujuan permintaan data ini ..."></textarea>
                 </div>
                 <div class="form-group">
                     <label for="awalBulan2">Bulan Awal</label>

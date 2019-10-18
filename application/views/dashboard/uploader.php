@@ -40,7 +40,7 @@
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="<?= base_url('uploader/edit') ?>" method="post" enctype="multipart/form-data">
+                            <form action="<?= base_url('uploader/edit/'.$key['id']) ?>" method="post" enctype="multipart/form-data">
                                 <div class="modal-body">
                                     <div class="alert alert-danger" role="alert">
                                         <p>Data pada bulan ini akan terhapus dan <b>digantikan dengan yang baru</b>. Anda yakin ?</p>

@@ -67,6 +67,17 @@ class Uploader extends CI_Controller {
         $this->uploader_models->upload_banner($name);
         redirect($_SERVER['HTTP_REFERER']);
     }
+
+    // Edit banner
+    public function edit_banner()
+    {
+        
+        $name = $this->_banner();
+        unlink("assets/img/slider/" . $this->input->post('oldbanner'));
+       
+        $this->uploader_models->edit_banner($this->input->post('id'),$name);
+        redirect($_SERVER['HTTP_REFERER']);
+    }
     
 
     // Edit banner
@@ -211,6 +222,7 @@ class Uploader extends CI_Controller {
         if ($uploadCek > 0) {
             $this->uploader_models->deleteDataUpload();
         }
+
         if (isset($_FILES['excel'])) {
             
             // Data File27768
@@ -247,6 +259,49 @@ class Uploader extends CI_Controller {
             unlink($inputFileName);
 
             redirect($_SERVER['HTTP_REFERER'].'?safe=1');
+        } else {
+            redirect($_SERVER['HTTP_REFERER']);
+        }
+    }
+
+    public function custome_upload()
+    {
+        if (isset($_FILES['excel'])) {
+
+            // Data File27768
+            $upload_dir = 'assets/vendor/phpspreadsheet/file';
+            $temp = explode(".", $_FILES["excel"]["name"]);
+            $newfilename = round(microtime(true)) . '.' . end($temp);
+            $target = basename($newfilename);
+            move_uploaded_file($_FILES['excel']['tmp_name'], "$upload_dir/$target");
+            $inputFileName = $upload_dir . '/' . $target;
+
+            // create directly an object instance of the IOFactory class, and load the xlsx file
+            $fxls = $inputFileName;
+            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($fxls);
+
+            // read excel data and store it into an array
+            $xls_data = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+
+            // number of rows
+            $nr = count($xls_data);
+            $allData = 0;
+
+            // Loop data and insert into database
+            for ($i = 2; $i <= $nr; $i++) {
+                if ($xls_data[$i]['A'] != NULL && $xls_data[$i]['B'] != NULL) {
+                    $this->uploader_models->insertDataFile($xls_data[$i]['A'], $xls_data[$i]['B']);
+                    $allData++;
+                }
+            }
+
+            // Add upload history
+            $this->uploader_models->addUploadHistory($allData);
+
+            // hapus kembali file .xls yang di upload tadi
+            unlink($inputFileName);
+
+            redirect($_SERVER['HTTP_REFERER'] . '?safe=1');
         } else {
             redirect($_SERVER['HTTP_REFERER']);
         }

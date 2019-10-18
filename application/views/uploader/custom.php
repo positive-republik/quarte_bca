@@ -98,7 +98,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="post" action="<?= base_url('uploader/upload') ?>" enctype="multipart/form-data">
+            <form method="post" action="<?= base_url('uploader/custome_upload') ?>" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="full_name">Uploader Name</label>

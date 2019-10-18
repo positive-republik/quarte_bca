@@ -227,7 +227,12 @@ class Uploader_models extends CI_Model {
     // get all history request data
     public function getAllHistory($id)
     {
-        return $this->db->order_by('id','DESC')->get_where('request',array('requester_id'=>$id));
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->join('qna', 'qna.asker_id=users.id');
+        $this->db->where('asker_id',$id);
+        return $this->db->get();
+        // return $this->db->order_by('id','DESC')->get_where('qna',array('asker_id'=>$id));
     }
 
     // Get all banner
@@ -247,6 +252,22 @@ class Uploader_models extends CI_Model {
 
     public function delete_banner($id)
     {
+        $this->db->select('img');
+        $this->db->where('id',$id);
+        $img = $this->db->get('banner')->row_array();
+        unlink("assets/img/slider/" . $img['img']);
+
+        // unlink(base_url("" . ));
         $this->db->delete('banner',array('id'=>$id));
+    }
+
+    public function edit_banner($id,$img)
+    {
+        $data = [
+            'img' => $img
+        ];   
+
+        $this->db->where('id',$id);
+        $this->db->update('banner',$data);
     }
 }

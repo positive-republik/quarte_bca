@@ -23,9 +23,9 @@
       <h6 class="m-0 font-weight-bold text-primary">Grafik Perkembangan </h6>
     </div>
     <div class="card-body">
-      <p class="text-primary"><b> Priode :</b> <?= $start ?> - <?= $end ?> </p>
-      <p class="text-primary"><b> Product :</b> <?= $produk ?> </p>
-      <p class="text-primary"><b> Categori :</b>
+      <p class="text-primary"><b> Priode :</b> <?= $start ?> s/d <?= $end ?> </p>
+      <p class="text-primary" style="margin-top:-10px;margin-bottom:5px;"><b> Product :</b> <?= $produk ?> </p>
+      <p class="text-primary"><b> Category :</b>
         <?php foreach ($allKategori as $key) : ?>
           <?= $key ?> ,
         <?php endforeach; ?>
